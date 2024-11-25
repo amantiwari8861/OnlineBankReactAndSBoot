@@ -1,0 +1,13 @@
+main {
+    height: calc(100vh - 60px);
+    display: flex;
+}
+
+aside {
+    width: 30%;
+
+}
+
+section {
+    width: 70%;
+}

@@ -1,0 +1,47 @@
+package com.bank.controller;
+
+import org.springframework.web.bind.annotation.RestController;
+
+import com.bank.entity.Role;
+import com.bank.entity.User;
+import com.bank.service.UServiceNew;
+import com.bank.service.UserService;
+
+import java.util.Map;
+import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+
+@RestController
+public class MainController {
+    
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private UServiceNew uService;
+
+    @GetMapping("/")
+    public String index() {
+        return "<h1>backend deployed succesfully!</h1>";
+    }
+    
+    // @PostMapping("/signup")
+    // public ResponseEntity<String> signup(@RequestBody Map<String, Object> requestBody) {
+    //     System.out.println(requestBody);
+    //     Role role=new Role();
+    //     role.setRoleName("ROLE_ADMIN");
+    //     User u=new User();
+    //     u.setRoles(Set.of(role));
+    //     u.setName("aman");
+    //     u.setEmail("amantiwari8861@gmail.com");
+    //     u.setPassword("1234");
+    //     uService.saveUser(u);
+    //     return ResponseEntity.ok("");
+    // }
+    
+}

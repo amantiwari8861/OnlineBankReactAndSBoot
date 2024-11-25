@@ -1,0 +1,19 @@
+package com.bank.model.entities;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
+public class Admin extends User {
+
+	 @Id
+	    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	    private Long id;
+    private String adminLevel; // Level of admin privileges
+    private String officeLocation; // Where the admin is located
+    private String hireDate; // Date when the admin was hired
+
+    // Getters and setters
+}

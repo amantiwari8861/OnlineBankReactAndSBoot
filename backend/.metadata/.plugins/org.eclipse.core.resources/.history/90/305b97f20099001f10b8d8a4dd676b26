@@ -1,0 +1,19 @@
+package com.bank.model.entities;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
+public class Manager extends User {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+    private String teamName; // The team they manage
+    private String officeLocation; // Where the manager is located
+    private String hireDate; // Date when the manager was hired
+    private String department; // Department they oversee
+
+    // Getters and setters
+}

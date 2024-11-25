@@ -1,0 +1,13 @@
+package com.bank.model.entities;
+
+@Entity
+public class Customer extends User {
+
+    private String firstName;
+    private String lastName;
+    private String phoneNumber;
+
+    // Additional customer-specific fields
+
+    // Getters and setters
+}

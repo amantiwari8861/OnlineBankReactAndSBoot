@@ -1,0 +1,112 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 06/04/2003 5:45:20 PM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   fphover.java
+
+import java.awt.Color;
+import java.awt.image.RGBImageFilter;
+
+class fphoverx extends RGBImageFilter
+{
+
+    public fphoverx(int i, int j, Color color, int k)
+    {
+        super.canFilterIndexColorModel = false;
+        m_w = i;
+        m_h = j;
+        m_xc = i / 2;
+        m_yc = j / 2;
+        m_dmax = m_xc * m_xc + m_yc * m_yc;
+        m_r = color.getRed();
+        m_g = color.getGreen();
+        m_b = color.getBlue();
+        m_effect = k;
+        m_bevelSize = i >= j ? j / 12 : i / 12;
+        if(m_bevelSize < 2)
+            m_bevelSize = 2;
+    }
+
+    public int filterRGB(int i, int j, int k)
+    {
+        int l = (i - m_xc) * (i - m_xc) + (j - m_yc) * (j - m_yc);
+        int i1 = (k & 0xff0000) >> 16;
+        int j1 = (k & 0xff00) >> 8;
+        int k1 = k & 0xff;
+        switch(m_effect)
+        {
+        default:
+            break;
+
+        case 0: // '\0'
+            i1 = m_r;
+            j1 = m_g;
+            k1 = m_b;
+            break;
+
+        case 1: // '\001'
+            i1 = i1 + m_r >> 1;
+            j1 = j1 + m_g >> 1;
+            k1 = k1 + m_b >> 1;
+            break;
+
+        case 2: // '\002'
+            i1 = m_r + ((i1 - m_r) * l) / m_dmax;
+            j1 = m_g + ((j1 - m_g) * l) / m_dmax;
+            k1 = m_b + ((k1 - m_b) * l) / m_dmax;
+            break;
+
+        case 3: // '\003'
+            i1 += ((m_r - i1) * l) / m_dmax;
+            j1 += ((m_g - j1) * l) / m_dmax;
+            k1 += ((m_b - k1) * l) / m_dmax;
+            break;
+
+        case 4: // '\004'
+            i1 = (i1 + 255) - ((255 - i1) * l) / m_dmax >> 1;
+            j1 = (j1 + 255) - ((255 - j1) * l) / m_dmax >> 1;
+            k1 = (k1 + 255) - ((255 - k1) * l) / m_dmax >> 1;
+            break;
+
+        case 5: // '\005'
+        case 6: // '\006'
+            if(i >= m_bevelSize && m_w - 1 - i >= m_bevelSize && j >= m_bevelSize && m_h - 1 - j >= m_bevelSize)
+                break;
+            Color color = new Color(i1, j1, k1);
+            boolean flag = false;
+            if(i < m_bevelSize && i + j <= m_h)
+                flag = true;
+            else
+            if(j < m_bevelSize && i + j <= m_w)
+                flag = true;
+            if(flag && m_effect == 5 || !flag && m_effect == 6)
+                color = color.brighter();
+            else
+                color = color.darker();
+            i1 = color.getRed();
+            j1 = color.getGreen();
+            k1 = color.getBlue();
+            break;
+
+        case 7: // '\007'
+            if(i1 == 0 && j1 == 0 && k1 == 0)
+            {
+                i1 = m_r;
+                j1 = m_g;
+                k1 = m_b;
+            }
+            break;
+        }
+        return k & 0xff000000 | i1 << 16 | j1 << 8 | k1;
+    }
+
+    private int m_w;
+    private int m_h;
+    private int m_xc;
+    private int m_yc;
+    private int m_dmax;
+    private int m_r;
+    private int m_g;
+    private int m_b;
+    private int m_effect;
+    private int m_bevelSize;
+}

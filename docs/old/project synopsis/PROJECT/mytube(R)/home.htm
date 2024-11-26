@@ -1,0 +1,879 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+
+<HTML lang=en dir=ltr><HEAD><TITLE>MyTube</TITLE>
+<link rel="shortcut icon" href="Mytube-Logo.gif"/>
+<META http-equiv=Content-Type content="text/html; charset=utf-8"><!-- machid: sWkFSZzctYUFHdmhfZ0V0c25UcmxBRms2ZW15clNIak1nejhMY2w4SlgtcnlMazI5YUROLWNn -->
+<LINK id=www-core-css href="home_files/www-core-vflnkVOEZ.css" rel=stylesheet>
+<STYLE type=text/css></STYLE>
+<LINK title="MyTube - Blog" href="/rss/global/our_blog.rss" type=application/rss+xml rel=alternate>
+<LINK title="MyTube - Top Favorites Today" href="" type=application/rss+xml rel=alternate>
+<LINK title="MyTube - Top Rated Today" href="#" type=application/rss+xml rel=alternate>
+<LINK title="MyTube - Top Viewed Today" href="#" type=application/rss+xml rel=alternate>
+<LINK title="MyTube - Most Discussed Today" href="#" type=application/rss+xml rel=alternate>
+<LINK title="MyTube - Recently Added" href="#" type=application/rss+xml rel=alternate>
+<LINK title="MyTube - Recently Featured" href="#" type=application/rss+xml rel=alternate>
+<LINK title="MyTube Video Search" href="#" type=application/opensearchdescription+xml rel=search>
+<LINK href="#" type=image/x-icon rel=icon>
+<LINK href="#" type=image/x-icon rel="shortcut icon">
+<LINK href="/" rel=canonical>
+<LINK media=handheld href="#" rel=alternate>
+
+<META content="MyTube is a place to discover, watch, upload and share videos." name=description>
+<META content="video, free, simple, search, find, discover, watch, engage, share, sharing, upload, entertainment" name=keywords>
+
+<SCRIPT type=text/javascript>
+  var masthead = new yt.www.home.ads.mastheadAd('1', false, '2', 'jx4XVi1ociM', true, false, false)
+  yt.pubsub.subscribe('init', function() {
+    _showdiv('masthead-utility-menulink-short');
+    _hidediv('masthead-utility-menulink-long');
+  });
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+  yt.setConfig('USERNAME', '');
+  yt.setConfig('SUBS_XSRF', '');
+
+
+  var moduleHelper = new yt.www.home.ModuleHelper('',
+      false, true);
+    moduleHelper.addModule('FEA');
+    moduleHelper.addModule('REC');
+    moduleHelper.addModule('PRO');
+    moduleHelper.addModule('TOP');
+    moduleHelper.addModule('ASO');
+
+  function checkChromePromoAlert() {
+    var hideChromePromos = yt.UserPrefs.getFlag3(yt.UserPrefs.Flags.FLAG3_HIDE_CHROME_PROMOS);
+
+    if (!hideChromePromos) {
+      _showdiv('homepage-chrome-side-promo');
+    }
+  };
+
+  yt.pubsub.subscribe('init', checkChromePromoAlert);
+
+  function dismissChromePromoAlert() {
+    yt.UserPrefs.setFlag3(yt.UserPrefs.Flags.FLAG3_HIDE_CHROME_PROMOS, true);
+    yt.UserPrefs.save();
+    _hidediv('homepage-chrome-side-promo');
+  };
+
+
+  yt.pubsub.subscribe('init', function() {
+    (function() {
+      var sessionToken = '';
+      var rootUrl = 'http://www.youtube.com/';
+      var locale = 'en_US';
+      var serviceInfo = null;
+      var isGaiaUser = false;
+      var facebookAppKey = '7ff82e59b6b2fbd316cca35309e95df3';
+      var tpDomain = 's.youtube-3rd-party.com';
+
+      var autoshare = new yt.sharing.AutoShare(sessionToken, rootUrl, locale, serviceInfo,
+          isGaiaUser, facebookAppKey, tpDomain);
+
+      // Register Facebook connect button.
+      if (_gel('fb-login-btn')) {
+        autoshare.registerConnectDialogLauncher(_gel('fb-login-btn'), 'facebook', true);
+      }
+
+      var gaiaChangedCallback = function(autoshare) {
+        var isGaiaUser = autoshare.isGaiaUser();
+        yt.style.setDisplayed('fb-promo-google-nag', !isGaiaUser);
+        yt.style.setDisplayed('fb-promo-google-linked', isGaiaUser);
+
+        if (isGaiaUser) {
+          var link = _gel('fb-promo-google-linked-continue-to-fb');
+          var fn = function() {
+            autoshare.handleConnectService({currentTarget: _gel('fb-login-btn')});
+          }
+          link.onclick = fn;
+        }
+      }
+      autoshare.addGaiaChangedCallback(gaiaChangedCallback);
+
+      var canConnectCallback = function(autoshare) {
+        var isGaiaUser = autoshare.isGaiaUser();
+        yt.style.setDisplayed('fb-promo-google-nag', !isGaiaUser);
+        yt.style.setDisplayed('fb-promo-google-linked', false);
+        yt.style.setDisplayed('fb-promo-fb-linked', false);
+        return isGaiaUser;
+      }
+      autoshare.addCanConnectCallback(canConnectCallback);
+
+      var serviceChangedCallback = function(autoshare) {
+        var serviceInfo = autoshare.getServiceInfo();
+        for (var service in serviceInfo) {
+          var info = serviceInfo[service];
+          if (service == 'facebook' && info['is_connected']) {
+            yt.style.setDisplayed('fb-promo-fb-linked', true);
+            hideFbPromoAlert();
+          }
+          if (service == 'es' && info['is_connected']) {
+            yt.style.setDisplayed('es-optin-success', true);
+            hideEsOptinAlert();
+          }
+        }
+      };
+      autoshare.addServiceChangedCallback(serviceChangedCallback);
+
+      window['autoshare'] = autoshare;
+
+      var prefs = yt.UserPrefs;
+      var optOut = prefs.getFlag3(prefs.Flags.FLAG3_FBPROMO_OPT_OUT);
+      if (!optOut) {
+        _showdiv('fb-promo1');
+      }
+
+      // The user has "dismissed" the promo, i.e., clicked on the [x].
+      // This is distinct from simply hiding the promo as a side effect.
+      window.dismissFbPromoAlert = function() {
+        prefs.setFlag3(prefs.Flags.FLAG3_FBPROMO_OPT_OUT, true);
+        prefs.save();
+        hideFbPromoAlert();
+      };
+
+      function hideFbPromoAlert() {
+        _hidediv('fb-promo1');
+      }
+
+})();
+
+  });
+</SCRIPT>
+
+<SCRIPT>
+    // Initialize the subscriptions helper object that supports both the inline
+    // "edit subscription" link featurette in the Recent Activity module and
+    // the subscribe-from-masthead facility.
+    var gaiaHost = 'https://www.google.com';
+    var gaiaLocale = 'en-US';
+    window['subui_'] = new yt.www.home.Subscriptions(gaiaHost, gaiaLocale);
+    yt.pubsub.subscribe('init', function() {
+      window['subui_'].setCurrentLink(_gel('_firsteditsublink'));
+    });
+  </SCRIPT>
+
+<SCRIPT>
+      if (window.yt.timing) {
+        yt.timing.tick('ct');
+      }
+    </SCRIPT>
+
+<META content="MSHTML 6.00.2900.2180" name=GENERATOR>
+<style type="text/css">
+<!--
+.style1 {color: #F0F0F0}
+-->
+</style>
+</HEAD>
+<BODY class="date-20101204 en_US ltr is-english" dir=ltr><!--[if IE]>
+<DIV id=ie><![endif]--><!-- begin prepage -->
+
+<SCRIPT>document.getElementById('masthead-search-term').focus();</SCRIPT>
+</FORM></DIV></DIV></DIV>
+<DIV class="date-20101204 video-info " id=baseDiv>
+<DIV id=browser-upgrade-outer-box>
+<DIV class=yt-rounded id=browser-upgrade-inner-box></DIV>
+</DIV>
+<DIV id=masthead_child_div></DIV>
+<SCRIPT type=text/javascript>
+    var masthead_child_fo = new SWFObject("http://s.ytimg.com/yt/swf/masthead_child-vflRMMO6_.swf", "masthead_child", 1, 1, 7, "#FFFFFF");
+    masthead_child_fo.addParam("allowFullscreen", "false");
+    masthead_child_fo.addParam("allowScriptAccess", "always");
+    masthead_child_fo.write("masthead_child_div");
+  </SCRIPT>
+
+<DIV class="ytg-4col homepage-non-interactive" id=homepage-main-content>
+<DIV id=iyt-login-suggest-box>
+<DIV class="yt-alert yt-alert-promo yt-rounded">
+<DIV class=yt-alert-content>
+<DIV class=signup-promo-message>Join the largest worldwide video-sharing
+community!</DIV>
+<DIV class=signup-promo-links><BUTTON class=" yt-uix-button"
+onclick=";window.location.href=this.getAttribute('href');return false;"
+aria-pressed="false" role="button"
+href="createAccount.htm"><SPAN
+class=yt-uix-button-content style1>Create Account ›</SPAN></BUTTON>
+<SPAN
+class=signup-promo-have-account>Already have an account? </SPAN><A
+href="signIn.htm">Sign
+In</A> </DIV></DIV></DIV></DIV>
+<DIV id=dragdrop style="CLEAR: both; OVERFLOW: hidden">
+<DIV class=feedmodule-anchor id=feedmodule-REC>
+<DIV class=feedmodule-modheader id=REC-titlebar>
+<DIV id=feed_recommended>
+<DIV class="fm-title-underlined-gray ">
+ </DIV></DIV>
+<DIV class=clear></DIV></DIV>
+<DIV class=feedmodule-anchor id=feedmodule-TOP>
+<DIV class=feedmodule-modheader id=TOP-titlebar>
+<DIV id=feed_top_videos></DIV>
+</DIV>
+<DIV class=clear id=feed_top_videos-content>
+<DIV class=opt-pane id=TOP-options style="DISPLAY: none">
+<DIV class=opt-box-top><IMG class="homepage-sprite img-php-opt-box-caret"
+src="home_files/pixel-vfl3z5WfW.gif"> </DIV>
+<DIV class=opt-banner>
+<DIV class=opt-links>
+<DIV class=opt-edit>Editing: Most Popular</DIV>
+<DIV class="opt-close opt-close-button"
+onclick="moduleHelper.closeOptionsPane('TOP')"><IMG class=img-php-close-button
+src="home_files/pixel-vfl3z5WfW.gif"></DIV>
+<DIV class="opt-close opt-close-text"
+onclick="moduleHelper.closeOptionsPane('TOP')">close</DIV>
+<DIV class=opt-loading-msg id=TOP-loading-msg style="DISPLAY: none">Saving...
+</DIV>
+<DIV class=opt-loading-icn id=TOP-loading-icn style="DISPLAY: none"><IMG
+id=TOP-loading-icn-image src="home_files/pixel-vfl3z5WfW.gif" width=16
+image="http://s.ytimg.com/yt/img/icn_loading_animated-vflff1Mjj.gif"> </DIV>
+<DIV class=clear></DIV></DIV></DIV>
+<DIV class=opt-main>
+<DIV class=opt-simple-msg>Want to customize this homepage? <A
+onmousedown="yt.analytics.urchinTracker('/Events/Home/PersonalizedHome/LoginSuggest/SignIn/EditModuleBox');"
+href="https://www.google.com/accounts/ServiceLogin?uilel=3&amp;service=youtube&amp;passive=true&amp;continue=http%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26nomobiletemp%3D1%26hl%3Den_US%26next%3D%252F&amp;hl=en_US&amp;ltmpl=sso">Sign
+In</A> or <A
+onmousedown="yt.analytics.urchinTracker('/Events/Home/PersonalizedHome/LoginSuggest/SignUp/EditModuleBox');"
+href="https://www.google.com/accounts/LogoutWarning?continue=http%3A%2F%2Fwww.youtube.com%2Fcreate_account&amp;ltmpl=sso&amp;service=youtube&amp;hl=en_US">Sign
+Up</A> now! </DIV></DIV></DIV>
+<DIV class=feedmodule-data id=TOP-data>
+<DIV class="feedmodule-body compressed-view">
+<DIV class=feeditem-compressed>
+<DIV class=feeditem-compressed-category-title>
+<DIV><A class=hLink
+onmousedown="yt.analytics.urchinTracker('/Events/Home/PersonalizedHome/TOP/CategoryTitle/Logged_Out/24');"
+href="http://www.youtube.com/videos?c=24">Entertainment</A> </DIV></DIV>
+<DIV class="TOP-data compressed-form-content">
+<DIV class=clear>
+<DIV class=feedmodule-thumbnail><A
+class="video-thumb-with-addto video-thumb ux-thumb-128"
+id=video-thumb-dcy8ucQ4Uqc-2749944
+href="#"><SPAN
+class=img><IMG
+onmousedown=");"
+title="Suck Your WHAT?!" onClick="" src="home_files/pixel-vfl3z5WfW.gif"
+data-thumb="<img src="aftersearch_files/3(1).jpg">"></SPAN><SPAN
+class=video-time>3:49</SPAN> <SPAN
+class="yt-uix-button-group addto-container short video-actions" dir=ltr
+data-feature="thumbnail" data-video-ids="dcy8ucQ4Uqc"><BUTTON
+class="master-sprite start yt-uix-button yt-uix-button-short yt-uix-tooltip"
+title="" onClick=";return false;" aria-pressed="false" role="button"
+data-button-action="yt.www.addtomenu.add"><IMG class=yt-uix-button-icon-addto
+alt="" src="home_files/pixel-vfl3z5WfW.gif"> <SPAN
+class=yt-uix-button-content><SPAN class=addto-label>Add
+to</SPAN></SPAN></BUTTON><BUTTON
+class="end yt-uix-button yt-uix-button-short yt-uix-tooltip" title=""
+onclick=";return false;" aria-pressed="false" role="button"
+data-button-action="" data-button-menu-id="shared-addto-menu"><IMG
+class=yt-uix-button-arrow alt=""
+src="home_files/pixel-vfl3z5WfW.gif"></BUTTON></SPAN> <SPAN
+class=video-in-quicklist>Added to queue</SPAN></A> </DIV>
+<DIV class=feedmodule-singleform-info>
+<DIV class=video-title><A
+onmousedown="#');"
+dir=ltr title="?Suck Your WHAT?!??"
+href="#">Suck
+Your WHAT?!</A> </DIV>
+<DIV>422,181 views </DIV>
+<DIV><NOBR><A
+href="#">TimothyDeLaGhet...</A>
+</NOBR></DIV></DIV>
+<DIV class=spacer></DIV></DIV></DIV>
+<DIV class=spacer></DIV></DIV>
+<DIV class=feeditem-compressed>
+<DIV class=feeditem-compressed-category-title>
+<DIV><A class=hLink
+onmousedown="yt.analytics.urchinTracker('/Events/Home/PersonalizedHome/TOP/CategoryTitle/Logged_Out/10');"
+href="#">Music</A> </DIV></DIV>
+<DIV class="TOP-data compressed-form-content">
+<DIV class=clear>
+<DIV class=feedmodule-thumbnail><A
+class="video-thumb-with-addto video-thumb ux-thumb-128"
+id=video-thumb-J5ekB4l-6wg-8515852
+href=""><SPAN
+class=img><IMG
+onmousedown="yt.analytics.urchinTracker('/Events/Home/PersonalizedHome/TOP/Logged_Out/10');"
+title="2NE1 - Don't Stop The Music (Yamaha 'Fiore' CF Theme Song)" onClick=""
+src="home_files/pixel-vfl3z5WfW.gif"
+data-thumb="<img src="aftersearch_files/default(5).jpg">"></SPAN><SPAN
+class=video-time>3:52</SPAN> <SPAN
+class="yt-uix-button-group addto-container short video-actions" dir=ltr
+data-feature="thumbnail" data-video-ids="J5ekB4l-6wg"><BUTTON
+class="master-sprite start yt-uix-button yt-uix-button-short yt-uix-tooltip"
+title="" onClick=";return false;" aria-pressed="false" role="button"
+data-button-action="yt.www.addtomenu.add"><IMG class=yt-uix-button-icon-addto
+alt="" src="home_files/pixel-vfl3z5WfW.gif"> <SPAN
+class=yt-uix-button-content><SPAN class=addto-label>Add
+to</SPAN></SPAN></BUTTON><BUTTON
+class="end yt-uix-button yt-uix-button-short yt-uix-tooltip" title=""
+onclick=";return false;" aria-pressed="false" role="button"
+data-button-action="" data-button-menu-id="shared-addto-menu"><IMG
+class=yt-uix-button-arrow alt=""
+src="home_files/pixel-vfl3z5WfW.gif"></BUTTON></SPAN> <SPAN
+class=video-in-quicklist>Added to queue</SPAN></A> </DIV>
+<DIV class=feedmodule-singleform-info>
+<DIV class=video-title><A
+onmousedown="yt.analytics.urchinTracker('/Events/Home/PersonalizedHome/TOP/Logged_Out/10');"
+dir=ltr title="?2NE1 - Don't Stop The Music (Yamaha 'Fiore' CF Theme Song)??"
+href="#">2NE1 -
+Don't Stop The Music (Yamaha '...</A> </DIV>
+<DIV>542,869 views </DIV>
+<DIV><NOBR><A href="#">2NE1</A>
+</NOBR></DIV></DIV>
+<DIV class=spacer></DIV></DIV></DIV>
+<DIV class=spacer></DIV></DIV>
+<DIV class=feeditem-compressed>
+<DIV class=feeditem-compressed-category-title>
+<DIV><A class=hLink
+onmousedown="yt.analytics.urchinTracker('/Events/Home/PersonalizedHome/TOP/CategoryTitle/Logged_Out/25');"
+href="#">News &amp; Politics</A> </DIV></DIV>
+<DIV class="TOP-data compressed-form-content">
+<DIV class=clear>
+<DIV class=feedmodule-thumbnail><A
+class="video-thumb-with-addto video-thumb ux-thumb-128"
+id=video-thumb-xRsq-t7C1Rw-5996179
+href=""><SPAN
+class=img><IMG
+onmousedown="yt.analytics.urchinTracker('/Events/Home/PersonalizedHome/TOP/Logged_Out/25');"
+title="Full footage of violence at St Andrew's Stadium" onClick=""
+src="home_files/pixel-vfl3z5WfW.gif"
+data-thumb="<img src="aftersearch_files/3.jpg">"></SPAN><SPAN
+class=video-time>7:52</SPAN> <SPAN
+class="yt-uix-button-group addto-container short video-actions" dir=ltr
+data-feature="thumbnail" data-video-ids="xRsq-t7C1Rw"><BUTTON
+class="master-sprite start yt-uix-button yt-uix-button-short yt-uix-tooltip"
+title="" onClick=";return false;" aria-pressed="false" role="button"
+data-button-action="yt.www.addtomenu.add"><IMG class=yt-uix-button-icon-addto
+alt="" src="home_files/pixel-vfl3z5WfW.gif"> <SPAN
+class=yt-uix-button-content><SPAN class=addto-label>Add
+to</SPAN></SPAN></BUTTON><BUTTON
+class="end yt-uix-button yt-uix-button-short yt-uix-tooltip" title=""
+onclick=";return false;" aria-pressed="false" role="button"
+data-button-action="" data-button-menu-id="shared-addto-menu"><IMG
+class=yt-uix-button-arrow alt=""
+src="home_files/pixel-vfl3z5WfW.gif"></BUTTON></SPAN> <SPAN
+class=video-in-quicklist>Added to queue</SPAN></A> </DIV>
+<DIV class=feedmodule-singleform-info>
+<DIV class=video-title><A
+onmousedown="yt.analytics.urchinTracker('/Events/Home/PersonalizedHome/TOP/Logged_Out/25');"
+dir=ltr title="?Full footage of violence at St Andrew's Stadium??"
+href="#">Full
+footage of violence at St Andrew...</A> </DIV>
+<DIV>191,128 views </DIV>
+<DIV><NOBR><A
+href="#">BirminghamPost</A>
+</NOBR></DIV></DIV>
+<DIV class=spacer></DIV></DIV></DIV>
+<DIV class=spacer></DIV></DIV>
+<DIV class=feeditem-compressed>
+<DIV class=feeditem-compressed-category-title>
+<DIV><A class=hLink
+onmousedown="yt.analytics.urchinTracker('/Events/Home/PersonalizedHome/TOP/CategoryTitle/Logged_Out/1');"
+href="#">Film &amp; Animation</A> </DIV></DIV>
+<DIV class="TOP-data compressed-form-content">
+<DIV class=clear>
+<DIV class=feedmodule-thumbnail><A
+class="video-thumb-with-addto video-thumb ux-thumb-128"
+id=video-thumb-AvY402DDwQE-3053053
+href="#"><SPAN
+class=img><IMG
+onmousedown="yt.analytics.urchinTracker('/Events/Home/PersonalizedHome/TOP/Logged_Out/1');"
+title="Christmas Joes" onClick="" src="home_files/pixel-vfl3z5WfW.gif"
+data-thumb="<img src="aftersearch_files/default(7).jpg">"></SPAN><SPAN
+class=video-time>1:18</SPAN> <SPAN
+class="yt-uix-button-group addto-container short video-actions" dir=ltr
+data-feature="thumbnail" data-video-ids="AvY402DDwQE"><BUTTON
+class="master-sprite start yt-uix-button yt-uix-button-short yt-uix-tooltip"
+title="" onClick=";return false;" aria-pressed="false" role="button"
+data-button-action="yt.www.addtomenu.add"><IMG class=yt-uix-button-icon-addto
+alt="" src="home_files/pixel-vfl3z5WfW.gif"> <SPAN
+class=yt-uix-button-content><SPAN class=addto-label>Add
+to</SPAN></SPAN></BUTTON><BUTTON
+class="end yt-uix-button yt-uix-button-short yt-uix-tooltip" title=""
+onclick=";return false;" aria-pressed="false" role="button"
+data-button-action="" data-button-menu-id="shared-addto-menu"><IMG
+class=yt-uix-button-arrow alt=""
+src="home_files/pixel-vfl3z5WfW.gif"></BUTTON></SPAN> <SPAN
+class=video-in-quicklist>Added to queue</SPAN></A> </DIV>
+<DIV class=feedmodule-singleform-info>
+<DIV class=video-title><A
+onmousedown="yt.analytics.urchinTracker('/Events/Home/PersonalizedHome/TOP/Logged_Out/1');"
+dir=ltr title="?Christmas Joes??"
+href="#">Christmas
+Joes</A> </DIV>
+<DIV>354,372 views </DIV>
+<DIV><NOBR><A
+href="#">MysteryGuitarMan</A>
+</NOBR></DIV></DIV>
+<DIV class=spacer></DIV></DIV></DIV>
+<DIV class=spacer></DIV></DIV>
+<DIV class=feeditem-compressed>
+<DIV class=feeditem-compressed-category-title>
+<DIV><A class=hLink
+onmousedown="yt.analytics.urchinTracker('/Events/Home/PersonalizedHome/TOP/CategoryTitle/Logged_Out/17');"
+href="#">Sports</A> </DIV></DIV>
+<DIV class="TOP-data compressed-form-content">
+<DIV class=clear>
+<DIV class=feedmodule-thumbnail><A
+class="video-thumb-with-addto video-thumb ux-thumb-128"
+id=video-thumb-xpWf1v8yzQE-5788405
+href="#"><SPAN
+class=img><a
+class="video-thumb-with-addto video-thumb ux-thumb-128"
+id=video-thumb-xpWf1v8yzQE-5788405
+href="#"><img
+onMouseDown="yt.analytics.urchinTracker('/Events/Home/PersonalizedHome/TOP/Logged_Out/17');"
+title="Aficionada muestra sus atributos en la final de ida entre SANTOS vs MONTERREY"
+onClick="" src="home_files/pixel-vfl3z5WfW.gif"
+data-thumb="<img src="aftersearch_files/default(4).jpg"></a>"></SPAN><SPAN
+class=video-time>0:55</SPAN> <SPAN
+class="yt-uix-button-group addto-container short video-actions" dir=ltr
+data-feature="thumbnail" data-video-ids="xpWf1v8yzQE">
+  <BUTTON
+class="master-sprite start yt-uix-button yt-uix-button-short yt-uix-tooltip"
+title="" onClick=";return false;" aria-pressed="false" role="button"
+data-button-action="yt.www.addtomenu.add"><IMG class=yt-uix-button-icon-addto
+alt="" src="home_files/pixel-vfl3z5WfW.gif"> <SPAN
+class=yt-uix-button-content><SPAN class=addto-label>Add
+to</SPAN></SPAN></BUTTON><BUTTON
+class="end yt-uix-button yt-uix-button-short yt-uix-tooltip" title=""
+onclick=";return false;" aria-pressed="false" role="button"
+data-button-action="" data-button-menu-id="shared-addto-menu"><IMG
+class=yt-uix-button-arrow alt=""
+src="home_files/pixel-vfl3z5WfW.gif"></BUTTON></SPAN> <SPAN
+class=video-in-quicklist>Added to queue</SPAN></A> </DIV>
+<DIV class=feedmodule-singleform-info>
+<DIV class=video-title><A
+onmousedown="yt.analytics.urchinTracker('/Events/Home/PersonalizedHome/TOP/Logged_Out/17');"
+dir=ltr
+title="?Aficionada muestra sus atributos en la final de ida entre SANTOS vs MONTERREY??"
+href="#">Aficionada
+muestra sus atributos en l...</A> </DIV>
+<DIV>318,301 views </DIV>
+<DIV><NOBR><A
+href="#">teIeESPECTAD0R</A>
+</NOBR></DIV></DIV>
+<DIV class=spacer></DIV></DIV></DIV>
+<DIV class=spacer></DIV></DIV>
+<DIV class=feeditem-compressed>
+<DIV class=feeditem-compressed-category-title>
+<DIV><A class=hLink
+onmousedown="yt.analytics.urchinTracker('/Events/Home/PersonalizedHome/TOP/CategoryTitle/Logged_Out/26');"
+href="#">Howto &amp; Style</A> </DIV></DIV>
+<DIV class="TOP-data compressed-form-content">
+<DIV class=clear>
+<DIV class=feedmodule-thumbnail><A
+class="video-thumb-with-addto video-thumb ux-thumb-128"
+id=video-thumb-iFuanUUMY6k-9833315
+href="#"><SPAN
+class=img><IMG
+onmousedown="yt.analytics.urchinTracker('/Events/Home/PersonalizedHome/TOP/Logged_Out/26');"
+title="SCARY SCARY ASK iJ! (ask ij #37)" onClick=""
+src="home_files/pixel-vfl3z5WfW.gif"
+data-thumb="<img src="aftersearch_files/default(6).jpg">"></SPAN><SPAN
+class=video-time>3:27</SPAN> <SPAN
+class="yt-uix-button-group addto-container short video-actions" dir=ltr
+data-feature="thumbnail" data-video-ids="iFuanUUMY6k"><BUTTON
+class="master-sprite start yt-uix-button yt-uix-button-short yt-uix-tooltip"
+title="" onClick=";return false;" aria-pressed="false" role="button"
+data-button-action="yt.www.addtomenu.add"><IMG class=yt-uix-button-icon-addto
+alt="" src="home_files/pixel-vfl3z5WfW.gif"> <SPAN
+class=yt-uix-button-content><SPAN class=addto-label>Add
+to</SPAN></SPAN></BUTTON><BUTTON
+class="end yt-uix-button yt-uix-button-short yt-uix-tooltip" title=""
+onclick=";return false;" aria-pressed="false" role="button"
+data-button-action="" data-button-menu-id="shared-addto-menu"><IMG
+class=yt-uix-button-arrow alt=""
+src="home_files/pixel-vfl3z5WfW.gif"></BUTTON></SPAN> <SPAN
+class=video-in-quicklist>Added to queue</SPAN></A> </DIV>
+<DIV class=feedmodule-singleform-info>
+<DIV class=video-title><A
+onmousedown="yt.analytics.urchinTracker('/Events/Home/PersonalizedHome/TOP/Logged_Out/26');"
+dir=ltr title="?SCARY SCARY ASK iJ! (ask ij #37)??"
+href="#">SCARY
+SCARY ASK iJ! (ask ij #37)</A> </DIV>
+<DIV>133,819 views </DIV>
+<DIV><NOBR><A href="#">ijustine</A>
+</NOBR></DIV></DIV>
+<DIV class=spacer></DIV></DIV></DIV>
+<DIV class=spacer></DIV></DIV>
+<DIV class=feeditem-compressed>
+<DIV class=feeditem-compressed-category-title>
+<DIV><A class=hLink
+onmousedown="yt.analytics.urchinTracker('/Events/Home/PersonalizedHome/TOP/CategoryTitle/Logged_Out/28');"
+href="#">Science &amp; Technology</A>
+</DIV></DIV>
+<DIV class="TOP-data compressed-form-content">
+<DIV class=clear>
+<DIV class=feedmodule-thumbnail><A
+class="video-thumb-with-addto video-thumb ux-thumb-128"
+id=video-thumb-rag3n142WuM-9053773
+href="#"><SPAN
+class=img><IMG
+onmousedown="yt.analytics.urchinTracker('/Events/Home/PersonalizedHome/TOP/Logged_Out/28');"
+title="Assassin's Creed: Brotherhood Collector's Edition Giveaway (Tobiveaway #1)"
+onclick="" src="home_files/pixel-vfl3z5WfW.gif"
+data-thumb="<img src="aftersearch_files/3(1).jpg">"></SPAN><SPAN
+class=video-time>2:09</SPAN> <SPAN
+class="yt-uix-button-group addto-container short video-actions" dir=ltr
+data-feature="thumbnail" data-video-ids="rag3n142WuM"><BUTTON
+class="master-sprite start yt-uix-button yt-uix-button-short yt-uix-tooltip"
+title="" onClick=";return false;" aria-pressed="false" role="button"
+data-button-action="yt.www.addtomenu.add"><IMG class=yt-uix-button-icon-addto
+alt="" src="home_files/pixel-vfl3z5WfW.gif"> <SPAN
+class=yt-uix-button-content><SPAN class=addto-label>Add
+to</SPAN></SPAN></BUTTON><BUTTON
+class="end yt-uix-button yt-uix-button-short yt-uix-tooltip" title=""
+onclick=";return false;" aria-pressed="false" role="button"
+data-button-action="" data-button-menu-id="shared-addto-menu"><IMG
+class=yt-uix-button-arrow alt=""
+src="home_files/pixel-vfl3z5WfW.gif"></BUTTON></SPAN> <SPAN
+class=video-in-quicklist>Added to queue</SPAN></A> </DIV>
+<DIV class=feedmodule-singleform-info>
+<DIV class=video-title><A
+onmousedown="yt.analytics.urchinTracker('/Events/Home/PersonalizedHome/TOP/Logged_Out/28');"
+dir=ltr
+title="?Assassin's Creed: Brotherhood Collector's Edition Giveaway (Tobiveaway #1)??"
+href="#">Assassin's
+Creed: Brotherhood Collect...</A> </DIV>
+<DIV>166,842 views </DIV>
+<DIV><NOBR><A href="#">Tobuscus</A>
+</NOBR></DIV></DIV>
+<DIV class=spacer></DIV></DIV></DIV>
+<DIV class=spacer></DIV></DIV>
+<DIV class=feeditem-compressed>
+<DIV class=feeditem-compressed-category-title>
+<DIV><A class=hLink
+onmousedown="yt.analytics.urchinTracker('/Events/Home/PersonalizedHome/TOP/CategoryTitle/Logged_Out/2');"
+href="#">Autos &amp; Vehicles</A> </DIV></DIV>
+<DIV class="TOP-data compressed-form-content">
+<DIV class=clear>
+<DIV class=feedmodule-thumbnail><A
+class="video-thumb-with-addto video-thumb ux-thumb-128"
+id=video-thumb-u22hUFw_TE8-3759554
+href="#"><SPAN
+class=img><IMG
+onmousedown="yt.analytics.urchinTracker('/Events/Home/PersonalizedHome/TOP/Logged_Out/2');"
+title="Porsche GT3 review - Top Gear - BBC" onClick=""
+src="home_files/pixel-vfl3z5WfW.gif"
+data-thumb="<img src="aftersearch_files/default(3).jpg">"></SPAN><SPAN
+class=video-time>5:42</SPAN> <SPAN
+class="yt-uix-button-group addto-container short video-actions" dir=ltr
+data-feature="thumbnail" data-video-ids="u22hUFw_TE8"><BUTTON
+class="master-sprite start yt-uix-button yt-uix-button-short yt-uix-tooltip"
+title="" onClick=";return false;" aria-pressed="false" role="button"
+data-button-action="yt.www.addtomenu.add"><IMG class=yt-uix-button-icon-addto
+alt="" src="home_files/pixel-vfl3z5WfW.gif"> <SPAN
+class=yt-uix-button-content><SPAN class=addto-label>Add
+to</SPAN></SPAN></BUTTON><BUTTON
+class="end yt-uix-button yt-uix-button-short yt-uix-tooltip" title=""
+onclick=";return false;" aria-pressed="false" role="button"
+data-button-action="" data-button-menu-id="shared-addto-menu"><IMG
+class=yt-uix-button-arrow alt=""
+src="home_files/pixel-vfl3z5WfW.gif"></BUTTON></SPAN> <SPAN
+class=video-in-quicklist>Added to queue</SPAN></A> </DIV>
+<DIV class=feedmodule-singleform-info>
+<DIV class=video-title><A
+onmousedown="yt.analytics.urchinTracker('/Events/Home/PersonalizedHome/TOP/Logged_Out/2');"
+dir=ltr title="?Porsche GT3 review - Top Gear - BBC??"
+href="#">Porsche
+GT3 review - Top Gear - BBC</A> </DIV>
+<DIV>65,771 views </DIV>
+<DIV><NOBR><A href="#">TopGear</A>
+</NOBR></DIV></DIV>
+<DIV class=spacer></DIV></DIV></DIV>
+<DIV class=spacer></DIV></DIV>
+<DIV class=feeditem-compressed>
+<DIV class=feeditem-compressed-category-title>
+<DIV><A class=hLink
+onmousedown="yt.analytics.urchinTracker('/Events/Home/PersonalizedHome/TOP/CategoryTitle/Logged_Out/0%26s%3Dmp');"
+href="#">Most Viewed</A> </DIV></DIV>
+<DIV class="TOP-data compressed-form-content">
+<DIV class=clear>
+<DIV class=feedmodule-thumbnail><A
+class="video-thumb-with-addto video-thumb ux-thumb-128"
+id=video-thumb-J5ekB4l-6wg-6377168
+href="#"><SPAN
+class=img><IMG
+onmousedown="yt.analytics.urchinTracker('/Events/Home/PersonalizedHome/TOP/Logged_Out/0%26s%3Dmp');"
+title="2NE1 - Don't Stop The Music (Yamaha 'Fiore' CF Theme Song)" onClick=""
+src="home_files/pixel-vfl3z5WfW.gif"
+data-thumb="<img src="aftersearch_files/default.jpg">"></SPAN><SPAN
+class=video-time>3:52</SPAN> <SPAN
+class="yt-uix-button-group addto-container short video-actions" dir=ltr
+data-feature="thumbnail" data-video-ids="J5ekB4l-6wg"><BUTTON
+class="master-sprite start yt-uix-button yt-uix-button-short yt-uix-tooltip"
+title="" onClick=";return false;" aria-pressed="false" role="button"
+data-button-action="yt.www.addtomenu.add"><IMG class=yt-uix-button-icon-addto
+alt="" src="home_files/pixel-vfl3z5WfW.gif"> <SPAN
+class=yt-uix-button-content><SPAN class=addto-label>Add
+to</SPAN></SPAN></BUTTON><BUTTON
+class="end yt-uix-button yt-uix-button-short yt-uix-tooltip" title=""
+onclick=";return false;" aria-pressed="false" role="button"
+data-button-action="" data-button-menu-id="shared-addto-menu"><IMG
+class=yt-uix-button-arrow alt=""
+src="home_files/pixel-vfl3z5WfW.gif"></BUTTON></SPAN> <SPAN
+class=video-in-quicklist>Added to queue</SPAN></A> </DIV>
+<DIV class=feedmodule-singleform-info>
+<DIV class=video-title><A
+onmousedown="yt.analytics.urchinTracker('/Events/Home/PersonalizedHome/TOP/Logged_Out/0%26s%3Dmp');"
+dir=ltr title="?2NE1 - Don't Stop The Music (Yamaha 'Fiore' CF Theme Song)??"
+href="#">2NE1 -
+Don't Stop The Music (Yamaha '...</A> </DIV>
+<DIV>542,869 views </DIV>
+<DIV><NOBR><A href="#">2NE1</A>
+</NOBR></DIV></DIV>
+<DIV class=spacer></DIV></DIV></DIV>
+<DIV class=spacer></DIV></DIV>
+<DIV class=feeditem-compressed>
+<DIV class=feeditem-compressed-category-title>
+<DIV><A class=hLink
+onmousedown="yt.analytics.urchinTracker('/Events/Home/PersonalizedHome/TOP/CategoryTitle/Logged_Out/0%26s%3Dmf');"
+href="#">Top Favorited</A> </DIV></DIV>
+<DIV class="TOP-data compressed-form-content">
+<DIV class=clear>
+<DIV class=feedmodule-thumbnail><A
+class="video-thumb-with-addto video-thumb ux-thumb-128"
+id=video-thumb-cgMGtPMI9xc-1890779
+href="#"><SPAN
+class=img><IMG
+onmousedown="yt.analytics.urchinTracker('/Events/Home/PersonalizedHome/TOP/Logged_Out/0%26s%3Dmf');"
+title="Beach Justice" onClick="" src="home_files/pixel-vfl3z5WfW.gif"
+data-thumb="<img src="aftersearch_files/default(5).jpg">"></SPAN><SPAN
+class=video-time>2:37</SPAN> <SPAN
+class="yt-uix-button-group addto-container short video-actions" dir=ltr
+data-feature="thumbnail" data-video-ids="cgMGtPMI9xc"><BUTTON
+class="master-sprite start yt-uix-button yt-uix-button-short yt-uix-tooltip"
+title="" onClick=";return false;" aria-pressed="false" role="button"
+data-button-action="yt.www.addtomenu.add"><IMG class=yt-uix-button-icon-addto
+alt="" src="home_files/pixel-vfl3z5WfW.gif"> <SPAN
+class=yt-uix-button-content><SPAN class=addto-label>Add
+to</SPAN></SPAN></BUTTON><BUTTON
+class="end yt-uix-button yt-uix-button-short yt-uix-tooltip" title=""
+onclick=";return false;" aria-pressed="false" role="button"
+data-button-action="" data-button-menu-id="shared-addto-menu"><IMG
+class=yt-uix-button-arrow alt=""
+src="home_files/pixel-vfl3z5WfW.gif"></BUTTON></SPAN> <SPAN
+class=video-in-quicklist>Added to queue</SPAN></A> </DIV>
+<DIV class=feedmodule-singleform-info>
+<DIV class=video-title><A
+onmousedown="yt.analytics.urchinTracker('/Events/Home/PersonalizedHome/TOP/Logged_Out/0%26s%3Dmf');"
+dir=ltr title="?Beach Justice??"
+href="#">Beach
+Justice</A> </DIV>
+<DIV>384,235 views </DIV>
+<DIV><NOBR><A href="#">freddiew</A>
+</NOBR></DIV></DIV>
+<DIV class=spacer></DIV></DIV></DIV>
+<DIV class=spacer></DIV></DIV>
+<DIV class=spacer></DIV></DIV></DIV></DIV>
+<DIV class=clear></DIV></DIV></DIV>
+<DIV class=main-spacer-bottom></DIV></DIV><!-- end homepage-main-content -->
+<DIV class="ytg-2col ytg-last" id=homepage-side-content>
+<DIV class=homepage-side-block>
+
+<DIV id=hp-sidebar-FEA>
+<UL class=video-list id=sidebar-videos-FEA>
+  <LI class="video-list-item "><A class="video-list-item-link "
+  onmousedown="yt.analytics.urchinTracker('/Events/Home/PersonalizedHome/FEA/Logged_Out');"
+  href="#"> </A>
+    <IFRAME
+id=ad_creative_iframe_3 style="Z-INDEX: 1"
+src="home_files/promo1;sz=300x100;klg=en;kt=K;kga=-1;kgg=-1;kcr=us;dc_dedup=1;kmyd=ad_creative_3;tile=3;ord=7389090352878837.htm"
+frameBorder=0 width=300 scrolling=no height=100></IFRAME>
+</UL></DIV></DIV>
+</DIV><!-- end homepage-side-content -->
+<DIV class=clear></DIV></DIV>
+
+<DIV class="hid passive editable" id=quicklist
+data-loaded-ajax-url="/list_ajax?action_get_quicklist=1"
+data-quicklist-ajax-url="/list_ajax?action_get_quicklist=1"
+data-active-ajax-url="" data-list-type="QL" data-list-id="">
+<DIV id=quicklist-player-container>
+<DIV id=quicklist-player-close><IMG class="master-sprite expand-button"
+onclick=yt.www.navigation.expandPlayer();
+src="home_files/pixel-vfl3z5WfW.gif"><IMG class="master-sprite close-button"
+onclick=yt.www.navigation.closePlayer();
+src="home_files/pixel-vfl3z5WfW.gif"></DIV>
+<DIV id=quicklist-player-title></DIV>
+<DIV id=quicklist-player></DIV></DIV>
+<DIV id=quicklist-bar-container>
+<DIV id=quicklist-bar>
+<DIV class="yt-alert yt-alert-success yt-alert-small yt-alert-naked yt-rounded"
+id=quicklist-notifications style="DISPLAY: none"><IMG class="icon master-sprite"
+alt="Alert icon" src="home_files/pixel-vfl3z5WfW.gif">
+<DIV class=yt-alert-content></DIV></DIV><SPAN id=quicklist-info><SPAN
+class="quicklist-active yt-uix-button-group"><BUTTON
+class="master-sprite yt-uix-tooltip yt-uix-tooltip-masked start start-edge yt-uix-button yt-uix-tooltip"
+title="Previous video" onClick=";return false;" aria-pressed="false"
+role="button" data-button-action="yt.www.watch.quicklist.prev"><IMG
+class=yt-uix-button-icon-quicklist-prev alt=""
+src="home_files/pixel-vfl3z5WfW.gif"></BUTTON><BUTTON
+class="master-sprite yt-uix-tooltip yt-uix-tooltip-masked end yt-uix-button"
+id=quicklist-next-button onClick=";return false;" aria-pressed="false"
+role="button" data-button-action="yt.www.watch.quicklist.next"><IMG
+class=yt-uix-button-icon-quicklist-next alt=""
+src="home_files/pixel-vfl3z5WfW.gif"></BUTTON></SPAN><SPAN
+class=quicklist-passive><BUTTON
+class="master-sprite yt-uix-tooltip yt-uix-tooltip-masked  yt-uix-button yt-uix-tooltip"
+title="Play videos" onClick=";return false;" aria-pressed="false" role="button"
+data-button-action="yt.www.watch.quicklist.play"><IMG
+class=yt-uix-button-icon-quicklist-play alt=""
+src="home_files/pixel-vfl3z5WfW.gif"></BUTTON></SPAN><SPAN
+id=quicklist-title>Queue (<SPAN class=item-count>0</SPAN>) </SPAN><BUTTON
+class="yt-uix-button-masked yt-uix-button-reverse yt-uix-button"
+onclick=";return false;" aria-pressed="false" role="button"
+aria-expanded="false" aria-haspopup="true" aria-activedescendant=""><SPAN
+class=yt-uix-button-content>Options</SPAN> <IMG class=yt-uix-button-arrow alt=""
+src="home_files/pixel-vfl3z5WfW.gif">
+<DIV class=yt-uix-button-menu style="DISPLAY: none">
+<DIV class="" id=quicklist-options-menu>
+<DIV id=quicklist-extras-menu>
+<UL>
+  <LI><SPAN class=yt-uix-button-menu-item
+  onclick=yt.www.watch.quicklist.clear()>Clear all videos from your Queue
+  </SPAN></LI></UL></DIV>
+<UL>
+  <LI><SPAN class=yt-uix-button-menu-item
+  onclick="window.location.href='http://www.google.com/support/youtube/bin/answer.py?answer=146749'">Learn
+  more</SPAN> </LI></UL></DIV></DIV></BUTTON></SPAN> <SPAN
+class=yt-uix-button-group id=quicklist-controls><BUTTON
+class="master-sprite yt-uix-tooltip yt-uix-tooltip-masked start quicklist-active yt-uix-button yt-uix-button-toggle"
+id=quicklist-autoplay-button onClick=";return false;" aria-pressed="false"
+role="button" data-button-action="yt.www.watch.quicklist.autoplay"><IMG
+class=yt-uix-button-icon-quicklist-autoplay alt=""
+src="home_files/pixel-vfl3z5WfW.gif"></BUTTON><BUTTON
+class="master-sprite yt-uix-tooltip yt-uix-tooltip-masked start quicklist-active yt-uix-button yt-uix-button-toggle"
+id=quicklist-shuffle-button onClick=";return false;" aria-pressed="false"
+role="button" data-button-action="yt.www.watch.quicklist.shuffle"><IMG
+class=yt-uix-button-icon-quicklist-shuffle alt=""
+src="home_files/pixel-vfl3z5WfW.gif"></BUTTON><BUTTON
+class="master-sprite yt-uix-tooltip yt-uix-tooltip-masked end end-edge yt-uix-button"
+id=quicklist-toggle-button onClick=";return false;" aria-pressed="false"
+role="button" data-button-action="yt.www.watch.quicklist.toggle"><IMG
+class=yt-uix-button-icon-quicklist-toggle alt=""
+src="home_files/pixel-vfl3z5WfW.gif"></BUTTON></SPAN> </DIV></DIV>
+<DIV id=quicklist-tray-container>
+<DIV class="yt-uix-slider yt-uix-slider-fluid" id=quicklist-tray><BUTTON
+class="yt-uix-button quicklist-tray-button yt-uix-slider-prev"
+onclick="return false;"><IMG class=yt-uix-slider-prev-arrow alt=Previous
+src="home_files/pixel-vfl3z5WfW.gif"></BUTTON><BUTTON
+class="yt-uix-button quicklist-tray-button yt-uix-slider-next"
+onclick="return false;"><IMG class=yt-uix-slider-next-arrow alt=Next
+src="home_files/pixel-vfl3z5WfW.gif"></BUTTON>
+<DIV class=yt-uix-slider-body>
+<DIV class=yt-uix-slider-slide id=quicklist-tray-content>
+<OL class=video-list></OL>
+<OL id=quicklist-help>
+  <LI class=empty>Your queue is empty. Add videos to your queue using this
+  button: <IMG class=addto-button-help
+  src="home_files/pixel-vfl3z5WfW.gif"><BR>or <A
+  href="signIn.htm">sign
+  in</A> to load a different list.</LI></OL></DIV>
+<DIV class=yt-uix-slider-shade-left></DIV>
+<DIV class=yt-uix-slider-shade-right></DIV></DIV></DIV>
+<DIV id=quicklist-save></DIV>
+<DIV id=quicklist-saved></DIV>
+<DIV id=quicklist-lists></DIV>
+<DIV id=quicklist-loading><IMG alt=""
+src="home_files/pixel-vfl3z5WfW.gif"><SPAN>Loading...</SPAN></DIV>
+<DIV id=quicklist-saving><IMG alt=""
+src="home_files/pixel-vfl3z5WfW.gif"><SPAN>Saving...</SPAN></DIV>
+<DIV id=quicklist-template style="DISPLAY: none"
+data-play-video-href="/watch?v=__video_encrypted_id__&amp;feature=BF&amp;playnext=1&amp;list=QL"
+data-video-thumb-url="http://i4.ytimg.com/vi/__video_encrypted_id__/default.jpg"><!--        <li class="quicklist-item yt-uix-slider-slide-unit __classes__" data-video-id="__video_encrypted_id__"><a href="__video_url__">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="video-thumb ux-thumb-96" id="video-thumb-__video_encrypted_id__-3241842" ><span class="img"><img src="__video_thumb_url__" onclick="" title="__video_title__"></span></span>
+<span class="quicklist-hidden-thumb hid">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="video-thumb ux-thumb-64" id="video-thumb-__video_encrypted_id__-2095332" ><span class="img"><img src="__video_thumb_url__" onclick="" title="__video_title__"></span></span>
+</span><span class="screen"></span><span class="count "><strong>__list_position__</strong></span><span class="play"><img class="master-sprite" src="http://s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif"></span><span class="yt-uix-button master-sprite delete" onclick="yt.www.watch.quicklist.onDeleteClick(event); return false;"><img class="yt-uix-button-icon-quicklist-delete" src="http://s.ytimg.com/yt/img/pixel-vfl3z5WfW.gif" alt="Delete"></span></a><span dir="ltr" class="title yt-uix-slider-title"><span>__video_title__<span class="uploader">by __video_username__</span></span></span></li>--></DIV></DIV></DIV>
+<DIV id=shared-addto-menu style="DISPLAY: none">
+<FORM action=/addto_ajax method=post>
+<UL class=addto-menu>
+  <LI><SPAN class="yt-uix-button-menu-item "
+  onclick=yt.www.addtomenu.saveToQueue(this);>Add to queue </SPAN>
+  <LI><SPAN class="yt-uix-button-menu-item " onClick=""><A
+  href="https://www.google.com/accounts/ServiceLogin?uilel=3&amp;service=youtube&amp;passive=true&amp;continue=http%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26nomobiletemp%3D1%26hl%3Den_US%26next%3D%252F&amp;hl=en_US&amp;ltmpl=sso">Sign
+  in</A> to add this to a playlist </SPAN>
+  <LI class="yt-uix-button-menu-item addto-item addto-create-container"
+  style="DISPLAY: none"><INPUT class=addto-create-name size=25>
+</LI></UL></FORM></DIV>
+<DIV></DIV><!-- end page --><!-- begin postpage -->
+<DIV id=postpage>
+<SCRIPT>
+      yt.setConfig('TIMING_ACTION', 'index');
+    </SCRIPT>
+
+<SCRIPT>
+
+
+
+
+  yt.setMsg({
+    'QUEUE_CLEAR': 'Are you sure you wish to continue?',
+    'ERROR_OCCURRED': 'Sorry, an error occurred.',
+    'NEXT_VIDEO_TOOLTIP': 'Next video:<br> &#8220;${next_video_title}&#8221;',
+    'NEXT_VIDEO_NOTHUMB_TOOLTIP': 'Next video',
+    'SHOW_PLAYLIST_TOOLTIP': 'Show playlist',
+    'HIDE_PLAYLIST_TOOLTIP': 'Hide playlist',
+    'AUTOPLAY_ON_TOOLTIP': 'Turn autoplay off',
+    'AUTOPLAY_OFF_TOOLTIP': 'Turn autoplay on',
+    'SHUFFLE_ON_TOOLTIP': 'Turn shuffle off',
+    'SHUFFLE_OFF_TOOLTIP': 'Turn shuffle on',
+    'QUICKLIST_PLAYLIST_SAVED': 'Playlist saved!',
+    'QUICKLIST_ADDED_TO_FAVORITES': 'Added to favorites',
+    'QUICKLIST_ADDED_TO_PLAYLIST': 'Added to playlist',
+    'QUICKLIST_ADDED_TO_QUEUE': 'Added to queue'   });
+
+
+  yt.setConfig({
+    'QUICKLIST_PLAYING_INDEX': -1,
+    'ENABLE_CLIENT_VIDEO_CACHE': false   });
+
+
+    yt.pubsub.subscribe('init', yt.www.watch.quicklist.init);
+
+
+
+
+        yt.www.thumbnaildelayload.init();
+
+
+      yt.events.listen(_gel('masthead-search-term'), 'focus', yt.www.home.ads.workaroundReset);
+
+
+  </SCRIPT>
+</DIV><!-- end postpage --><!--[if IE]></DIV><![endif]--></BODY></HTML>

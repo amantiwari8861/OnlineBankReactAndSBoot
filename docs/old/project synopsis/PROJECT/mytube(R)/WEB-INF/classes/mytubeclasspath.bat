@@ -1,0 +1,2 @@
+set classpath=D:\Running Project\mytube(R)\WEB-INF\lib\convert.jar;D:\Running Project\mytube(R)\WEB-INF\lib\cos.jar;D:\Running Project\mytube(R)\WEB-INF\lib\db.jar;D:\Running Project\mytube(R)\WEB-INF\lib\jcaptcha-1.0.jar;D:\Running Project\mytube(R)\WEB-INF\lib\lucene-core-2.4.0.jar;D:\Running Project\mytube(R)\WEB-INF\lib\ojdbc14.jar;.;
+ 

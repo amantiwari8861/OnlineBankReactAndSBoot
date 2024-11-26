@@ -1,0 +1,76 @@
+<!-- CREATED BY MARK MALDONADO -->
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+	<link rel="icon" type="image/png" href="../img/logo_icon.png">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<base href="/shop-war/eingang/registrierung.html" />
+	<link rel="stylesheet" type="text/css" href="../style/style.css" />
+	<script src="../script/registrierung.js"></script>
+	<title>Registrierung</title>
+</head>
+
+<body>
+<!-- Logo -->
+<nav>
+<ul>
+	<li><img src="../img/logo.png" alt="Logobild" width="35" height="42"></li>
+	<li><h1>Registrierung</h1></li>
+</ul>
+</nav>
+
+<!-- Registrieung Formular -->
+<main>
+	<form id="form_registrierung" method="post" action="../registrierenservlet">
+		<fieldset><legend>Registrierung</legend>
+			<div>
+				<label for="mail_id">E-Mail:</label>
+				<input type="email" name="mail" id="mail_id" placeholder="Ihre-Email-Adresse" required>
+			</div>
+			<div>
+				<label for="passwort_id">Passwort:</label>
+				<input type="password" name="passwort" id="passwort_id" placeholder="Ihr-Passwort" required maxlength="20">
+			</div>
+			<div>
+				<label for="repeat_passwort_id">Passwort wiederholen:</label>
+				<input type="password" name="repeat_passwort" id="repeat_passwort_id" placeholder="Ihr-Passwort" required maxlength="20">
+			</div>
+			<div>
+				<label for="ort_id">Ort:</label>
+				<input type="text" name="ort" id="ort_id" placeholder="Ihr-Ort" required>
+			</div>
+			<div>
+				<label for="strasse_id">Straße:</label>
+				<input type="text" name="strasse" id="strasse_id" placeholder="Ihre-Straße" required maxlength="30">
+			</div>
+			<div>
+				<label for="hausnummer_id">Hausnummer:</label>
+				<input type="number" name="hausnummer" id="hausnummer_id" placeholder="Ihre-Hausnummer" required min="0" max="99999">
+			</div>
+			<div>
+				<label for="iban_id">IBAN:</label>
+				<input type="text" name="iban" id="iban_id" placeholder="Ihre-IBAN" required maxlength="22">
+			</div>
+			<div class="buttons">
+				 <button class="green" name="submit" type="submit">Absenden</button>
+				 <button class="yellow" name="reset" type="reset">Reset</button>
+				 <a href="login.html">zurück zum Login</a>
+			</div>
+			<div>
+				<!-- Fehlermeldungen -->
+				<noscript>Bitte aktivieren Sie JavaScript</noscript>
+				<p id="fehlermeldung"></p>
+			</div>
+		</fieldset>
+	</form>
+</main>
+
+<!-- Footer -->
+<footer>
+		Copyright: Seyit Arar und Joan Mark Maldonado Llopart, Ingolstadt
+</footer>
+
+</body>
+</html>

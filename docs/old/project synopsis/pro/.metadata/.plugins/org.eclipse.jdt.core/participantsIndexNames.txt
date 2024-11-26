@@ -1,0 +1,23 @@
+INDEX VERSION 1.130
+C:\Users\Aman\Desktop\project synopsis\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3555644095.index
+\BookStoreWebsite\src
+C:\Users\Aman\Desktop\project synopsis\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\4026478182.index
+\shop-war\src
+C:\Users\Aman\Desktop\project synopsis\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2850100551.index
+\shop-war\src
+C:\Users\Aman\Desktop\project synopsis\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3321977918.index
+\shop-war\src
+C:\Users\Aman\Desktop\project synopsis\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\769410063.index
+\shop-war\src
+C:\Users\Aman\Desktop\project synopsis\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2022929322.index
+\shop-war\src
+C:\Users\Aman\Desktop\project synopsis\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\793870880.index
+\HibernateDaoStudentRecordSystem\src
+C:\Users\Aman\Desktop\project synopsis\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2228212724.index
+\furnita\src\main\java
+C:\Users\Aman\Desktop\project synopsis\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2257973712.index
+\shop-war\src
+C:\Users\Aman\Desktop\project synopsis\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\143830640.index
+\OnlineShoppingSystem\src
+C:\Users\Aman\Desktop\project synopsis\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2029521923.index
+\BookStoreWebsite\src

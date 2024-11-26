@@ -1,0 +1,12 @@
+path=C:\Users\Aman\Desktop\projectReport\servlet_jsp\WebContent\WEB-INF\lib\mysql-connector-java-8.0.21.jar
+size=2397321
+archive=0
+path=G:\Advance JAVA\apache-tomcat-9.0.1\lib\jsp-api.jar
+size=61763
+archive=0
+path=G:\Advance JAVA\apache-tomcat-9.0.1\lib\servlet-api.jar
+size=277812
+archive=0
+path=C:\Users\Aman\Desktop\projectReport\servlet_jsp\WebContent\WEB-INF\lib\mysql-connector-java-5.1.48.jar
+size=1006956
+archive=0

@@ -1,0 +1,11 @@
+vti_encoding:SR|utf8-nl
+vti_timelastmodified:TR|02 Apr 2003 06:24:58 -0000
+vti_extenderversion:SR|4.0.2.7802
+vti_nexttolasttimemodified:TR|02 Apr 2003 06:24:58 -0000
+vti_author:SR|J2ee1
+vti_nosourcecontrol:SR|True
+vti_modifiedby:SR|J2ee1
+vti_timecreated:TR|02 Apr 2003 06:24:57 -0000
+vti_cacheddtm:TX|02 Apr 2003 06:24:58 -0000
+vti_filesize:IR|0
+vti_backlinkinfo:VX|userwish3.htm usercart3.htm usermsg3.htm

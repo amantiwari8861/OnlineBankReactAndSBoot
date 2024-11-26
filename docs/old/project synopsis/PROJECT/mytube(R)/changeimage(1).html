@@ -1,0 +1,34 @@
+<html>
+ <head>
+  <script>
+  function change()
+  {
+   var ind=eval(document.f1.h1.value);
+	switch(ind)
+	 {
+	   case 0 : document.img.src="img/guzaarish-0a.jpg";
+	             break;
+		case 1 : document.img.src="img/guzaarish-1v.jpg";
+	             break;
+		case 2 : document.img.src="img/guzaarish-3a.jpg";
+	             break;
+		case 3 : document.img.src="img/guzaarish-9v.jpg";
+	             break;
+		}
+	document.f1.h1.value=ind+1;
+	if(document.f1.h1.value==4)
+	{
+	 document.f1.h1.value=0;
+	  }
+	}
+	setInterval("change()",3000);  
+  </script>
+  </head>
+ <body>
+<center> <img src="img/guzaarish-9v.jpg" width=136 height=322 name="img">
+</center>
+ <form name="f1">
+  <input type="hidden" name="h1" value="0" />
+ </form>
+</body>
+  </html>

@@ -1,0 +1,1814 @@
+JSP Code:-
+
+about.jsp
+
+<html><head>
+  <title>Download Bollywood Songs</title>
+  <link media="screen, projection, tv " href="css/html.css" type="text/css" rel="stylesheet">
+  <link media="screen, projection, tv" href="css/layout.css" type="text/css" rel="stylesheet">
+</head><body>
+<div id="content">
+<%@ include file="menu/header.jsp" %>
+  <%@ include file="menu/amainmenu.jsp" %>
+  <div id="page">
+	<%@ include file="menu/sidemenu.jsp" %>	
+    <div class="width75 floatRight">
+      <div class="gradient">
+      
+		<%@ include file="add/ad90.jsp" %>	
+		<br>
+		<br>
+			<h2 align='center' >Send Your Feedback here</h2>
+			<br>
+			<table align="center"> 
+			<tr>
+			    <td align="center"><h2>Music WorlD</h2>
+			<p>Email Address : songs.fr.ms@gmail.com </p>
+			<p>&nbsp;</p></td>
+			</tr>
+			</table>
+      </div>
+    </div>
+  </div>
+</div>
+<%@ include file="menu/footer.jsp" %>
+</div>
+</body></html>
+
+aindex.jsp
+
+<%@ include file="asession.jsp" %>
+<html><head>
+  <title>Download Bollywood Songs</title>
+  <link media="screen, projection, tv " href="css/html.css" type="text/css" rel="stylesheet">
+  <link media="screen, projection, tv" href="css/layout.css" type="text/css" rel="stylesheet">
+  
+  <script language="javascript" type="text/javascript">
+
+function valid()      
+{var v=true;
+	if(document.getElementById("name").value=="")
+	{
+		alert("Enter Movie name");
+		v=false;
+	}
+	else if(document.getElementById("l128").value=="")
+	{
+		alert("Enter Link 128kb");
+		v=false;
+	}
+	else if(document.getElementById("l320").value=="")
+	{
+		alert("Enter Link 320kb");
+		v=false;
+	}
+	else if(document.getElementById("limg").value=="")
+	{
+		alert("Enter Link img");
+		v=false;
+	}	
+return v;
+}
+  
+  </script>
+</head><body>
+<div id="content">
+<%@ include file="menu/header.jsp" %>
+  <%@ include file="menu/dmainmenu.jsp" %>
+  <div id="page">
+	<%@ include file="menu/adminsidemenu.jsp" %>	
+    <div class="width75 floatRight">
+      <div class="gradient">
+        <h1>Add New Movie Song</h1>		
+		        <center>
+		<%
+			String msg="";
+			msg = request.getParameter("msg");
+			if(msg!=null)
+				out.println("<br>"+msg);
+		%>
+
+		<BR><BR>
+		<form id="formID" method="get" action="addnew.jsp">
+        <table width="350px" border="0">
+        <tr height="60px">
+        <td width="136" align="center">Name:
+        	</td>
+			<td width="152"><input  type="text" name="name" id="name" /></td>
+            </tr>
+			
+			<tr height="60px">
+        <td width="136" align="center">Link 128kb:
+        	</td>
+			<td width="152"><input type="text" name="l128" id="l128" /></td>
+            </tr>
+
+			<tr height="60px">
+        <td width="136" align="center">Link 320kb:
+        	</td>
+			<td width="152"><input type="text" name="l320" id="l320" /></td>
+            </tr>
+
+			<tr height="60px">
+        <td width="136" align="center">Link Image:
+        	</td>
+			<td width="152"><input type="text" name="limg" id="limg" /></td>
+            </tr>
+			
+			       <tr align="center" height="50px">
+            <td>
+					<span>Bollywood </span>
+					<input type="radio" name="type" id="radio2"  value="b" checked />
+                    </td>
+            
+            <td>
+            <span>Pop</span>
+					<input type="radio" name="type"  id="radio1" value="p">
+                    
+                </td></tr>
+
+            <tr height="60px"><td colspan="2" align="center">
+			<input class="submit" type="submit" value="Submit" onclick="return valid();"/>
+            </td>
+            </tr>
+          </table>
+		</form>
+        <br>
+</center>
+      </div>
+    </div>
+  </div>
+</div>
+<%@ include file="menu/afooter.jsp" %>
+</div>
+</body></html>
+
+asession.jsp
+
+<%
+	String ses[] = session.getValueNames();
+	
+	if(ses.length==0){
+		response.sendRedirect("login.jsp");
+	}
+%>
+
+bolly.jsp
+
+<html><head>
+  <title>Download Bollywood Songs</title>
+  <link media="screen, projection, tv " href="css/html.css" type="text/css" rel="stylesheet">
+  <link media="screen, projection, tv" href="css/layout.css" type="text/css" rel="stylesheet">
+</head><body>
+<div id="content">
+<%@ include file="menu/header.jsp" %>
+  <%@ include file="menu/bmainmenu.jsp" %>
+  <div id="page">
+	<%@ include file="menu/sidemenu.jsp" %>	
+    <div class="width75 floatRight">
+      <div class="gradient">
+        <h1>Download Bollywood Songs Here ..!</h1>
+		<%@ include file="add/ad90.jsp" %>	
+		<br>
+		<%@ include file="lastbollyupdate.jsp" %>	
+      </div>
+    </div>
+  </div>
+</div>
+<%@ include file="menu/footer.jsp" %>
+</div>
+</body></html>
+
+DConnection.jsp
+
+<%@page import="java.sql.*" %>
+<%!
+public class DConnection {
+
+    Connection con;
+    ResultSet rs=null;
+    Statement st;
+
+    public int setData(String str){
+        int i=0;
+        try{
+            Class.forName ("com.mysql.jdbc.Driver");
+            con=DriverManager.getConnection("jdbc:mysql://localhost/jayvik123?user=root&password=jayvik");
+            st=con.createStatement();
+            st.execute(str);
+            i = st.getUpdateCount();
+        }catch(Exception e){
+        }
+        return i;
+    }
+
+    public ResultSet getData(String str) {
+        try{
+            Class.forName ("com.mysql.jdbc.Driver");
+            con=DriverManager.getConnection("jdbc:mysql://localhost/jayvik123?user=root&password=jayvik");
+            st=con.createStatement();
+            rs = st.executeQuery(str);
+        }
+        catch (Exception e){
+       }
+        return rs;
+    }
+}
+%>
+
+delete.jsp
+
+<%@ include file="asession.jsp" %>
+<html><head>
+  <title>Download Bollywood Songs</title>
+  <link media="screen, projection, tv " href="css/html.css" type="text/css" rel="stylesheet">
+  <link media="screen, projection, tv" href="css/layout.css" type="text/css" rel="stylesheet">
+  
+  <script type="text/javascript">
+function loadXMLDoc()
+{
+var tex = document.srch.pname.value;
+	if(tex!=""){
+	for (var i=0; i<document.srch.type.length; i++)
+   		{
+   			if (document.srch.type[i].checked)
+      		{
+      			var rad_val = document.srch.type[i].value;
+				var url = 'dsdata.jsp?value='+tex+'&type='+rad_val;
+      		}
+		}	
+if (window.XMLHttpRequest)
+  {
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+xmlhttp.onreadystatechange=function()
+  {
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+    document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+    }
+  }
+xmlhttp.open("GET",url,true);
+xmlhttp.send();
+}
+}
+</script>
+
+</head><body>
+<div id="content">
+<%@ include file="menu/header.jsp" %>
+  <%@ include file="menu/dmainmenu.jsp" %>
+  <div id="page">
+	<%@ include file="menu/adminsidemenu.jsp" %>	
+    <div class="width75 floatRight">
+      <div class="gradient">
+        <h1>Delete Movie Song</h1>
+		<%
+			String msg="";
+			msg = request.getParameter("msg");
+			if(msg!=null)
+				out.println("<br><center>"+msg+"</center><br>");
+		%>
+
+		<form name="srch"  id="formID" method="get" action="">
+        <table width="95%" border="0" align="center" >
+        <tr height="40px">
+		
+		<td align="center">
+					<span>Bollywood </span>
+					<input type="radio" name="type" id="radio2"  value="b" checked />
+                    </td>
+            
+            <td>
+            <span>Pop</span>
+					<input type="radio" name="type"  id="radio1" value="p">
+                    
+                </td>
+       
+			<td width="152" align="right"><input onKeyUp="loadXMLDoc()" type="text" name="pname" id="pname" /></td>
+             <td  width="150px" align="left">
+			<input class="submit" type="button" onClick="loadXMLDoc()" value="search"/>
+            </td>
+            </tr>
+          </table>
+		</form>
+
+		<BR><BR>
+				<div id="myDiv"></div> 
+        <br>
+</center>
+      </div>
+    </div>
+  </div>
+</div>
+<%@ include file="menu/afooter.jsp" %>
+</div>
+</body></html>
+
+deletedata.jsp
+
+<%@page import="java.sql.*" %>
+<%@include file="DConnection.jsp" %>
+<%@ include file="asession.jsp" %>
+
+<%
+	
+	 String id = request.getParameter("id");
+	 
+	 if(id!=""){
+	 	DConnection db = new DConnection();
+	 	String qry1="delete from movie where id='"+id+"'";
+	 	db.setData(qry1);
+		qry1="delete from link where id='"+id+"'";
+	 	db.setData(qry1);
+		response.sendRedirect("delete.jsp?msg=delete sucessful");
+	 }
+	else{
+		response.sendRedirect("delete.jsp?msg=delete Unsucessful");
+	}
+%>
+
+download.jsp
+
+<%@page import="java.sql.*" %>
+<%@include file="DConnection.jsp" %>
+<html><head>
+  <title>Download Bollywood Songs</title>
+  <link media="screen, projection, tv " href="css/html.css" type="text/css" rel="stylesheet">
+  <link media="screen, projection, tv" href="css/layout.css" type="text/css" rel="stylesheet">
+</head><body>
+<div id="content">
+<%@ include file="menu/header.jsp" %>
+  <%@ include file="menu/dmainmenu.jsp" %>
+  <div id="page">
+	<%@ include file="menu/sidemenu.jsp" %>	
+    <div class="width75 floatRight">
+      <div class="gradient">
+        <h1>Download Bollywood Songs Here ..!</h1>
+		<%@ include file="add/ad90.jsp" %>	
+		<%
+		String id="";
+	    id = request.getParameter("id");
+	    if(id!=null){
+			DConnection db = new DConnection();
+			ResultSet rs1=null;
+			String qry = "select m.name,l.link128,l.link320,l.limg from movie m,link l where m.id=l.id and l.id='"+id+"'";
+			rs1 = db.getData(qry);
+			String name="",l128="",l320="",limg="";
+			while(rs1.next()){
+				name = rs1.getString("m.name");
+				l128 = rs1.getString("l.link128");
+				l320 = rs1.getString("l.link320");
+				limg = rs1.getString("l.limg");
+				%>
+				<br>
+		<table align='center' border='0'width="84%">
+		<tr><td align='center'><h1><% out.println(name); %><h1></td><td width='170px' height='170px'><img src='<%=limg %>' width='170px' height='170px'></img></td><tr>
+		<tr align='center' height='65px'><td>All Songs Zipfile 120Kbps &nbsp;&nbsp;&nbsp;&nbsp;<a href='<%=l128 %>' >Download here</a></td></tr>
+		<tr align='center' height='65px'><td>All Songs Zipfile 320Kbps &nbsp;&nbsp;&nbsp;&nbsp;<a href='<%=l320 %>' >Download here</a></td></tr>
+		</table>	
+			<%	
+			}
+		}
+	    %>
+      </div>
+    </div>
+  </div>
+</div>
+<%@ include file="menu/footer.jsp" %>
+</div>
+</body></html>
+
+dsdata.jsp
+
+<%@page import="java.sql.*" %>
+<%@include file="DConnection.jsp" %>
+<%@ include file="asession.jsp" %>
+<%
+ 		String id="";
+		id = request.getParameter("value");
+		if(id!=null){
+			 String type = request.getParameter("type");
+			 DConnection db = new DConnection();
+	 		 ResultSet rs1=null;
+	 		 String qry = "select m.id,m.name from movie m,link l  where m.id=l.id and m.type='"+type+"' and m.name LIKE '"+id+"%'";
+	 		 rs1 = db.getData(qry);
+	         String pid="",nm="";
+			 out.println("<table border='0' align='center' width='94%'><tr align='center' height='50px'><td><b>ID</b></td><td><b>Name</b></td><td></td></tr>");
+	         while(rs1.next()){
+				pid = rs1.getString("m.id");
+				nm = rs1.getString("m.name");
+				%>	
+                <tr align='center'>
+                	<td><% out.println(pid); %></td>
+					<td><% out.println(nm); %></td>
+					<td><a href='deletedata.jsp?id=<%=pid %>' >Delete</a></td>
+                </tr>
+		   <%  }
+			 out.println("</table>");
+	 }
+ %> 
+
+index.jsp
+
+<html><head>
+  <title>Download Bollywood Songs</title>
+  <link media="screen, projection, tv " href="css/html.css" type="text/css" rel="stylesheet">
+  <link media="screen, projection, tv" href="css/layout.css" type="text/css" rel="stylesheet">
+</head><body>
+<div id="content">
+<%@ include file="menu/header.jsp" %>
+  <%@ include file="menu/mainmenu.jsp" %>
+  <div id="page">
+	<%@ include file="menu/isidemenu.jsp" %>	
+    <div class="width75 floatRight">
+      <div class="gradient">
+        <h1>Download Bollywood Songs Here ..!</h1>
+		<%@ include file="add/ad90.jsp" %>	
+		<br>
+		<%@ include file="lastupdate.jsp" %>	
+      </div>
+    </div>
+  </div>
+</div>
+<%@ include file="menu/footer.jsp" %>
+</div>
+</body></html>
+
+isession.jsp
+
+<%
+String ses[] = session.getValueNames();	
+	if(ses.length==2){
+		response.sendRedirect("login.jsp");
+	}	
+%>
+
+lastbollyupdate.jsp
+
+<%@page import="java.sql.*" %><%@include file="DConnection.jsp" %>        		<%			 DConnection db = new DConnection();	 		 ResultSet rs1=null;	 		 String qry = "select * from movie where type='b' ORDER BY date DESC LIMIT 15";	 		 rs1 = db.getData(qry);	         String name="",type="",id="";			 			 out.println("<h1>New Songs</h1><br>");			 out.println("<table border='0' align='center' width='94%'><tr><td width='50%'>");			 out.println("<table border='0' width='100%'><tr align='center' height='50px'><td><b>Movie Name</b></td><td><b>Type</b></td></tr>");	         while(rs1.next()){				id = rs1.getString("id");				name = rs1.getString("name");				type = rs1.getString("type");				%>                <tr align='center' >                	<td><a href='download.jsp?id=<%=id %>' ><% out.println(name); %></a></td>                    <td><% 	out.println("Movie"); %></td>                </tr>		   <%  }			 out.println("</table>");			 out.println("</td><td></td></tr></table>"); %> 
+
+lastpopupupdate.jsp
+
+<%@page import="java.sql.*" %>
+<%@include file="DConnection.jsp" %>        
+		<%
+			 DConnection db = new DConnection();
+	 		 ResultSet rs1=null;
+	 		 String qry = "select * from movie where type='p' ORDER BY date DESC LIMIT 15";
+	 		 rs1 = db.getData(qry);
+	         String name="",type="",id="";
+			 
+			 out.println("<h1>New Songs</h1><br>");
+			 out.println("<table border='0' align='center' width='94%'><tr><td width='50%'>");
+			 out.println("<table border='0' width='100%'><tr align='center' height='50px'><td><b>Albums Name</b></td><td><b>Type</b></td></tr>");
+	         while(rs1.next()){
+				id = rs1.getString("id");
+				name = rs1.getString("name");
+				type = rs1.getString("type");
+				%>
+                <tr align='center' >
+                	<td><a href='download.jsp?id=<%=id %>' ><% out.println(name); %></a></td>
+                    <td><% 	out.println("Pop"); %></td>
+                </tr>
+		   <%  }
+			 out.println("</table>");
+			 out.println("</td><td></td></tr></table>");
+ %> 
+
+lastupdate.jsp
+
+<%@page import="java.sql.*" %>
+<%@include file="DConnection.jsp" %>        
+		<%
+			 DConnection db = new DConnection();
+	 		 ResultSet rs1=null;
+	 		 String qry = "select * from movie ORDER BY date DESC LIMIT 15";
+	 		 rs1 = db.getData(qry);
+	         String name="",type="",id="";
+			 
+			 out.println("<h1>New Songs</h1><br>");
+			 out.println("<table border='0' align='center' width='94%'><tr><td width='55%'>");
+			 out.println("<table border='0' width='100%'><tr align='center' height='50px'><td><b>Movie Name</b></td><td width='30%'><b>Type</b></td></tr>");
+	         while(rs1.next()){
+				id = rs1.getString("id");
+				name = rs1.getString("name");
+				type = rs1.getString("type");
+				%>
+                <tr align='center' >
+                	<td><a href='download.jsp?id=<%=id %>' ><% out.println(name); %></a></td>
+                    <td><% 	
+						if(type.equals("b")){
+							out.println("Movie");
+						}
+						else{
+							out.println("Pop");
+						}
+					%></td>
+                </tr>
+		   <%  }
+			 out.println("</table>");
+			 out.println("</td><td></td></tr></table>");
+ %> 
+
+logcheck.jsp
+
+<%@page import="java.sql.*" %>
+<%@include file="DConnection.jsp" %>
+
+<%
+	String user = request.getParameter("user");
+    String pwd = request.getParameter("password");
+	
+	DConnection db = new DConnection();
+	ResultSet rs1=null;
+	String qry = "select * from login where lid='"+user+"' and pwd ='"+pwd+"'";
+	rs1 = db.getData(qry);
+	String u="",p="";
+	while(rs1.next()){
+		u = rs1.getString("lid");
+		p = rs1.getString("pwd");
+	}
+	if(u.equals(""))
+		response.sendRedirect("login.jsp?msg=User Name or PassWord Worng");
+	else{
+		session.setAttribute("username",u);
+		response.sendRedirect("aindex.jsp");
+	}
+%>
+
+login.jsp
+
+<%@ include file="isession.jsp" %>
+
+<html><head>
+  <title>Download Bollywood Songs</title>
+  <link media="screen, projection, tv " href="css/html.css" type="text/css" rel="stylesheet">
+  <link media="screen, projection, tv" href="css/layout.css" type="text/css" rel="stylesheet">
+</head><body>
+<div id="content">
+<%@ include file="menu/header.jsp" %>
+  <%@ include file="menu/mainmenu.jsp" %>
+  <div id="page">
+	<%@ include file="menu/sidemenu.jsp" %>	
+    <div class="width75 floatRight">
+      <div class="gradient">
+
+        <a name="fluidity"></a>
+
+        <h1>Login only for Admin ..!</h1>
+		
+		        <center>
+		<%
+			String msg="";
+			msg = request.getParameter("msg");
+			if(msg!=null)
+				out.println("<br>"+msg);
+		%>
+
+		<BR><BR>
+		<form id="formID" method="get" action="logcheck.jsp">
+        <table width="350px" border="0">
+        <tr height="60px">
+        <td width="136" align="center"> User Name:
+        	</td>
+			<td width="152"><input class="validate[required,custom[noSpecialCaracters],length[0,20],ajax[ajaxUser]]" type="text" name="user" id="user" /></td>
+            </tr>
+            <tr height="60px"><td width="136" align="center">PassWord : </td>
+            <td>
+			<input class="validate[required,length[2,11]]" type="password" name="password" id="firstname" />			</td>
+             <tr height="60px"><td colspan="2" align="center">
+			<input class="submit" type="submit" value="Log In"/>
+            </td>
+            </tr>
+          </table>
+		</form>
+        <br>
+</center>
+      </div>
+    </div>
+  </div>
+</div>
+<%@ include file="menu/footer.jsp" %>
+</div>
+</body></html>
+
+logout.jsp
+
+<%
+	session.removeAttribute("username");
+	response.sendRedirect("index.jsp");
+%>
+
+pop.jsp
+
+<html><head>
+  <title>Download Bollywood Songs</title>
+  <link media="screen, projection, tv " href="css/html.css" type="text/css" rel="stylesheet">
+  <link media="screen, projection, tv" href="css/layout.css" type="text/css" rel="stylesheet">
+</head><body>
+<div id="content">
+<%@ include file="menu/header.jsp" %>
+  <%@ include file="menu/pmainmenu.jsp" %>
+  <div id="page">
+	<%@ include file="menu/sidemenu.jsp" %>	
+    <div class="width75 floatRight">
+      <div class="gradient">
+        <h1>Download Bollywood Songs Here ..!</h1>
+		<%@ include file="add/ad90.jsp" %>	
+		<br>
+		<%@ include file="lastpopupdate.jsp" %>	
+      </div>
+    </div>
+  </div>
+</div>
+<%@ include file="menu/footer.jsp" %>
+</div>
+</body></html>
+
+search.jsp
+
+<html><head>
+  <title>Download Bollywood Songs</title>
+  <link media="screen, projection, tv " href="css/html.css" type="text/css" rel="stylesheet">
+  <link media="screen, projection, tv" href="css/layout.css" type="text/css" rel="stylesheet">
+  
+  <script type="text/javascript">
+function loadXMLDoc()
+{
+	var tex = document.srch.pname.value;
+	if(tex!=""){
+	for (var i=0; i<document.srch.type.length; i++)
+   		{
+   			if (document.srch.type[i].checked)
+      		{
+      			var rad_val = document.srch.type[i].value;
+				var url = 'srchdata.jsp?value='+tex+'&type='+rad_val;
+      		}
+		}	
+if (window.XMLHttpRequest)
+  {
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+xmlhttp.onreadystatechange=function()
+  {
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+    document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+    }
+  }
+xmlhttp.open("GET",url,true);
+xmlhttp.send();
+}
+}
+</script>
+
+</head><body>
+<div id="content">
+<%@ include file="menu/header.jsp" %>
+  <%@ include file="menu/smainmenu.jsp" %>
+  <div id="page">
+	<%@ include file="menu/sidemenu.jsp" %>	
+    <div class="width75 floatRight">
+      <div class="gradient">
+     <h1>Search Movie Song</h1>
+		
+		<%
+			String msg="";
+			msg = request.getParameter("msg");
+			if(msg!=null)
+				out.println("<br><center>"+msg+"</center><br>");
+		%>
+
+		
+		<form name="srch"  id="formID" method="get" action="">
+        <table width="95%" border="0" align="center" >
+        <tr height="40px">
+		
+		<td align="center">
+					<span>Bollywood </span>
+					<input type="radio" name="type" id="radio2"  value="b" checked />
+                    </td>
+            
+            <td>
+            <span>Pop</span>
+					<input type="radio" name="type"  id="radio1" value="p">
+                    
+                </td>
+       
+			<td width="152" align="right"><input onKeyUp="loadXMLDoc()" type="text" name="pname" id="pname" /></td>
+             <td  width="150px" align="left">
+			<input class="submit" type="button" onClick="loadXMLDoc()" value="search"/>
+            </td>
+            </tr>
+          </table>
+		</form>
+
+		<BR><BR>
+				<div id="myDiv"></div> 
+        <br>
+</center>
+      </div>
+    </div>
+  </div>
+</div>
+<%@ include file="menu/footer.jsp" %>
+</div>
+</body></html>
+
+searchdata.jsp
+
+<%@page import="java.sql.*" %>
+<%@include file="DConnection.jsp" %>
+
+<%
+ 		String id="";
+		id = request.getParameter("value");
+		if(id!=null){
+			 String type = request.getParameter("type");
+			 DConnection db = new DConnection();
+	 		 ResultSet rs1=null;
+	 		 String qry = "select m.id,m.name,l.link128,l.link320,l.limg from movie m,link l  where m.id=l.id and m.type='"+type+"' and m.name LIKE '"+id+"%' ORDER BY m.name";
+	 		 rs1 = db.getData(qry);
+	         String pid="",nm="",l12="",l32="",lim="";
+			 int i=0;
+			 out.println("<table border='0' align='center' width='94%'><tr align='center' height='50px'><td><b>Movie Name</b></td><td><b>Movie Name</b></td>");
+	         while(rs1.next()){
+				pid = rs1.getString("m.id");
+				nm = rs1.getString("m.name");
+				if(i%2==0){
+					out.println("</tr><tr>");
+				}
+				out.println("<td align='center'><a href='download.jsp?id="+pid+"' >"+nm+"</a></td>");	
+				i++;
+		  }
+			 out.println("</tr>");
+			 out.println("</table>");
+	 }
+		
+ %> 
+
+update.jsp
+
+<%@ include file="asession.jsp" %>
+<html><head>
+  <title>Download Bollywood Songs</title>
+  <link media="screen, projection, tv " href="css/html.css" type="text/css" rel="stylesheet">
+  <link media="screen, projection, tv" href="css/layout.css" type="text/css" rel="stylesheet">
+  
+  <script type="text/javascript">
+function loadXMLDoc()
+{
+	var tex = document.srch.pname.value;
+	if(tex!=""){
+	for (var i=0; i<document.srch.type.length; i++)
+   		{
+   			if (document.srch.type[i].checked)
+      		{
+      			var rad_val = document.srch.type[i].value;
+				var url = 'usdata.jsp?value='+tex+'&type='+rad_val;
+      		}
+		}	
+if (window.XMLHttpRequest)
+  {
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+xmlhttp.onreadystatechange=function()
+  {
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+    document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+    }
+  }
+xmlhttp.open("GET",url,true);
+xmlhttp.send();
+}
+}
+</script>
+
+</head><body>
+<div id="content">
+<%@ include file="menu/header.jsp" %>
+  <%@ include file="menu/dmainmenu.jsp" %>
+  <div id="page">
+	<%@ include file="menu/adminsidemenu.jsp" %>	
+    <div class="width75 floatRight">
+      <div class="gradient">
+<h1>Update Movie Song</h1>
+		
+		<%
+			String msg="";
+			msg = request.getParameter("msg");
+			if(msg!=null)
+				out.println("<br><center>"+msg+"</center><br>");
+		%>
+
+		
+		<form name="srch"  id="formID" method="get" action="">
+        <table width="95%" border="0" align="center" >
+        <tr height="40px">
+		
+		<td align="center">
+					<span>Bollywood </span>
+					<input type="radio" name="type" id="radio2"  value="b" checked />
+                    </td>
+            
+            <td>
+            <span>Pop</span>
+					<input type="radio" name="type"  id="radio1" value="p">
+                    
+                </td>
+       
+			<td width="152" align="right"><input onKeyUp="loadXMLDoc()" type="text" name="pname" id="pname" /></td>
+             <td  width="150px" align="left">
+			<input class="submit" type="button" onClick="loadXMLDoc()" value="search"/>
+            </td>
+            </tr>
+          </table>
+		</form>
+
+		<BR><BR>
+				<div id="myDiv"></div> 
+        <br>
+</center>
+      </div>
+    </div>
+  </div>
+</div>
+<%@ include file="menu/afooter.jsp" %>
+</div>
+</body></html>
+
+updatedata.jsp
+
+<%@page import="java.sql.*" %>
+<%@include file="DConnection.jsp" %>
+<%@ include file="asession.jsp" %>
+
+<%
+	
+	 String id = request.getParameter("id");
+	 String name = request.getParameter("name");
+	 String l128 = request.getParameter("l128");
+	 String l320 = request.getParameter("l320");
+	 String limg = request.getParameter("limg");
+	
+	 
+	 if(id!=""&&name!=""&&l128!=""&&l320!=""&&limg!=""){
+	 	DConnection db = new DConnection();
+	 	String qry1="update movie set name='"+name+"' where id='"+id+"'";
+	 	db.setData(qry1);
+		qry1="update link set link128='"+l128+"',link320='"+l320+"',limg='"+limg+"' where id='"+id+"'";
+	 	db.setData(qry1);
+		response.sendRedirect("update.jsp?msg=Update sucessful");
+	 }
+	else{
+		response.sendRedirect("update.jsp?msg=Update Unsucessful");
+	}
+%>
+
+usdata.jsp
+
+<%@page import="java.sql.*" %>
+<%@include file="DConnection.jsp" %>
+<%@ include file="asession.jsp" %>
+<%
+ 		String id="";
+		id = request.getParameter("value");
+		if(id!=null){
+			 String type = request.getParameter("type");
+			 DConnection db = new DConnection();
+	 		 ResultSet rs1=null;
+	 		 String qry = "select m.id,m.name,l.link128,l.link320,l.limg from movie m,link l  where m.id=l.id and m.type='"+type+"' and m.name LIKE '"+id+"%'";
+	 		 rs1 = db.getData(qry);
+	         String pid="",nm="",l12="",l32="",lim="";
+			 out.println("<table border='0' align='center' width='94%'><tr align='center' height='50px'><td><b>ID</b></td><td><b>Name</b></td><td><b>Link 128</b><td><b>Link 320</b></td><td><b>link img</b></td><td></td></tr>");
+	         while(rs1.next()){
+				pid = rs1.getString("m.id");
+				nm = rs1.getString("m.name");
+				l12 = rs1.getString("l.link128");
+				l32 = rs1.getString("l.link320");
+				lim = rs1.getString("l.limg");
+				%>	
+				<form method="get" action="updatedata.jsp" >
+                <tr align='center'>
+				 
+                	<td><% out.println(pid); %>
+					<input type='hidden' value=<%=pid %> name='id' />
+					</td>
+                    <td><input type="text" size="11" value="<%=nm%>" name="name" id="name" /></td>
+                    <td><input type="text" size="11" value="<%=l12%>" name="l128" id="l128" /> </td>
+                    <td><input type="text" size="11" value="<%=l32%>" name="l320" id="l320" /></td>
+					<td><input type="text" size="11" value="<%=lim%>" name="limg" id="limg" /></td>
+					<td><input type="submit" value="UPDATE" ></td>
+					
+                </tr>
+				
+				</form>
+		   <%  }
+			 out.println("</table>");
+	 }
+		
+ %> 
+
+vaddnew.jsp
+
+<%@page import="java.sql.*" %>
+<%@include file="VDConnection.jsp" %>
+<%@ include file="asession.jsp" %>
+
+<%	
+	 String name="";
+	 name = request.getParameter("name");
+	 if(name!=null){
+	 	String vlmp4 = request.getParameter("vlmp4");
+		String vlavi = request.getParameter("vlavi");
+	 	String vl3gp = request.getParameter("vl3gp");
+		String vlimg = request.getParameter("vlimg");
+		String type1 = request.getParameter("type");
+
+	 	VDConnection db = new VDConnection();
+	 	ResultSet rs1=null;
+	 	String qry = "select vname from video where vname='"+name+"'";
+	 	rs1 = db.getData(qry);
+	 	String pc="";
+	 	while(rs1.next()){
+			pc = rs1.getString("vname");
+		}
+		if(pc.equals("")){
+			String nb = "Select MAX(vid)'No' from video";
+			rs1 = db.getData(nb);
+			int id=0;
+			while(rs1.next()){			
+			id = rs1.getInt("No")+1;	
+			}
+			String qry1 = "insert into video values('"+id+"','"+name+"','"+type1+"','"+vlmp4+"','"+vlavi+"','"+vl3gp+"','"+vlimg+"',CURDATE()+0)";
+			db.setData(qry1);
+			response.sendRedirect("vaindex.jsp?msg=Video Add Sucessfuly");		
+		}
+		else{
+			response.sendRedirect("vaindex.jsp?msg=Video Already In Database");
+		}
+	 }
+%>
+
+vaindex.jsp
+
+<%@ include file="asession.jsp" %>
+<html><head>
+  <title>Download Bollywood Songs</title>
+  <link media="screen, projection, tv " href="css/html.css" type="text/css" rel="stylesheet">
+  <link media="screen, projection, tv" href="css/layout.css" type="text/css" rel="stylesheet">
+  
+  <script language="javascript" type="text/javascript">
+
+function valid()      
+{var v=true;
+	if(document.getElementById("name").value=="")
+	{
+		alert("Enter Movie name");
+		v=false;
+	}
+	else if(document.getElementById("vlmp4").value=="")
+	{
+		alert("Enter Link Mp4");
+		v=false;
+	}
+	else if(document.getElementById("vlavi").value=="")
+	{
+		alert("Enter Link avi");
+		v=false;
+	}
+	else if(document.getElementById("vl3gp").value=="")
+	{
+		alert("Enter Link 3gp");
+		v=false;
+	}
+	else if(document.getElementById("vlimg").value=="")
+	{
+		alert("Enter Link image");
+		v=false;
+	}	
+return v;
+}
+  
+  </script>
+</head><body>
+<div id="content">
+<%@ include file="menu/header.jsp" %>
+  <%@ include file="menu/dmainmenu.jsp" %>
+  <div id="page">
+	<%@ include file="menu/adminsidemenu.jsp" %>	
+    <div class="width75 floatRight">
+      <div class="gradient">
+        <h1>Add New Video Song</h1>		
+		        <center>
+		<%
+			String msg="";
+			msg = request.getParameter("msg");
+			if(msg!=null)
+				out.println("<br>"+msg);
+		%>
+
+		<BR><BR>
+		<form id="formID" method="get" action="vaddnew.jsp">
+        <table width="350px" border="0">
+        <tr height="60px">
+        <td width="136" align="center">Name:
+        	</td>
+			<td width="152"><input  type="text" name="name" id="name" /></td>
+            </tr>
+			
+			<tr height="60px">
+        <td width="136" align="center">Link Mp4:
+        	</td>
+			<td width="152"><input type="text" name="vlmp4" id="vlmp4" /></td>
+            </tr>
+
+			<tr height="60px">
+        <td width="136" align="center">Link avi:
+        	</td>
+			<td width="152"><input type="text" name="vlavi" id="vlavi" /></td>
+            </tr>
+
+			<tr height="60px">
+        <td width="136" align="center">Link 3gp:
+        	</td>
+			<td width="152"><input type="text" name="vl3gp" id="vl3gp" /></td>
+            </tr>
+			
+			<tr height="60px">
+        <td width="136" align="center">Link image:
+        	</td>
+			<td width="152"><input type="text" name="vlimg" id="vlimg" /></td>
+            </tr>
+			
+			       <tr align="center" height="50px">
+            <td>
+					<span>Bollywood </span>
+					<input type="radio" name="type" id="radio2"  value="b" checked />
+                    </td>
+            
+            <td>
+            <span>English</span>
+					<input type="radio" name="type"  id="radio1" value="e">
+                    
+                </td></tr>
+
+            <tr height="60px"><td colspan="2" align="center">
+			<input class="submit" type="submit" value="Submit" onclick="return valid();"/>
+            </td>
+            </tr>
+          </table>
+		</form>
+        <br>
+</center>
+      </div>
+    </div>
+  </div>
+</div>
+<%@ include file="menu/afooter.jsp" %>
+</div>
+</body></html>
+
+VDConnection.jsp
+
+<%@page import="java.sql.*" %>
+<%!
+public class VDConnection {
+
+    Connection con;
+    ResultSet rs=null;
+    Statement st;
+
+    public int setData(String str){
+        int i=0;
+        try{
+            Class.forName ("com.mysql.jdbc.Driver");
+            con=DriverManager.getConnection("jdbc:mysql://localhost/jayvik12?user=root&password=jayvik");
+            st=con.createStatement();
+            st.execute(str);
+            i = st.getUpdateCount();
+        }catch(Exception e){
+        }
+        return i;
+    }
+
+    public ResultSet getData(String str) {
+        try{
+            Class.forName ("com.mysql.jdbc.Driver");
+            con=DriverManager.getConnection("jdbc:mysql://localhost/jayvik12?user=root&password=jayvik");
+            st=con.createStatement();
+            rs = st.executeQuery(str);
+        }
+        catch (Exception e){
+       }
+        return rs;
+    }
+}
+%>
+
+vdelete.jsp
+
+<%@ include file="asession.jsp" %>
+<html><head>
+  <title>Download Bollywood Songs</title>
+  <link media="screen, projection, tv " href="css/html.css" type="text/css" rel="stylesheet">
+  <link media="screen, projection, tv" href="css/layout.css" type="text/css" rel="stylesheet">
+  
+  <script type="text/javascript">
+function loadXMLDoc()
+{
+var tex = document.srch.pname.value;
+	if(tex!=""){
+	for (var i=0; i<document.srch.type.length; i++)
+   		{
+   			if (document.srch.type[i].checked)
+      		{
+      			var rad_val = document.srch.type[i].value;
+				var url = 'vdsdata.jsp?value='+tex+'&type='+rad_val;
+      		}
+		}	
+if (window.XMLHttpRequest)
+  {
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+xmlhttp.onreadystatechange=function()
+  {
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+    document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+    }
+  }
+xmlhttp.open("GET",url,true);
+xmlhttp.send();
+}
+}
+</script>
+
+</head><body>
+<div id="content">
+<%@ include file="menu/header.jsp" %>
+  <%@ include file="menu/dmainmenu.jsp" %>
+  <div id="page">
+	<%@ include file="menu/adminsidemenu.jsp" %>	
+    <div class="width75 floatRight">
+      <div class="gradient">
+        <h1>Delete Video Song</h1>
+		<%
+			String msg="";
+			msg = request.getParameter("msg");
+			if(msg!=null)
+				out.println("<br><center>"+msg+"</center><br>");
+		%>
+
+		<form name="srch"  id="formID" method="get" action="">
+        <table width="95%" border="0" align="center" >
+        <tr height="40px">
+		
+		<td align="center">
+					<span>Bollywood </span>
+					<input type="radio" name="type" id="radio2"  value="b" checked />
+                    </td>
+            
+            <td>
+            <span>English</span>
+					<input type="radio" name="type"  id="radio1" value="e">
+                    
+                </td>
+       
+			<td width="152" align="right"><input onKeyUp="loadXMLDoc()" type="text" name="pname" id="pname" /></td>
+             <td  width="150px" align="left">
+			<input class="submit" type="button" onClick="loadXMLDoc()" value="search"/>
+            </td>
+            </tr>
+          </table>
+		</form>
+
+		<BR><BR>
+				<div id="myDiv"></div> 
+        <br>
+</center>
+      </div>
+    </div>
+  </div>
+</div>
+<%@ include file="menu/afooter.jsp" %>
+</div>
+</body></html>
+
+vdeletedata.jsp
+
+<%@page import="java.sql.*" %>
+<%@include file="VDConnection.jsp" %>
+<%@ include file="asession.jsp" %>
+
+<%
+	
+	 String id = request.getParameter("id");
+	 if(id!=""){
+	 	VDConnection db = new VDConnection();
+	 	String qry1="delete from video where vid='"+id+"'";
+	 	db.setData(qry1);
+		response.sendRedirect("vdelete.jsp?msg=delete sucessful");
+	 }
+	else{
+		response.sendRedirect("vdelete.jsp?msg=delete Unsucessful");
+	}
+%>
+
+vdsdata.jsp
+
+<%@page import="java.sql.*" %>
+<%@include file="VDConnection.jsp" %>
+<%@ include file="asession.jsp" %>
+<%
+ 		String id="";
+		id = request.getParameter("value");
+		if(id!=null){
+			 String type = request.getParameter("type");
+			 VDConnection db = new VDConnection();
+	 		 ResultSet rs1=null;
+	 		 String qry = "select vid,vname from video where vtype='"+type+"' and vname LIKE '"+id+"%'";
+	 		 rs1 = db.getData(qry);
+	         String pid="",nm="";
+			 out.println("<table border='0' align='center' width='94%'><tr align='center' height='50px'><td><b>ID</b></td><td><b>Name</b></td><td></td></tr>");
+	         while(rs1.next()){
+				pid = rs1.getString("vid");
+				nm = rs1.getString("vname");
+				%>	
+                <tr align='center'>
+                	<td><% out.println(pid); %></td>
+					<td><% out.println(nm); %></td>
+					<td><a href='vdeletedata.jsp?id=<%=pid %>' >Delete</a></td>
+                </tr>
+		   <%  }
+			 out.println("</table>");
+	 }
+ %> 
+
+vupdate.jsp
+
+<%@ include file="asession.jsp" %>
+<html><head>
+  <title>Download Bollywood Songs</title>
+  <link media="screen, projection, tv " href="css/html.css" type="text/css" rel="stylesheet">
+  <link media="screen, projection, tv" href="css/layout.css" type="text/css" rel="stylesheet">
+  
+  <script type="text/javascript">
+function loadXMLDoc()
+{
+	var tex = document.srch.pname.value;
+	if(tex!=""){
+	for (var i=0; i<document.srch.type.length; i++)
+   		{
+   			if (document.srch.type[i].checked)
+      		{
+      			var rad_val = document.srch.type[i].value;
+				var url = 'vusdata.jsp?value='+tex+'&type='+rad_val;
+      		}
+		}	
+if (window.XMLHttpRequest)
+  {
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+xmlhttp.onreadystatechange=function()
+  {
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+    document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+    }
+  }
+xmlhttp.open("GET",url,true);
+xmlhttp.send();
+}
+}
+</script>
+
+</head><body>
+<div id="content">
+<%@ include file="menu/header.jsp" %>
+  <%@ include file="menu/dmainmenu.jsp" %>
+  <div id="page">
+	<%@ include file="menu/adminsidemenu.jsp" %>	
+    <div class="width75 floatRight">
+      <div class="gradient">
+<h1>Update Video Song</h1>
+		
+		<%
+			String msg="";
+			msg = request.getParameter("msg");
+			if(msg!=null)
+				out.println("<br><center>"+msg+"</center><br>");
+		%>
+
+		
+		<form name="srch"  id="formID" method="get" action="">
+        <table width="95%" border="0" align="center" >
+        <tr height="40px">
+		
+		<td align="center">
+					<span>Bollywood </span>
+					<input type="radio" name="type" id="radio2"  value="b" checked />
+                    </td>
+            
+            <td>
+            <span>English</span>
+					<input type="radio" name="type"  id="radio1" value="e">
+                    
+                </td>
+       
+			<td width="152" align="right"><input onKeyUp="loadXMLDoc()" type="text" name="pname" id="pname" /></td>
+             <td  width="150px" align="left">
+			<input class="submit" type="button" onClick="loadXMLDoc()" value="search"/>
+            </td>
+            </tr>
+          </table>
+		</form>
+
+		<BR><BR>
+				<div id="myDiv"></div> 
+        <br>
+</center>
+      </div>
+    </div>
+  </div>
+</div>
+<%@ include file="menu/afooter.jsp" %>
+</div>
+</body></html>
+
+vupdatedata.jsp
+
+<%@page import="java.sql.*" %>
+<%@include file="VDConnection.jsp" %>
+<%@ include file="asession.jsp" %>
+
+<%
+	 String id = request.getParameter("id");
+	 String vname = request.getParameter("vname");
+	 String vlmp4 = request.getParameter("vlmp4");
+	 String vlavi = request.getParameter("vlavi");
+	 String vl3gp = request.getParameter("vl3gp");
+	 String vlimg = request.getParameter("vlimg");
+	 
+	 if(id!=""&&vname!=""&&vlmp4!=""&&vlavi!=""&&vl3gp!=""&&vlimg!=""){
+	 	VDConnection db = new VDConnection();
+		String qry1="update video set vname='"+vname+"',vlmp4='"+vlmp4+"',vlavi='"+vlavi+"',vl3gp='"+vl3gp+"',vlimg='"+vlimg+"' where vid='"+id+"'";
+	 	db.setData(qry1);
+		response.sendRedirect("vupdate.jsp?msg=Update sucessful");
+	 }
+	else{
+		response.sendRedirect("vupdate.jsp?msg=Update Unsucessful");
+	}
+%>
+
+vusdats.jsp
+
+<%@page import="java.sql.*" %>
+<%@include file="VDConnection.jsp" %>
+<%@ include file="asession.jsp" %>
+<%
+ 		String id="";
+		id = request.getParameter("value");
+		if(id!=null){
+			 String type = request.getParameter("type");
+			 VDConnection db = new VDConnection();
+	 		 ResultSet rs1=null;
+	 		 String qry = "select * from video where vtype='"+type+"' and vname LIKE '"+id+"%'";
+	 		 rs1 = db.getData(qry);
+	         String pid="",vname="",vlmp4="",vlavi="",vl3gp="",vlimg="";
+			 out.println("<table border='0' align='center' width='94%'><tr align='center' height='50px'><td><b>ID</b></td><td><b>Name</b></td><td><b>Mp4</b><td><b>avi</b></td><td><b>3gp</b></td><td><b>image</b></td><td></td></tr>");
+	         while(rs1.next()){
+				pid = rs1.getString("vid");
+				vname = rs1.getString("vname");
+				vlmp4 = rs1.getString("vlmp4");
+				vlavi = rs1.getString("vlavi");
+				vl3gp = rs1.getString("vl3gp");
+				vlimg = rs1.getString("vlimg");
+				%>	
+				<form method="get" action="vupdatedata.jsp" >
+                <tr align='center'>
+				 
+                	<td><% out.println(pid); %>
+					<input type='hidden' value=<%=pid %> name='id' />
+					</td>
+                    <td><input type="text" size="11" value="<%=vname%>" name="vname" id="vname" /></td>
+                    <td><input type="text" size="11" value="<%=vlmp4%>" name="vlmp4" id="vlmp4" /> </td>
+                    <td><input type="text" size="11" value="<%=vlavi%>" name="vlavi" id="vlavi" /></td>
+					<td><input type="text" size="11" value="<%=vl3gp%>" name="vl3gp" id="vl3gp" /></td>
+					<td><input type="text" size="11" value="<%=vlimg%>" name="vlimg" id="vlimg" /></td>
+					<td><input type="submit" value="UPDATE" ></td>
+                </tr>
+				</form>
+		   <%  }
+			 out.println("</table>");
+	 }
+ %> 
+
+Cascading Style Sheet:- 
+
+html.css
+
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font: 400 0.8em verdana, arial, sans-serif;
+  line-height: 170%;
+  background: #666 url(../images/bg/header.jpg) repeat-x top left;
+  color: #EEE;
+}
+h1 {   
+  clear: both;
+  font: 700 2.5em "trebuchet ms", serif;
+  color: #FFF;
+}
+h2 {
+  font: 400 1.5em "trebuchet ms", serif;
+  color: #9FF3FF;
+}
+h2 a {
+  color: #29E3FF;
+}
+h2 a:hover {
+  color: #FFF;
+}
+h3 {
+  font: 400 1.3em "trebuchet ms", serif;
+  color: #F8D766;
+}
+h4 {
+  font: 700 1.2em "trebuchet ms", serif;
+  color: #F39F01;
+}
+h5 {
+  font: 700 1.1em "trebuchet ms", serif;
+  color: #F17400;
+}
+h6 {
+  font: 700 1em "trebuchet ms", serif;
+  color: #FF4B33;
+}
+h1, h2, h3, h4, h5, h6, p, dl {
+  margin: 0;
+  padding: 10px 15px;
+}
+.leftColumn h1,
+.leftColumn h2, 
+.leftColumn h3,
+.leftColumn h4,
+.leftColumn h5,
+.leftColumn h6,
+.leftColumn p,
+.leftColumn dl {
+  padding-left: 0;
+}
+a {
+  color: #8BE6FA;
+}
+a:hover {
+  color: #FFF;
+}
+b {
+  color: #FFF;
+}
+ol, ul {
+  margin: 10px 30px;
+  padding: 0 30px;
+}
+ol {
+  color: #FC0;
+}
+ol span {
+  color: #EEE;
+}
+ul {
+  list-style-image: url(../images/bg/bullet.gif);
+}
+del {
+  color: #AAA;
+}
+code {
+  margin: 10px 15px;
+  padding: 10px;
+  display: block;
+  overflow: auto; 
+  font: 400 1em courier, monospace;
+  line-height: 120%;
+  white-space: pre;
+  background: #444;
+}
+.leftColumn code {
+  margin-left: 0;
+}
+acronym {
+  cursor: help;
+  border-bottom: 1px solid #777;
+}
+dt {
+  font-weight: bold;
+  color: #FFB323;
+}
+dd {
+  margin-left: 0;
+  padding-left: 45px; 
+}
+label {
+  display: block;
+}
+input,
+textarea,
+select {
+  padding: 2px;
+  font: 400 1em verdana, sans-serif;
+  color: #444;
+  background: #EEE;
+  border: 1px solid #444;
+}
+input:focus,
+input:hover,
+textarea:focus,
+textarea:hover,
+select:focus,
+select:hover {
+  color: #000;
+  background: #E4F7FA;
+  border: 1px solid #00DFFF;
+}
+input.button {
+  padding: 2px 5px;
+  font: 400 1.1em "trebuchet ms", serif;
+  color: #555;
+  background: #9FF3FF;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #FFF #00DFFF #00DFFF #FFF;
+}
+blockquote {
+  margin: 10px 15px;
+  padding-left: 27px; 
+  background-color: #444;  
+  background-image: url(../images/icons/quote.gif);
+  background-repeat: no-repeat;
+  background-position: 5px 50%;  
+}
+blockquote.exclamation {
+  background-image: url(../images/icons/exclamation.gif);
+}
+blockquote.stop {
+  background-image: url(../images/icons/stop.gif);
+}
+blockquote.go {
+  background-image: url(../images/icons/go.gif);
+}
+img.floatRight {
+  margin: 5px 0px 10px 15px;  
+}
+img.floatLeft {
+  margin: 5px 15px 10px 0px;
+}
+a img {  
+  border: 2px solid #8BE6FA;
+}
+a:hover img {  
+  border: 2px solid #FFF !important;
+  border: 2px solid #8BE6FA;
+}
+
+layout.css
+
+#content {  
+  height: 100%;
+  min-height: 100%;
+  text-align: left;
+}
+#content,
+#width {
+   width: expression(document.body.clientWidth > 1000 ? "1000px" : "94%");  
+  max-width: 1000px;
+  margin: 0 auto;
+}
+#content[id],
+#width[id] {
+  width: 94%;
+  height: auto;
+}
+#header {
+  position: relative;
+  height: 193px;
+}
+#header #title {
+  position: absolute;
+  z-index: 3;
+  top: 10px;
+  left: 130px;
+  padding: 5px;
+  text-align: right;
+}
+#header h1 {
+  margin: 0;
+  padding: 0;
+  font: 700 4em "trebuchet ms", serif;
+  letter-spacing: -3px;
+  text-transform: lowercase;
+  color: #FFF;
+}
+#header h2 {
+  position: absolute;
+  top: 10px;
+  right: 5px;
+  margin: 0;
+  padding: 0;
+  font: 700 1em "trebuchet ms", serif;
+  text-transform: lowercase;
+  color: #00F0EC;
+}
+#header img.left {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+}
+#header img.right {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  right: 0;
+}
+#header img.balloons {
+  position: absolute;
+  z-index: 2;
+  top: 70px;
+  right: 400px;
+}
+#mainMenu { 
+  float: left;
+  width: 100%;
+  clear: both;  
+}
+#mainMenu ul {
+  margin: 0;
+  padding: 0;
+}
+#mainMenu li {
+  display: inline;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+#mainMenu li a {
+  float: left;
+  margin: 0 2px;
+  padding: 5px 0.5em;
+  font: 400 1.6em "trebuchet ms", serif;
+  text-decoration: none;
+  text-transform: lowercase;
+  color: #FFF;
+}
+#mainMenu li a:hover,
+#mainMenu li a.here {
+  color: #65EBFF;
+  border-top: 5px solid #000;
+}
+#mainMenu li a.last {
+  margin-right: 0;
+}
+ul.sideMenu {
+  margin: 0;
+  padding: 0;
+}
+.sideMenu li {
+  display: inline;
+  list-style-image: url(foo.gif);
+  font: 400 1.3em "trebuchet ms", serif;
+}
+.sideMenu li a {
+  display: block;
+  margin: 0.2em 0;
+  padding: 3px 5px;     
+  text-decoration: none;
+  color: #FFF;
+} 
+.sideMenu li a:hover {
+  color: #65EBFF;
+  background: #5F5F5F;
+}
+.sideMenu li.here {
+  display: block;  
+  padding: 5px;
+  color: #65EBFF;
+  background: #555;
+}
+.sideMenu li.here ul {
+  margin: 0;
+  padding: 0;
+}
+.sideMenu li.here ul li a {
+  padding-left: 35px;
+  font: 400 0.55em verdana, arial, sans-serif; 
+  color: #FFF;  
+  background: url(../images/bg/bullet.gif) no-repeat 10px 0px;
+}
+.sideMenu li.here ul li a:hover {
+  color: #9FF3FF;
+  background: #5F5F5F url(../images/bg/bullet.gif) no-repeat 10px 0px;
+}
+#page {
+  float: left;
+  width: 100%;
+  clear: both; 
+  padding-bottom: 4em;
+}
+#footer {
+  float: left;
+  width: 100%;
+  clear: both; 
+  margin-top: -3.8em;
+  background: #000 url(../images/bg/footer.jpg) repeat-x top left;
+}
+#footer #width {
+  position: relative;
+  z-index: 3;
+  font-size: 0.85em;
+  padding-top: 27px;
+}
+.width100 {
+  width: 100%;
+}
+.width75 {
+  width: 74%;
+}
+.width50 {
+  width: 49.7%;
+}
+.width33 {
+  width: 32.7%;
+}
+.width25 {
+  width: 24.7%;
+}
+.floatLeft {
+  float: left;
+}
+.floatRight {
+  float: right;
+}
+.alignLeft {
+  text-align: left;
+}
+.alignRight {
+  text-align: right;
+}
+.clear {
+  clear: both;
+}
+.block {
+  display: block;
+}
+.small {
+  font-size: 0.8em;
+}
+.green {
+  color: #A1FF45;
+}
+.red {
+  color: #EA1B00;
+}
+.grey {
+  color: #666;
+}
+.grey a {
+  color: #999;
+}
+.grey a:hover {
+  color: #EEE;
+}
+.gradient {
+  margin-bottom: 2em;
+  background: #555 url(../images/bg/gradient.jpg) repeat-x bottom left; 
+}

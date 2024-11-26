@@ -1,0 +1,5 @@
+INDEX VERSION 1.4+C:\Users\Aman\Desktop\project synopsis\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+2376613404.index
+3974719065.index
+3123311169.index
+793870880.index

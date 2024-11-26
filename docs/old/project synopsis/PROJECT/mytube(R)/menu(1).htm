@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<attach event="onmouseover" handler="rollOver" />
+<attach event="onmouseout" handler="rollOff" />
+<script type="text/javascript">
+function rollOver() {
+  //change the colour
+  element.className += (element.className?' ':'') + 'CSStoHighlight';
+  //change display of child
+  for( var x = 0; element.childNodes[x]; x++ ){
+    if( element.childNodes[x].tagName == 'UL' ) { element.childNodes[x].className += (element.childNodes[x].className?' ':'') + 'CSStoShow'; }
+    if( element.childNodes[x].tagName == 'A' ) { element.childNodes[x].className += (element.childNodes[x].className?' ':'') + 'CSStoHighLink'; }
+  }
+}
+
+function rollOff() {
+  //change the colour
+  element.className = element.className.replace(/ ?CSStoHighlight$/,'');
+  //change display of child
+  for( var x = 0; element.childNodes[x]; x++ ){
+    if( element.childNodes[x].tagName == 'UL' ) { element.childNodes[x].className = element.childNodes[x].className.replace(/ ?CSStoShow$/,''); }
+    if( element.childNodes[x].tagName == 'A' ) { element.childNodes[x].className = element.childNodes[x].className.replace(/ ?CSStoHighLink$/,''); }
+  }
+}
+</script>
+
+<style type="text/css">
+ul.makeMenu, ul.makeMenu ul {
+  width: 120px;                 /* sets the size of the menu blocks */
+  border: 1px solid #000;      /* puts a black border around the menu blocks */
+  background-color: #Fa0;      /* makes the menu blocks mint green - a bg-color MUST be included for IE to work properly! */
+  padding-left: 0px;           /* stops the usual indent from ul */
+  cursor: default;             /* gives an arrow cursor */
+  margin-left: 0px;            /* Opera 7 final's margin and margin-box model cause problems */
+}
+ul.makeMenu li {
+  list-style-type: none;       /* removes the bullet points */
+  margin: 3px;                 /* Opera 7 puts large spacings between li elements */
+  position: relative;          /* makes the menu blocks be positioned relative to their parent menu item
+                                  the lack of offset makes these appear normal, but it will make a difference
+                                  to the absolutely positioned child blocks */
+  color: #000;                /* sets the default font colour to white */
+}
+ul.makeMenu li > ul {          /* using the > selector prevents many lesser browsers (and IE - see below) hiding child ULs */
+  display: none;               /* hides child menu blocks - one of the most important declarations */
+  position: absolute;          /* make child blocks hover without leaving space for them */
+  top: 5px;                    /* position slightly lower than the parent menu item */
+  left: 80px;                  /* this must not be more than the width of the parent block, or the mouse will
+                                  have to move off the element to move between blocks, and the menu will close */
+}
+ul.makeMenu li:hover, ul.makeMenu li.CSStoHighlight {
+  background-color: #ffa;      /* gives the active menu items a yellow background */
+  color: #000;                 /* makes the active menu item text black */ 
+}
+
+/* and some link styles */
+ul.makeMenu li a { color: #fff; display: block; width: 100%; text-decoration: none; }
+ul.makeMenu li a:hover, ul.makeMenu li a.CSStoHighLink { color: #000; }
+ul.makeMenu li:hover > a { color: #000; } /* supports links in branch headings - should not be display: block; */
+</style>
+
+</head>
+
+<body>
+<font face="Arial, Helvetica, sans-serif" size="-1">
+<ul class="makeMenu">
+  <li><a href="">About Us</a></li>
+  <li><hr></li>
+  <li><a href="">Copyright</a></li>
+   <li><hr></li>
+  <li><a href="">Elephant</a></li>
+   <li><hr></li>
+  <li><a href="">Contact Us</a></li>
+   <li><hr></li>
+   <li><a href="">Advertising</a></li>
+    <li><hr></li>
+   <li><a href="">Terms & Conditions</a></li>
+    <li><hr></li>
+  <li><a href="">Help</a></li>
+  </ul>  
+ </font> 
+</body>
+</html>

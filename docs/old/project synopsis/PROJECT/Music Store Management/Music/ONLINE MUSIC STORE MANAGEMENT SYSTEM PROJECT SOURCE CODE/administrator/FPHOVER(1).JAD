@@ -1,0 +1,496 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 06/04/2003 5:45:25 PM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   fphover.java
+
+import java.applet.*;
+import java.awt.*;
+import java.awt.image.FilteredImageSource;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+public class fphover extends Applet
+{
+
+    public boolean mouseMove(Event event, int i, int j)
+    {
+        return true;
+    }
+
+    public void stop()
+    {
+    }
+
+    public boolean mouseEnter(Event event, int i, int j)
+    {
+        m_hover = 1;
+        if(m_hoverAudio != null)
+            m_hoverAudio.play();
+        showStatus(m_url);
+        if(m_normalType != 1 || m_hoverType != 1 || !m_image.equals(m_hoverImage))
+            repaint();
+        return true;
+    }
+
+    public boolean mouseExit(Event event, int i, int j)
+    {
+        m_hover = 0;
+        if(m_normalType != 1 || m_hoverType != 1 || !m_image.equals(m_hoverImage))
+            repaint();
+        return true;
+    }
+
+    public void paint(Graphics g)
+    {
+        getXY();
+        if(m_hover == 0)
+        {
+            if(!m_srcImageError)
+                g.drawImage(m_srcImage, 0, 0, this);
+        } else
+        {
+            if(!m_srcHoverImageError)
+                g.drawImage(m_srcHoverImage, 0, 0, this);
+            if(m_effect == 5)
+            {
+                m_x--;
+                m_y--;
+            }
+            if(m_effect == 6)
+            {
+                m_x++;
+                m_y++;
+            }
+        }
+        if(m_textMask)
+        {
+            if(!m_textImageError)
+                g.drawImage(m_textImage, m_x, m_y, this);
+        } else
+        {
+            g.setColor(m_textColor);
+            g.drawString(m_text, m_x, m_y);
+        }
+    }
+
+    public boolean mouseUp(Event event, int i, int j)
+    {
+        if(!m_url.equalsIgnoreCase("") && m_docUrl != null)
+            if(m_target.equalsIgnoreCase(""))
+                getAppletContext().showDocument(m_docUrl);
+            else
+                getAppletContext().showDocument(m_docUrl, m_target);
+        if(m_audio != null)
+            m_audio.play();
+        return true;
+    }
+
+    public String[][] getParameterInfo()
+    {
+        String as[][] = {
+            {
+                "image", "String", "Normal button image"
+            }, {
+                "hoverImage", "String", "Hover button image"
+            }, {
+                "bgColor", "int", "Background color"
+            }, {
+                "color", "int", "Normal color"
+            }, {
+                "hoverColor", "int", "Hover color"
+            }, {
+                "effect", "int", "Effect for hover image"
+            }, {
+                "sound", "String", "Sound Url"
+            }, {
+                "hoverSound", "String", "Hover sound Url"
+            }, {
+                "url", "String", "Url"
+            }, {
+                "target", "String", "Target frame"
+            }, {
+                "text", "String", "Text"
+            }, {
+                "textColor", "int", "Text color"
+            }, {
+                "textAlign", "String", "Text alignment"
+            }, {
+                "textVAlign", "String", "Text vertical alignment"
+            }, {
+                "font", "String", "Font"
+            }, {
+                "fontStyle", "String", "Font style"
+            }, {
+                "fontSize", "int", "Font size in points"
+            }
+        };
+        return as;
+    }
+
+    public void destroy()
+    {
+    }
+
+    public fphover()
+    {
+        m_image = "";
+        m_hoverImage = "";
+        m_bgColor = Color.white;
+        m_color = Color.white;
+        m_hoverColor = Color.white;
+        m_effectString = "";
+        m_sound = "";
+        m_hoverSound = "";
+        m_url = "";
+        m_target = "";
+        m_text = "";
+        m_textColor = Color.black;
+        m_textAlign = "center";
+        m_textVAlign = "middle";
+        m_font = "Dialog";
+        m_fontStyle = "bold";
+        m_fontSize = 14;
+        m_hoverType = 2;
+    }
+
+    public void getXY()
+    {
+        m_w = size().width;
+        m_h = size().height;
+        m_x = 0;
+        m_y = 0;
+        if(m_textMask)
+        {
+            if(m_textImageWidth < 0 || m_textImageHeight < 0)
+                return;
+            if(m_iTextAlign == 0)
+                m_x = (m_w - m_textImageWidth) / 2;
+            else
+            if(m_iTextAlign == 1)
+                m_x = m_w - m_textImageWidth;
+            if(m_iTextVAlign == 0)
+                m_y = (m_h - m_textImageHeight) / 2;
+            else
+            if(m_iTextVAlign == 1)
+                m_y = m_h - m_textImageHeight;
+        } else
+        {
+            m_x = (m_w - m_textWidth) / 2;
+            m_y = ((m_h + m_fm.getAscent()) - m_fm.getDescent()) / 2;
+        }
+    }
+
+    public void update(Graphics g)
+    {
+        if(!m_noErase)
+            g.clearRect(0, 0, size().width, size().height);
+        paint(g);
+    }
+
+    public void start()
+    {
+    }
+
+    public String getAppletInfo()
+    {
+        return "Name: fphover\r\n" + "Author: Tom Blumer\r\n" + "Created with Microsoft Visual J++ Version 1.1";
+    }
+
+    public boolean mouseDown(Event event, int i, int j)
+    {
+        return true;
+    }
+
+    public void init()
+    {
+        String s = getParameter("image");
+        if(s != null)
+            m_image = s;
+        if(!m_image.equalsIgnoreCase(""))
+            m_normalType = 1;
+        s = getParameter("hoverImage");
+        if(s != null)
+            m_hoverImage = s;
+        if(!m_hoverImage.equalsIgnoreCase(""))
+            m_hoverType = 1;
+        s = getParameter("bgColor");
+        if(s != null)
+        {
+            if(s.charAt(0) == '#')
+                s = s.substring(1);
+            m_bgColor = new Color(Integer.parseInt(s, 16));
+        }
+        s = getParameter("color");
+        if(s != null)
+        {
+            if(s.charAt(0) == '#')
+                s = s.substring(1);
+            m_color = new Color(Integer.parseInt(s, 16));
+        }
+        s = getParameter("hoverColor");
+        if(s != null)
+        {
+            if(s.charAt(0) == '#')
+                s = s.substring(1);
+            m_hoverColor = new Color(Integer.parseInt(s, 16));
+        }
+        s = getParameter("effect");
+        if(s != null)
+            m_effectString = s;
+        m_effect = 2;
+        if(m_effectString.equalsIgnoreCase("fill"))
+            m_effect = 0;
+        else
+        if(m_effectString.equalsIgnoreCase("average"))
+            m_effect = 1;
+        else
+        if(m_effectString.equalsIgnoreCase("glow"))
+            m_effect = 2;
+        else
+        if(m_effectString.equalsIgnoreCase("reverseGlow"))
+            m_effect = 3;
+        else
+        if(m_effectString.equalsIgnoreCase("lightglow"))
+            m_effect = 4;
+        else
+        if(m_effectString.equalsIgnoreCase("bevelOut"))
+            m_effect = 5;
+        else
+        if(m_effectString.equalsIgnoreCase("bevelIn"))
+            m_effect = 6;
+        s = getParameter("sound");
+        if(s != null)
+            m_sound = s;
+        s = getParameter("hoverSound");
+        if(s != null)
+            m_hoverSound = s;
+        s = getParameter("url");
+        if(s != null)
+            m_url = s;
+        s = getParameter("target");
+        if(s != null)
+            m_target = s;
+        s = getParameter("text");
+        if(s != null)
+            m_text = s;
+        s = getParameter("textColor");
+        if(s != null)
+        {
+            if(s.charAt(0) == '#')
+                s = s.substring(1);
+            m_textColor = new Color(Integer.parseInt(s, 16));
+        }
+        s = getParameter("textAlign");
+        if(s != null)
+            m_textAlign = s;
+        m_iTextAlign = 0;
+        if(m_textAlign.equalsIgnoreCase("left"))
+            m_iTextAlign = -1;
+        else
+        if(m_textAlign.equalsIgnoreCase("right"))
+            m_iTextAlign = 1;
+        s = getParameter("textVAlign");
+        if(s != null)
+            m_textVAlign = s;
+        m_iTextVAlign = 0;
+        if(m_textVAlign.equalsIgnoreCase("top"))
+            m_iTextVAlign = -1;
+        else
+        if(m_textVAlign.equalsIgnoreCase("bottom"))
+            m_iTextVAlign = 1;
+        s = getParameter("font");
+        if(s != null)
+            m_font = s;
+        m_textMask = m_font.equalsIgnoreCase("") || m_font.equalsIgnoreCase("TextMask");
+        s = getParameter("fontStyle");
+        if(s != null)
+            m_fontStyle = s;
+        s = getParameter("fontSize");
+        if(s != null)
+            m_fontSize = Integer.parseInt(s);
+        setBackground(m_bgColor);
+        MediaTracker mediatracker = new MediaTracker(this);
+        if(m_textMask)
+        {
+            m_textImage = getImage(getDocumentBase(), m_text);
+            mediatracker.addImage(m_textImage, 1);
+        } else
+        {
+            byte byte0 = 0;
+            if(m_fontStyle.equalsIgnoreCase("bold"))
+                byte0 = 1;
+            if(m_fontStyle.equalsIgnoreCase("italic"))
+                byte0 = 2;
+            if(m_fontStyle.equalsIgnoreCase("bolditalic"))
+                byte0 = 3;
+            Font font = new Font(m_font, byte0, m_fontSize);
+            setFont(font);
+            m_fm = getFontMetrics(font);
+            m_textWidth = m_fm.stringWidth(m_text);
+        }
+        int i = size().width;
+        int j = size().height;
+        if(m_normalType == 1)
+        {
+            m_srcImage = getImage(getDocumentBase(), m_image);
+            mediatracker.addImage(m_srcImage, 2);
+        } else
+        {
+            m_srcImage = createImage(i, j);
+            Graphics g = m_srcImage.getGraphics();
+            g.setColor(m_color);
+            g.fillRect(0, 0, i, j);
+        }
+        if(m_hoverType == 1)
+        {
+            m_srcHoverImage = getImage(getDocumentBase(), m_hoverImage);
+            mediatracker.addImage(m_srcHoverImage, 3);
+        }
+        try
+        {
+            mediatracker.waitForAll();
+            m_textImageError = mediatracker.isErrorID(1);
+            m_srcImageError = mediatracker.isErrorID(2);
+            m_srcHoverImageError = mediatracker.isErrorID(3);
+        }
+        catch(InterruptedException _ex) { }
+        int k = m_srcImage.getWidth(this);
+        int l = m_srcImage.getHeight(this);
+        int i1 = k;
+        int j1 = l;
+        if(m_hoverType == 1)
+        {
+            i1 = m_srcHoverImage.getWidth(this);
+            j1 = m_srcHoverImage.getHeight(this);
+        }
+        if(m_textMask)
+        {
+            m_textImageWidth = m_textImage.getWidth(this);
+            m_textImageHeight = m_textImage.getHeight(this);
+        }
+        MediaTracker mediatracker1 = new MediaTracker(this);
+        m_applyEffectWait = false;
+        if(m_textMask && m_textColor != Color.black && !m_textImageError)
+        {
+            m_textImage = applyEffect(m_textImage, 7, m_textColor);
+            mediatracker1.addImage(m_textImage, 3);
+            m_applyEffectWait = true;
+        }
+        if(m_hoverType == 2)
+        {
+            m_srcHoverImage = applyEffect(m_srcImage, m_effect, m_hoverColor);
+            mediatracker1.addImage(m_srcHoverImage, 2);
+            m_applyEffectWait = true;
+        }
+        if(m_applyEffectWait)
+            try
+            {
+                mediatracker1.waitForAll();
+            }
+            catch(InterruptedException _ex) { }
+        try
+        {
+            m_docUrl = new URL(getDocumentBase(), m_url);
+        }
+        catch(MalformedURLException _ex) { }
+        if(!m_sound.equalsIgnoreCase(""))
+            m_audio = getAudioClip(getDocumentBase(), m_sound);
+        if(!m_hoverSound.equalsIgnoreCase(""))
+            m_hoverAudio = getAudioClip(getDocumentBase(), m_hoverSound);
+        if(k == i1 && l == j1 && k > 0 && l > 0)
+        {
+            m_noErase = true;
+            Image image = createImage(k, l);
+            Graphics g1 = image.getGraphics();
+            g1.setColor(m_bgColor);
+            g1.fillRect(0, 0, k, l);
+            g1.drawImage(m_srcImage, 0, 0, null);
+            m_srcImage = image;
+            Image image1 = createImage(k, l);
+            Graphics g2 = image1.getGraphics();
+            g2.setColor(m_bgColor);
+            g2.fillRect(0, 0, k, l);
+            g2.drawImage(m_srcHoverImage, 0, 0, null);
+            m_srcHoverImage = image1;
+        }
+    }
+
+    public boolean mouseDrag(Event event, int i, int j)
+    {
+        return true;
+    }
+
+    public Image applyEffect(Image image, int i, Color color)
+    {
+        int j = size().width;
+        int k = size().height;
+        fphoverx fphoverx1 = new fphoverx(j, k, color, i);
+        FilteredImageSource filteredimagesource = new FilteredImageSource(image.getSource(), fphoverx1);
+        Image image1 = createImage(filteredimagesource);
+        return image1;
+    }
+
+    private String m_image;
+    private String m_hoverImage;
+    private Color m_bgColor;
+    private Color m_color;
+    private Color m_hoverColor;
+    private String m_effectString;
+    private String m_sound;
+    private String m_hoverSound;
+    private String m_url;
+    private String m_target;
+    private String m_text;
+    private Color m_textColor;
+    private String m_textAlign;
+    private String m_textVAlign;
+    private String m_font;
+    private String m_fontStyle;
+    private int m_fontSize;
+    private final String PARAM_image = "image";
+    private final String PARAM_hoverImage = "hoverImage";
+    private final String PARAM_bgColor = "bgColor";
+    private final String PARAM_color = "color";
+    private final String PARAM_hoverColor = "hoverColor";
+    private final String PARAM_effect = "effect";
+    private final String PARAM_sound = "sound";
+    private final String PARAM_hoverSound = "hoverSound";
+    private final String PARAM_url = "url";
+    private final String PARAM_target = "target";
+    private final String PARAM_text = "text";
+    private final String PARAM_textColor = "textColor";
+    private final String PARAM_textAlign = "textAlign";
+    private final String PARAM_textVAlign = "textVAlign";
+    private final String PARAM_font = "font";
+    private final String PARAM_fontStyle = "fontStyle";
+    private final String PARAM_fontSize = "fontSize";
+    private int m_effect;
+    private Image m_srcImage;
+    private Image m_srcHoverImage;
+    private AudioClip m_audio;
+    private AudioClip m_hoverAudio;
+    private URL m_docUrl;
+    private int m_hover;
+    private int m_textWidth;
+    private boolean m_textMask;
+    private Image m_textImage;
+    private int m_iTextAlign;
+    private int m_iTextVAlign;
+    private int m_textImageWidth;
+    private int m_textImageHeight;
+    private boolean m_textImageError;
+    private boolean m_srcImageError;
+    private boolean m_srcHoverImageError;
+    private boolean m_applyEffectWait;
+    private FontMetrics m_fm;
+    private static final int COLOR = 0;
+    private static final int IMAGE = 1;
+    private static final int EFFECT = 2;
+    private int m_normalType;
+    private int m_hoverType;
+    private boolean m_noErase;
+    private int m_w;
+    private int m_h;
+    private int m_x;
+    private int m_y;
+}

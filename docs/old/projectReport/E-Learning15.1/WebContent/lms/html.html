@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <!DOCTYPE html>
+    <!-- Created By CodingNepal - www.codingnepalweb.com -->
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!--  <title>Responsive Sticky Navbar | CodingNepal</title> -->
+        <link rel="stylesheet" href="style.css">
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    </head>
+    <body>
+      <nav class="navbar">
+        <div class="content">
+          <div class="logo">
+            <a href="#">CodingNepal</a>
+          </div>
+          <ul class="menu-list">
+            <div class="icon cancel-btn">
+              <i class="fas fa-times"></i>
+            </div>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Features</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+          <div class="icon menu-btn">
+            <i class="fas fa-bars"></i>
+          </div>
+        </div>
+      </nav>
+      <div class="banner"></div>
+      <div class="about">
+        <div class="content">
+          <div class="title" >My Project</div>
+<br>      
+
+
+          <div class="container">
+            <div class="card">
+              <div class="img">
+                <img src="#">
+              </div>
+      <div class="top-text">
+                <div class="name">
+      Annie Lea</div>
+      <p>
+      Apps Developer</p>
+      </div>
+      <div class="bottom-text">
+                <div class="text">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem quaerat iusto adipisci reprehenderit quasi cum perspiciatis, minima reiciendis magni quam!</div>
+      <div class="btn">
+                  <a href="#">Read more</a>
+                </div>
+      </div>
+      </div>
+      <div class="card">
+              <div class="img">
+                <img src="#">
+              </div>
+      <div class="top-text">
+                <div class="name">
+      Eliana Maia</div>
+      <p>
+      Website Developer</p>
+      </div>
+      <div class="bottom-text">
+                <div class="text">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem quaerat iusto adipisci reprehenderit quasi cum perspiciatis, minima reiciendis magni quam!</div>
+      <div class="btn">
+                  <a href="#">Read more</a>
+                </div>
+      </div>
+      </div>
+      <div class="card">
+              <div class="img">
+                <img src="#">
+              </div>
+      <div class="top-text">
+                <div class="name">
+      Harley Briana</div>
+      <p>
+      Graphic Developer</p>
+      </div>
+      <div class="bottom-text">
+                <div class="text">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem quaerat iusto adipisci reprehenderit quasi cum perspiciatis, minima reiciendis magni quam!</div>
+      <div class="btn">
+                  <a href="#">Read more</a>
+                </div>
+      </div>
+      </div>
+      </div>
+
+
+        </div>
+      </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <script>
+        const body = document.querySelector("body");
+        const navbar = document.querySelector(".navbar");
+        const menuBtn = document.querySelector(".menu-btn");
+        const cancelBtn = document.querySelector(".cancel-btn");
+        menuBtn.onclick = ()=>{
+          navbar.classList.add("show");
+          menuBtn.classList.add("hide");
+          body.classList.add("disabled");
+        }
+        cancelBtn.onclick = ()=>{
+          body.classList.remove("disabled");
+          navbar.classList.remove("show");
+          menuBtn.classList.remove("hide");
+        }
+        window.onscroll = ()=>{
+          this.scrollY > 20 ? navbar.classList.add("sticky") : navbar.classList.remove("sticky");
+        }
+      </script>
+    
+</body>
+</html>

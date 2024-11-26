@@ -1,0 +1,28 @@
+Simple FLV conversion instructions
+----------------------------------
+
+
+1. Put the ffmpeg application in your home directory (e.g. c:\\Documents and Settings\Alx)
+
+2. Put an FLV file such as football.flv in your home directory
+
+3. Access a command prompt using Start Menu -> All Programs -> Accessories -> Command Prompt
+
+4. At the command prompt, type the following (and hit enter) 
+
+
+ffmpeg -i football.flv football.wmv
+
+
+You should now find a WMV version of the FLV file in your home directory.
+
+Note that you can use FFmpeg to convert many other formats too. The full original tutorial 
+with screenshots is at ...
+
+http://www.worldtv.com/blog/guides_tutorials/flv_converter.php
+
+This simple FLV for Windows pack is provided as a free service by WorldTV.com
+Original compilation by http://arrozcru.no-ip.org
+
+------------------------------------------------------------------------------------------
+For full documentation and sources visit http://ffmpeg.mplayerhq.hu

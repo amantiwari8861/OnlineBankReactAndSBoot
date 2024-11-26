@@ -1,0 +1,9 @@
+ru\gothmog\ws\entity\Users.class
+ru\gothmog\ws\entity\Order.class
+ru\gothmog\ws\entity\Author.class
+ru\gothmog\ws\entity\Book.class
+ru\gothmog\ws\entity\Customer.class
+ru\gothmog\ws\entity\OrderDetail.class
+ru\gothmog\ws\entity\Category.class
+ru\gothmog\ws\entity\Review.class
+ru\gothmog\ws\entity\User.class

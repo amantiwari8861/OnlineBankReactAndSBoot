@@ -1,0 +1,7 @@
+ProcessBuilder proc =  new ProcessBuilder();
+            proc.directory(new File("C:\\Documents and Settings\\designer\\My Documents\\NetBeansProjects\\demo\\web\\temp\\ffmpeg.exe"));
+            proc.command(commend);
+            Process p=proc.start();
+            
+            
+Process p=Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExecRunDLL" +"C:/Documents and Settings/designer/My Documents/NetBeansProjects/demo/web/temp/ffmpeg.exe ffmpeg -i dog1.avi -ab 32 -ar 22050 -f flv a.flv");

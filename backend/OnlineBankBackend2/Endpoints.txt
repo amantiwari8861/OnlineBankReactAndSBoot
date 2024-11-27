@@ -1,0 +1,41 @@
+// Admin Endpoints
+POST    http://localhost:9090/api/v1/admins          // Create a new Admin
+GET     http://localhost:9090/api/v1/admins/{id}     // Get Admin by ID
+PUT     http://localhost:9090/api/v1/admins/{id}     // Update Admin by ID
+DELETE  http://localhost:9090/api/v1/admins/{id}     // Delete Admin by ID
+GET     http://localhost:9090/api/v1/admins          // Get all Admins
+
+// Customer Endpoints
+POST    http://localhost:9090/api/v1/customers       // Create a new Customer
+GET     http://localhost:9090/api/v1/customers/{id}  // Get Customer by ID
+PUT     http://localhost:9090/api/v1/customers/{id}  // Update Customer by ID
+DELETE  http://localhost:9090/api/v1/customers/{id}  // Delete Customer by ID
+GET     http://localhost:9090/api/v1/customers       // Get all Customers
+
+// Manager Endpoints
+POST    http://localhost:9090/api/v1/managers        // Create a new Manager
+GET     http://localhost:9090/api/v1/managers/{id}   // Get Manager by ID
+PUT     http://localhost:9090/api/v1/managers/{id}   // Update Manager by ID
+DELETE  http://localhost:9090/api/v1/managers/{id}   // Delete Manager by ID
+GET     http://localhost:9090/api/v1/managers        // Get all Managers
+
+// Employee Endpoints
+POST    http://localhost:9090/api/v1/employees       // Create a new Employee
+GET     http://localhost:9090/api/v1/employees/{id}  // Get Employee by ID
+PUT     http://localhost:9090/api/v1/employees/{id}  // Update Employee by ID
+DELETE  http://localhost:9090/api/v1/employees/{id}  // Delete Employee by ID
+GET     http://localhost:9090/api/v1/employees       // Get all Employees
+
+// Transaction Endpoints
+POST    http://localhost:9090/api/v1/transactions    // Create a new Transaction
+GET     http://localhost:9090/api/v1/transactions/{id} // Get Transaction by ID
+PUT     http://localhost:9090/api/v1/transactions/{id} // Update Transaction by ID
+DELETE  http://localhost:9090/api/v1/transactions/{id} // Delete Transaction by ID
+GET     http://localhost:9090/api/v1/transactions    // Get all Transactions
+
+// Role Endpoints
+POST    http://localhost:9090/api/v1/roles           // Create a new Role
+GET     http://localhost:9090/api/v1/roles/{id}      // Get Role by ID
+PUT     http://localhost:9090/api/v1/roles/{id}      // Update Role by ID
+DELETE  http://localhost:9090/api/v1/roles/{id}      // Delete Role by ID
+GET     http://localhost:9090/api/v1/roles           // Get all Roles

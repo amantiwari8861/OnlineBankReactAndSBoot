@@ -58,17 +58,17 @@ public class UserServiceImpl implements UserService{
 		return repository.findAll();
 	}
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    // @Override
+    // public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        User user = this.userRepository.findByUsername(username).orElseThrow(()->new IllegalArgumentException());
-        return user;
+    //     User user = this.userRepository.findByUsername(username).orElseThrow(()->new IllegalArgumentException());
+    //     return user;
 
-    }
+    // }
 
-    @Override
-    public User addUser(User user) {
-        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-        return userRepository.save(user);
-    }
+    // @Override
+    // public User addUser(User user) {
+    //     user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+    //     return userRepository.save(user);
+    // }
 }

@@ -13,7 +13,7 @@ public interface UserService
 	public List<Customer> getAllUsers();
 	Customer getUserByAccountNumber(Long accountNumber);
 
-    User addUser(User user);
+    // User addUser(User user);
 
 
 }

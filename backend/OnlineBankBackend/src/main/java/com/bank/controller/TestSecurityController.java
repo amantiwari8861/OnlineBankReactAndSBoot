@@ -1,6 +1,6 @@
 package com.bank.controller;
 
-import org.springframework.security.access.prepost.PreAuthorize;
+// import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +18,7 @@ public class TestSecurityController {
 	
 //	@PreAuthorize("hasRole('ADMIN')") //In DB ROLE_ADMIN is compulsory
 //	@PreAuthorize("hasRole('USER')") //In DB ROLE_ADMIN is compulsory
-	@PreAuthorize("hasRole('Manager')") //In DB ROLE_Manager is compulsory
+	// @PreAuthorize("hasRole('Manager')") //In DB ROLE_Manager is compulsory
 	@DeleteMapping("/del")
 	String del()
 	{

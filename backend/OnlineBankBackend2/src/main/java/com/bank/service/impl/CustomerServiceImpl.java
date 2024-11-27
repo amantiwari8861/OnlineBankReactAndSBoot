@@ -3,6 +3,9 @@ package com.bank.service.impl;
 import com.bank.model.entities.Customer;
 import com.bank.repository.CustomerRepository;
 import com.bank.service.CustomerService;
+
+import jakarta.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +19,7 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerRepository customerRepository;
 
     @Override
+    @Transactional
     public Customer saveCustomer(Customer customer) {
         return customerRepository.save(customer);
     }

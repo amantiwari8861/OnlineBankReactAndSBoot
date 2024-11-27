@@ -3,6 +3,7 @@ package com.bank.controller;
 import com.bank.model.entities.Customer;
 import com.bank.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,8 +16,9 @@ public class CustomerController {
     private CustomerService customerService;
 
     @PostMapping
+    @Transactional
     public Customer createCustomer(@RequestBody Customer customer) {
-    	System.out.println(customer);
+        System.out.println("Received Request Body: " + customer);
         return customerService.saveCustomer(customer);
     }
 

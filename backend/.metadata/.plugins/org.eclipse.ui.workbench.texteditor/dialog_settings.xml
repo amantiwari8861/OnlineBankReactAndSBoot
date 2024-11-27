@@ -3,11 +3,16 @@
 	<item key="hasShownOverlayPopupBefore" value="true"/>
 	<item key="replaceBarOpen" value="true"/>
 	<list key="replacehistory">
-		<item value="Customer"/>
+		<item value="transaction"/>
+		<item value="Transaction"/>
 		<item value="Admin"/>
+		<item value="Customer"/>
 	</list>
 	<list key="searchhistory">
-		<item value="User"/>
+		<item value="private "/>
+		<item value="customer"/>
 		<item value="Customer"/>
+		<item value="Employee"/>
+		<item value="User"/>
 	</list>
 </section>

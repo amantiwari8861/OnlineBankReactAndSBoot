@@ -1,7 +1,11 @@
 // Customer
 package com.bank.model.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,12 +13,21 @@ import lombok.Setter;
 import java.time.LocalDate;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
-public class Customer extends User {
+public class Customer {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
+	@Column(unique = true, nullable = false)
+	String username;
+
+	String password;
+
+	String email;
+	boolean isAccountNonExpired = true;
+	boolean isAccountNonLocked = true;
+	boolean isCredentialsNonExpired = true;
+	boolean isEnabled = true;
 	private String firstName;
 	private String lastName;
 	private String phoneNumber;
@@ -23,6 +36,70 @@ public class Customer extends User {
 
 	private String accountType;
 	private long accountNumber;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public boolean isAccountNonExpired() {
+		return isAccountNonExpired;
+	}
+
+	public void setAccountNonExpired(boolean isAccountNonExpired) {
+		this.isAccountNonExpired = isAccountNonExpired;
+	}
+
+	public boolean isAccountNonLocked() {
+		return isAccountNonLocked;
+	}
+
+	public void setAccountNonLocked(boolean isAccountNonLocked) {
+		this.isAccountNonLocked = isAccountNonLocked;
+	}
+
+	public boolean isCredentialsNonExpired() {
+		return isCredentialsNonExpired;
+	}
+
+	public void setCredentialsNonExpired(boolean isCredentialsNonExpired) {
+		this.isCredentialsNonExpired = isCredentialsNonExpired;
+	}
+
+	public boolean isEnabled() {
+		return isEnabled;
+	}
+
+	public void setEnabled(boolean isEnabled) {
+		this.isEnabled = isEnabled;
+	}
 
 	public String getFirstName() {
 		return firstName;
@@ -82,9 +159,12 @@ public class Customer extends User {
 
 	@Override
 	public String toString() {
-		return super.toString()+"Customer [firstName=" + firstName + ", lastName=" + lastName + ", phoneNumber=" + phoneNumber
-				+ ", address=" + address + ", dateOfBirth=" + dateOfBirth + ", accountType=" + accountType
-				+ ", accountNumber=" + accountNumber + "]";
+		return "Customer [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email
+				+ ", isAccountNonExpired=" + isAccountNonExpired + ", isAccountNonLocked=" + isAccountNonLocked
+				+ ", isCredentialsNonExpired=" + isCredentialsNonExpired + ", isEnabled=" + isEnabled + ", firstName="
+				+ firstName + ", lastName=" + lastName + ", phoneNumber=" + phoneNumber + ", address=" + address
+				+ ", dateOfBirth=" + dateOfBirth + ", accountType=" + accountType + ", accountNumber=" + accountNumber
+				+ "]";
 	}
 
 }

@@ -6,6 +6,16 @@
     <fullyQualifiedTypeName name="jakarta.persistence.Id"/>
     <fullyQualifiedTypeName name="jakarta.persistence.MappedSuperclass"/>
     <fullyQualifiedTypeName name="com.bank.model.entities.Manager"/>
-    <fullyQualifiedTypeName name="com.bank.model.entities.User"/>
     <fullyQualifiedTypeName name="com.bank.repository.CustomerRepository"/>
+    <fullyQualifiedTypeName name="com.bank.model.entities.Admin"/>
+    <fullyQualifiedTypeName name="com.bank.model.entities.Transaction"/>
+    <fullyQualifiedTypeName name="com.bank.model.entities.User"/>
+    <fullyQualifiedTypeName name="com.bank.repository.TransactionRepository"/>
+    <fullyQualifiedTypeName name="com.bank.service.TransactionService"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.Entity"/>
+    <fullyQualifiedTypeName name="org.springframework.stereotype.Repository"/>
+    <fullyQualifiedTypeName name="com.bank.service.CustomerService"/>
+    <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
+    <fullyQualifiedTypeName name="jakarta.transaction.Transactional"/>
+    <fullyQualifiedTypeName name="org.springframework.ui.Model"/>
 </qualifiedTypeNameHistroy>

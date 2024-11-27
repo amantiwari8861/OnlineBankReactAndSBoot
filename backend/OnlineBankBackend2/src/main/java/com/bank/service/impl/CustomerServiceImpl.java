@@ -1,16 +1,15 @@
 package com.bank.service.impl;
 
-import com.bank.model.entities.Customer;
-import com.bank.repository.CustomerRepository;
-import com.bank.service.CustomerService;
-
-import jakarta.transaction.Transactional;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
+import com.bank.model.entities.Customer;
+import com.bank.repository.CustomerRepository;
+import com.bank.service.CustomerService;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -21,6 +20,8 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     @Transactional
     public Customer saveCustomer(Customer customer) {
+        // System.out.println(customer);
+        // System.out.println(customerRepository.findById(customer.getId()));
         return customerRepository.save(customer);
     }
 

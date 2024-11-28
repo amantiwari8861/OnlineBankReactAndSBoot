@@ -1,7 +1,7 @@
-import  { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import Sidebar from '../Borrowers/BorrowerSidebar';
+import Sidebar from '../Customers/CustomerSidebar';
 
 
 const RepaymentManagement = () => {
@@ -10,17 +10,17 @@ const RepaymentManagement = () => {
   const [amount, setAmount] = useState('');
   const [date, setDate] = useState('');
   const [loanId, setLoanId] = useState('');
-  const [borrowerId, setBorrowerId] = useState(''); 
+  const [customerId, setCustomerId] = useState('');
   const [error, setError] = useState('');
 
   useEffect(() => {
     fetchRepaymentHistory();
     fetchUpcomingRepayments();
-  }, []); 
+  }, []);
 
   const fetchRepaymentHistory = async () => {
     try {
-      const response = await axios.get(import.meta.env.VITE_API_URL+`/borrower-repayment/${borrowerId}`);
+      const response = await axios.get(import.meta.env.VITE_API_URL + `/customer-repayment/${customerId}`);
       setRepayments(response.data);
     } catch (error) {
       console.error('Error fetching repayment history:', error);
@@ -29,7 +29,7 @@ const RepaymentManagement = () => {
 
   const fetchUpcomingRepayments = async () => {  // Function to fetch upcoming repayments
     try {
-      const response = await axios.get(import.meta.env.VITE_API_URL+`/loans/${borrowerId}/upcoming-repayments`);
+      const response = await axios.get(import.meta.env.VITE_API_URL + `/loans/${customerId}/upcoming-repayments`);
       setUpcomingRepayments(response.data);
     } catch (error) {
       console.error('Error fetching upcoming repayments:', error);
@@ -44,7 +44,7 @@ const RepaymentManagement = () => {
     }
 
     try {
-      await axios.post(import.meta.env.VITE_API_URL+'/borrower-repayment', { amount, date, loanId, borrowerId });
+      await axios.post(import.meta.env.VITE_API_URL + '/customer-repayment', { amount, date, loanId, customerId });
       fetchRepaymentHistory();
       fetchUpcomingRepayments();
       setAmount('');
@@ -59,7 +59,7 @@ const RepaymentManagement = () => {
 
   return (
     <div className="flex">
-      <Sidebar userRole="borrower" />
+      <Sidebar userRole="customer" />
       <div className="container mx-auto p-4">
         <h2 className="text-2xl font-bold mb-4">Repayment Management</h2>
 
@@ -108,8 +108,8 @@ const RepaymentManagement = () => {
             </button>
             {/* New Button on the same line */}
             <Link to="/pay-stack-payment" className="ml-4 bg-green-500 text-white px-4 py-2 rounded-lg">
-            Another Action
-          </Link>
+              Another Action
+            </Link>
           </div>
         </form>
 

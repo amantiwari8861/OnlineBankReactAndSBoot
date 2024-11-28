@@ -7,25 +7,29 @@ import auth from '../assets/auth.png';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
+  const [role, setRole] = useState('customer');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
   const handleSignIn = async (e) => {
     e.preventDefault();
     try {
-       //when deploying I changed the backedn path based on the backend path from where our backedn runs online
-      const response = await axios.post(import.meta.env.VITE_API_URL+'/users/login', { email, password });
-      if (response.data.token && response.data.role) {
-        const token = response.data.token;
-        const userRole = response.data.role;
-
-        localStorage.setItem('token', token);
+      //when deploying I changed the backedn path based on the backend path from where our backedn runs online
+      const response = await axios.post(import.meta.env.VITE_API_URL + '/auth/login', { email, password, role });
+      console.log("Response:",response);
+      localStorage.setItem("customer",JSON.stringify(response.data.data));
+      
+      if (response.data.data.accountNumber && response.data.data.role) {
+        const accountNumber = response.data.data.accountNumber;
+        const userRole = response.data.data.role;
+        localStorage.setItem('accountNumber', accountNumber);
         localStorage.setItem('role', userRole);
 
         toast.success('Login successful!');
-        if (userRole === 'admin') navigate('/admin/dashboard');
-        else if (userRole === 'lender') navigate('/lender/dashboard');
-        else navigate('/borrower/dashboard');
+        if (userRole === 'admin') navigate('/dashboard/admin');
+        else if (userRole === 'employee') navigate('/dashboard/employee');
+        else if (userRole === 'manager') navigate('/dashboard/manager');
+        else navigate('/dashboard/customer');
       }
     } catch (error) {
       const errorMessage = error.response?.data?.message || 'Login failed. Please try again.';
@@ -62,6 +66,20 @@ const SignIn = () => {
               placeholder="********"
             />
           </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">Role</label>
+            <select
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600"
+            >
+              <option value="customer">customer</option>
+              <option value="admin">admin</option>
+              <option value="manager">manager</option>
+              <option value="employee">employee</option>
+            </select>
+          </div>
+
           <button className="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition duration-200">
             Sign In
           </button>

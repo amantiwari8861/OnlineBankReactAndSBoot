@@ -15,7 +15,14 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box !important;
+}
+html{
+  scroll-behavior: smooth;
+}
 /* Hide sidebar on small screens */
 @media (max-width: 768px) {
   .sidebar {
@@ -29,3 +36,7 @@
   }
 }
 
+.dark{
+  background-color: rgb(26, 25, 25) !important;
+  color:rgb(249, 249, 249) !important;
+}

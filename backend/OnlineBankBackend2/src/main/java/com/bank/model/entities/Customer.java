@@ -11,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -25,12 +26,15 @@ import jakarta.validation.constraints.Size;
 public class Customer {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-
-	@NotNull(message = "Username cannot be null")
-	@Size(min = 3, max = 50, message = "Username must be between 3 and 50 characters")
+	@Positive(message = "Account number must be a positive number")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_seq")
+	@SequenceGenerator(name = "account_seq", sequenceName = "account_seq", initialValue = 483800150, allocationSize = 1)
 	@Column(unique = true, nullable = false)
+	private long accountNumber;
+
+	private long id;
+
+	@Size(min = 3, max = 50, message = "Username must be between 3 and 50 characters")
 	private String username;
 
 	@NotNull(message = "Password cannot be null")
@@ -38,7 +42,9 @@ public class Customer {
 	@Column(nullable = false)
 	private String password;
 
+	@Column(unique = true, nullable = false)
 	@Email(message = "Email should be valid")
+	@NotNull(message = "Email cannot be null")
 	private String email;
 
 	@NotBlank(message = "First name is required")
@@ -56,11 +62,9 @@ public class Customer {
 	private LocalDate dateOfBirth;
 
 	@NotBlank(message = "Account type is required")
-	private String accountType;
+	private String accountType = "Saving";
 
-	@Positive(message = "Account number must be a positive number")
-	private long accountNumber;
-
+	String role = "ROLE_CUSTOMER";
 	@JsonIgnore
 	@OneToMany(mappedBy = "customer") // 'customer' is the field in the Transaction class
 	private Set<Transaction> transactions;
@@ -70,12 +74,8 @@ public class Customer {
 	private boolean isCredentialsNonExpired = true;
 	private boolean isEnabled = true;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
+	Customer() {
+		this.id = this.accountNumber;
 	}
 
 	public String getUsername() {
@@ -155,6 +155,7 @@ public class Customer {
 	}
 
 	public void setAccountNumber(long accountNumber) {
+		this.id=accountNumber;
 		this.accountNumber = accountNumber;
 	}
 
@@ -198,13 +199,30 @@ public class Customer {
 		this.isEnabled = isEnabled;
 	}
 
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	@Override
 	public String toString() {
-		return "Customer [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email
+		return "Customer [accountNumber=" + accountNumber + ", id=" + id + ", username=" + username + ", password="
+				+ password + ", email=" + email + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", phoneNumber=" + phoneNumber + ", address=" + address + ", dateOfBirth=" + dateOfBirth
+				+ ", accountType=" + accountType + ", role=" + role + ", transactions=" + transactions
 				+ ", isAccountNonExpired=" + isAccountNonExpired + ", isAccountNonLocked=" + isAccountNonLocked
-				+ ", isCredentialsNonExpired=" + isCredentialsNonExpired + ", isEnabled=" + isEnabled + ", firstName="
-				+ firstName + ", lastName=" + lastName + ", phoneNumber=" + phoneNumber + ", address=" + address
-				+ ", dateOfBirth=" + dateOfBirth + ", accountType=" + accountType + ", accountNumber=" + accountNumber
-				+ ", transactions=" + transactions + "]";
+				+ ", isCredentialsNonExpired=" + isCredentialsNonExpired + ", isEnabled=" + isEnabled + "]";
 	}
+
 }

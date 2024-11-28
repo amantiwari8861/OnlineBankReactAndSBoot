@@ -8,20 +8,22 @@ const Navbar = () => {
       <div className="flex justify-between items-center max-w-6xl mx-auto">
         <div>
           <Link to="/" className="hover:text-gray-300">
-            <img src={logo} alt="Logo" className="w-24 h-20" />
+          <div className="flex justify-center items-center">
+            <img src={logo} alt="Logo" className="w-24 h-20" /> eBank
+            </div>
           </Link>
         </div>
         <div className="space-x-6">
           <Link to="/" className="hover:text-gray-300">
             Home
           </Link>
-          <Link to="/#" className="hover:text-gray-300">
+          <Link to="/#services" className="hover:text-gray-300">
             Services
           </Link>
-          <Link to="/#" className="hover:text-gray-300">
+          <Link to="/#about" className="hover:text-gray-300">
             About
           </Link>
-          <Link to="/#" className="hover:text-gray-300">
+          <Link to="/#contact" className="hover:text-gray-300">
             Contact
           </Link>
         </div>

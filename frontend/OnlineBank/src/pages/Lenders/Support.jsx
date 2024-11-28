@@ -1,4 +1,4 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import Sidebar from '../Lenders/LenderSidebar';
 
@@ -12,10 +12,10 @@ const LenderSupport = () => {
     ]);
 
     const handleSubmit = async (e) => {
-        e.preventDefault(); 
+        e.preventDefault();
         try {
             const token = localStorage.getItem('token');
-            await axios.post(import.meta.env.VITE_API_URL+'/support', {   message });
+            await axios.post(import.meta.env.VITE_API_URL + '/support', { message });
             setStatus('Your message has been sent successfully.');
             setMessage('');
         } catch (error) {
@@ -25,10 +25,10 @@ const LenderSupport = () => {
 
     return (
         <div className="flex">
-            <Sidebar userRole="lender" />
+            <Sidebar userRole="employee" />
             <div className="container mx-auto p-4">
                 <h2 className="text-2xl font-bold mb-4">Support</h2>
-                
+
                 {/* Help Center Section */}
                 <div className="mb-8">
                     <h3 className="text-xl font-semibold mb-4">Help Center</h3>

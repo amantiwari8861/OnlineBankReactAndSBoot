@@ -8,7 +8,8 @@ import org.springframework.stereotype.Repository;
 import com.bank.model.entities.Manager;
 
 @Repository
-public interface ManagerRepository extends JpaRepository<Manager,Integer>
-{
+public interface ManagerRepository extends JpaRepository<Manager, Integer> {
 	Optional<Manager> findById(Long id);
+
+	Optional<Manager> findByEmail(String email);
 }

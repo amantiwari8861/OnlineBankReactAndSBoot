@@ -1,4 +1,4 @@
-import  { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import AdminNavbar from './AdminNavbar';
 import Sidebar from './AdminSidebar';
@@ -13,7 +13,7 @@ const UserManagement = () => {
     const fetchUsers = async () => {
         try {
             const token = localStorage.getItem('token'); // Get token from localStorage (or sessionStorage)
-            const response = await axios.get(import.meta.env.VITE_API_URL+'/users', {
+            const response = await axios.get(import.meta.env.VITE_API_URL + '/users', {
                 headers: {
                     Authorization: `Bearer ${token}` // Add the token in the Authorization header
                 }
@@ -28,7 +28,7 @@ const UserManagement = () => {
     const updateUserRole = async (id, role) => {
         try {
             const token = localStorage.getItem('token');
-            await axios.put(import.meta.env.VITE_API_URL+`/users/${id}/role`, { role }, { 
+            await axios.put(import.meta.env.VITE_API_URL + `/users/${id}/role`, { role }, {
                 headers: {
                     Authorization: `Bearer ${token}` // Add the token in the Authorization header
                 }
@@ -42,7 +42,7 @@ const UserManagement = () => {
     const toggleUserActivation = async (id) => {
         try {
             const token = localStorage.getItem('token');
-            await axios.put(import.meta.env.VITE_API_URL+`/users/${id}/activation`, {}, {
+            await axios.put(import.meta.env.VITE_API_URL + `/users/${id}/activation`, {}, {
                 headers: {
                     Authorization: `Bearer ${token}` // Add the token in the Authorization header
                 }
@@ -56,7 +56,7 @@ const UserManagement = () => {
     const deleteUser = async (id) => {
         try {
             const token = localStorage.getItem('token');
-            await axios.delete(import.meta.env.VITE_API_URL+`/users/${id}`, {
+            await axios.delete(import.meta.env.VITE_API_URL + `/users/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}` // Add the token in the Authorization header
                 }
@@ -95,8 +95,8 @@ const UserManagement = () => {
                                         className="bg-gray-100 p-2 rounded"
                                     >
                                         <option value="admin">Admin</option>
-                                        <option value="lender">Lender</option>
-                                        <option value="borrower">Borrower</option>
+                                        <option value="employee">Lender</option>
+                                        <option value="customer">Customer</option>
                                     </select>
                                 </td>
                                 <td className="py-2 px-4">

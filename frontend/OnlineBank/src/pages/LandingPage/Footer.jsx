@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
-    <footer className="bg-blue-600 text-white py-8">
+    <footer className="bg-blue-600 text-white py-8" id='contact'>
       <div className="max-w-6xl mx-auto px-4 text-center">
         <h3 className="text-xl font-bold mb-2">Join Us in Making a Difference</h3>
         <p className="mb-6">Secure your financial future with our trusted banking solutions.</p>

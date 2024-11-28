@@ -1,6 +1,6 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
-import Sidebar from '../Borrowers/BorrowerSidebar';
+import Sidebar from '../Customers/CustomerSidebar';
 import ReCAPTCHA from 'react-google-recaptcha';
 
 const LoanRequestForm = () => {
@@ -38,7 +38,7 @@ const LoanRequestForm = () => {
 
     try {
       await axios.post(
-        import.meta.env.VITE_API_URL+'/borrower-loan',
+        import.meta.env.VITE_API_URL + '/customer-loan',
         {
           ...formData,
           recaptchaToken, // Include reCAPTCHA token in the request
@@ -58,7 +58,7 @@ const LoanRequestForm = () => {
 
   return (
     <div className="flex">
-      <Sidebar userRole="borrower" />
+      <Sidebar userRole="customer" />
       <div className="max-w-md mx-auto p-4 bg-white shadow-md rounded">
         <h2 className="text-xl font-bold mb-4">Request a Loan</h2>
         <form onSubmit={handleSubmit}>

@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-
 @Service
 public class AdminServiceImpl implements AdminService {
 
@@ -19,7 +18,6 @@ public class AdminServiceImpl implements AdminService {
     private AdminRepository adminRepository;
     @Autowired
     private RoleRepository roleRepository;
-
 
     @Override
     public Admin saveAdmin(Admin admin) {
@@ -50,5 +48,10 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public List<Admin> getAllAdmins() {
         return adminRepository.findAll();
+    }
+
+    @Override
+    public Admin getAdminByEmail(String username) {
+        return adminRepository.findByEmail(username).orElse(null);
     }
 }

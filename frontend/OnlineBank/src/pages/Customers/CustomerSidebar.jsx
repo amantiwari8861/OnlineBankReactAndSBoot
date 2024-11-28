@@ -1,20 +1,20 @@
 
 import { Link } from 'react-router-dom';
 import { FaHome, FaTasks, FaUser, FaEnvelope, FaDollarSign, FaChartBar } from 'react-icons/fa';
-
-const Sidebar = ({ userRole }) => {
+import logo from '../../assets/logo.png'
+const CustomerSidebar = ({ userRole }) => {
   return (
     <div className="bg-gray-800 text-white w-64 min-h-screen flex flex-col">
       <div className="flex items-center justify-center h-16 bg-gray-900 shadow-md">
-        <h1 className="text-2xl font-bold">AppName</h1>
+        <h1 className="flex text-2xl font-bold text-center items-center"><img src={logo} alt="" className='h-[60px]' /> eBank</h1>
       </div>
       <nav className="flex-1 mt-6">
         <ul>
-          {userRole === 'borrower' && (
+          {userRole === 'customer' && (
             <>
               <li>
                 <Link
-                  to="/borrower/dashboard"
+                  to="/dashboard/customer"
                   className="flex items-center p-4 hover:bg-gray-700 transition-colors duration-200"
                 >
                   <FaHome className="mr-3 text-lg" />
@@ -23,7 +23,7 @@ const Sidebar = ({ userRole }) => {
               </li>
               <li>
                 <Link
-                  to="/borrower/loan-request-form"
+                  to="/dashboard/customer/loan-request-form"
                   className="flex items-center p-4 hover:bg-gray-700 transition-colors duration-200"
                 >
                   <FaDollarSign className="mr-3 text-lg" />
@@ -32,7 +32,7 @@ const Sidebar = ({ userRole }) => {
               </li>
               <li>
                 <Link
-                  to="/borrower/profile"
+                  to="/dashboard/customer/profile"
                   className="flex items-center p-4 hover:bg-gray-700 transition-colors duration-200"
                 >
                   <FaUser className="mr-3 text-lg" />
@@ -41,7 +41,7 @@ const Sidebar = ({ userRole }) => {
               </li>
               <li>
                 <Link
-                  to="/borrower/notifications"
+                  to="/dashboard/customer/notifications"
                   className="flex items-center p-4 hover:bg-gray-700 transition-colors duration-200"
                 >
                   <FaEnvelope className="mr-3 text-lg" />
@@ -50,7 +50,7 @@ const Sidebar = ({ userRole }) => {
               </li>
               <li>
                 <Link
-                  to="/borrower/register-user"
+                  to="/dashboard/customer/register-user"
                   className="flex items-center p-4 hover:bg-gray-700 transition-colors duration-200"
                 >
                   <FaUser className="mr-3 text-lg" />
@@ -59,7 +59,7 @@ const Sidebar = ({ userRole }) => {
               </li>
               <li>
                 <Link
-                  to="/borrower/repayment"
+                  to="/dashboard/customer/repayment"
                   className="flex items-center p-4 hover:bg-gray-700 transition-colors duration-200"
                 >
                   <FaChartBar className="mr-3 text-lg" />
@@ -68,7 +68,7 @@ const Sidebar = ({ userRole }) => {
               </li>
               <li>
                 <Link
-                  to="/borrower/user-management"
+                  to="/dashboard/customer/user-management"
                   className="flex items-center p-4 hover:bg-gray-700 transition-colors duration-200"
                 >
                   <FaTasks className="mr-3 text-lg" />
@@ -77,7 +77,7 @@ const Sidebar = ({ userRole }) => {
               </li>
               <li>
                 <Link
-                  to="/borrower/loan-list"
+                  to="/dashboard/customer/loan-list"
                   className="flex items-center p-4 hover:bg-gray-700 transition-colors duration-200"
                 >
                   <FaDollarSign className="mr-3 text-lg" />
@@ -92,4 +92,4 @@ const Sidebar = ({ userRole }) => {
   );
 };
 
-export default Sidebar;
+export default CustomerSidebar;

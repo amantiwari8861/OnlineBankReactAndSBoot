@@ -1,4 +1,4 @@
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Sidebar from '../Lenders/LenderSidebar';
 
@@ -13,7 +13,7 @@ const LenderLoanList = () => {
         const fetchLoans = async () => {
             try {
                 const token = localStorage.getItem('token'); // Get the token
-                const response = await axios.get(import.meta.env.VITE_API_URL+'/loans', {
+                const response = await axios.get(import.meta.env.VITE_API_URL + '/loans', {
                     headers: {
                         Authorization: `Bearer ${token}` // Include the token
                     }
@@ -30,7 +30,7 @@ const LenderLoanList = () => {
 
     useEffect(() => {
         const filterLoans = () => {
-            let filtered = loans.filter(loan => 
+            let filtered = loans.filter(loan =>
                 loan.amount.toString().includes(searchTerm) &&
                 (selectedTerm === '' || loan.term === selectedTerm) &&
                 (riskLevel === '' || loan.riskLevel === riskLevel)
@@ -43,7 +43,7 @@ const LenderLoanList = () => {
 
     return (
         <div className="flex">
-            <Sidebar userRole="lender" />
+            <Sidebar userRole="employee" />
             <div className="container mx-auto py-8 px-4">
                 <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">Browse Loans</h2>
                 <div className="mb-6 flex justify-center space-x-4">
@@ -82,7 +82,7 @@ const LenderLoanList = () => {
                             <p className="mb-2">Interest Rate: {loan.interestRate}%</p>
                             <p className="mb-2">Term: {loan.term} months</p>
                             <p className="mb-2">Purpose: {loan.purpose}</p>
-                            <p className="mb-2">Borrower: {loan.borrowerName}</p>
+                            <p className="mb-2">Customer: {loan.customerName}</p>
                             <p className="mb-2">Risk Level: <span className={`font-bold ${loan.riskLevel === 'High' ? 'text-red-600' : loan.riskLevel === 'Medium' ? 'text-yellow-600' : 'text-green-600'}`}>{loan.riskLevel}</span></p>
                             <button className="mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg transition duration-300 ease-in-out">
                                 Fund Loan

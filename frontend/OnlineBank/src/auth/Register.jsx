@@ -15,8 +15,11 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
+      let firstName=name.split(" ")[0];
+      let lastName=name.split(" ")[1];
       const response = await axios.post(import.meta.env.VITE_API_URL + '/customers', {
-        name,
+        firstName,
+        lastName,
         email,
         password,
         username,
@@ -26,9 +29,10 @@ const Register = () => {
         }
       });
 
-      const resObj = await response.data;
+      const resObj = await response?.data;
       console.log(resObj);
-      if (resObj.data.id > 0) {
+      localStorage.setItem("customer",resObj);
+      if (resObj.data.accountNumber > 0) {
         toast.success('Registration successful!', {
           position: "top-right",
           autoClose: 5000,
@@ -40,11 +44,12 @@ const Register = () => {
           theme: "dark"
         });
         setTimeout(() => {
-          navigate('/customer/dashboard');
+          navigate('/dashboard/customer');
         }, 2000);
       }
     } catch (error) {
-      toast.error('unable to Register!', {
+      const errorMessage = error.response?.data?.message || 'Login failed. Please try again.';
+      toast.error(errorMessage, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,

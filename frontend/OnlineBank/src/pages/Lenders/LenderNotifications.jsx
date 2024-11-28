@@ -1,4 +1,4 @@
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Sidebar from '../Lenders/LenderSidebar';
 
@@ -12,7 +12,7 @@ const LenderNotifications = () => {
         try {
             const token = localStorage.getItem('token'); // Get the token from localStorage
             const response = await axios.get(
-                import.meta.env.VITE_API_URL+`/borrower-notification/${userId}`,
+                import.meta.env.VITE_API_URL + `/customer-notification/${userId}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -30,7 +30,7 @@ const LenderNotifications = () => {
         try {
             const token = localStorage.getItem('token'); // Get the token from localStorage
             await axios.put(
-                import.meta.env.VITE_API_URL+`/borrower-notification/${notificationId}`,
+                import.meta.env.VITE_API_URL + `/customer-notification/${notificationId}`,
                 { status: 'read' },
                 {
                     headers: {
@@ -58,7 +58,7 @@ const LenderNotifications = () => {
 
     return (
         <div className="flex">
-            <Sidebar userRole="lender" />
+            <Sidebar userRole="employee" />
             <div className="container mx-auto p-4">
                 <h2 className="text-2xl font-bold mb-4">Notifications</h2>
                 {notifications.length === 0 ? (
@@ -89,7 +89,7 @@ const LenderNotifications = () => {
                     </ul>
                 )}
             </div>
-        </div> 
+        </div>
     );
 };
 

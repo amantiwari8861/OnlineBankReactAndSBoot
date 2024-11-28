@@ -11,8 +11,7 @@ import com.bank.repository.EmployeeRepository;
 import com.bank.service.EmployeeService;
 
 @Service
-public class EmployeeServiceImpl implements EmployeeService
-{
+public class EmployeeServiceImpl implements EmployeeService {
 
 	@Autowired
 	EmployeeRepository repository;
@@ -42,9 +41,15 @@ public class EmployeeServiceImpl implements EmployeeService
 		}
 		return null;
 	}
+
 	@Override
 	public List<Employee> getAllEmployees() {
 		return repository.findAll();
+	}
+
+	@Override
+	public Employee getEmployeeByEmail(String username) {
+		return repository.findByEmail(username).orElse(null);
 	}
 
 }

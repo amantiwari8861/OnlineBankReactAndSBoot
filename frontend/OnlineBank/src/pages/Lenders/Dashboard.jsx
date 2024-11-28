@@ -4,7 +4,7 @@ import Sidebar from '../Lenders/LenderSidebar';
 const LenderDashboard = () => {
   return (
     <div className="flex min-h-screen bg-gray-100">
-      <Sidebar userRole="lender" />
+      <Sidebar userRole="employee" />
       <div className="flex-1 p-8">
         <h1 className="text-4xl font-bold text-gray-800 mb-8">Lender Dashboard</h1>
 

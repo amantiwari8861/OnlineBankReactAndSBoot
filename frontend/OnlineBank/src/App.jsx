@@ -23,16 +23,16 @@ import UserManagement from './pages/admin/userManagement';
 import AdminNotifications from './pages/admin/AdminNotifications'
 
 //customer
-import BorrowerDashboard from './pages/Borrowers/Dashboard';
-import UserProfile from './pages/Borrowers/BorrowerUserProfile';
-import LoanList from './pages/Borrowers/LoanList';
-import LoanRequestForm from './pages/Borrowers/LoanRequestForm';
-import Notifications from './pages/Borrowers/Notifications';
-import RegisterUser from './pages/Borrowers/RegisterUser';
-import RepaymentManagement from './pages/Borrowers/RepaymentManagement';
-import SupportRequests from './pages/Borrowers/SupportRequests';
-import BorrowerUserManagement from './pages/Borrowers/UserManagement';
-import PaystackPayment from './pages/Borrowers/PaystackPayment';
+import CustomerDashboard from './pages/Customers/Dashboard';
+import UserProfile from './pages/Customers/CustomerUserProfile';
+import LoanList from './pages/Customers/LoanList';
+import LoanRequestForm from './pages/Customers/LoanRequestForm';
+import Notifications from './pages/Customers/Notifications';
+import RegisterUser from './pages/Customers/RegisterUser';
+import RepaymentManagement from './pages/Customers/RepaymentManagement';
+import SupportRequests from './pages/Customers/SupportRequests';
+import CustomerUserManagement from './pages/Customers/UserManagement';
+import PaystackPayment from './pages/Customers/PaystackPayment';
 
 //employee
 import LenderDashboard from './pages/Lenders/Dashboard';
@@ -42,6 +42,10 @@ import LenderProfile from './pages/Lenders/LenderProfile';
 import LenderLoanList from './pages/Lenders/LoanList';
 import LenderRepaymentManagement from './pages/Lenders/RepaymentManagement';
 import LenderSupport from './pages/Lenders/Support';
+import NotFound from "./components/NotFound";
+import DashboardLayout from "./pages/admin/DashboardLayout";
+import TotalNoCards from "./pages/admin/TotalNoCards";
+import DataTable from "./components/DataTable";
 
 
 
@@ -56,45 +60,44 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<Register />} />
             <Route path="/signin" element={<SignIn />} />
-
-            {/* I have not implimented protected routes on the codes/dashboard but you can try to do that */}
-
-            {/* Borrower */}
-            <Route path="/customer/dashboard" element={<BorrowerDashboard/>} />
-            <Route path="/customer/profile" element={<UserProfile />} />
-            <Route path="/customer/loan-list" element={<LoanList />} />
-            <Route path="/customer/loan-request-form" element={<LoanRequestForm />} />
-            <Route path="/customer/notifications" element={<Notifications/>} />
-            <Route path="/customer/register-user" element={<RegisterUser />} />
-            <Route path="/customer/repayment" element={<RepaymentManagement />} />
-            <Route path="/customer/support-request" element={<SupportRequests  />} />
-            <Route path="/customer/user-management" element={<BorrowerUserManagement />} />
             <Route path="/pay-stack-payment" element={<PaystackPayment />} />
+            <Route path="/*" element={<NotFound />} />
 
-            {/* employee */}
-            <Route path="/employee/dashboard" element={<LenderDashboard />} />
-            <Route path="/employee/investing-loan" element={<InvestIngLoan />} />
-            <Route path="/employee/notifications" element={<LenderNotifications />} />
-            <Route path="/employee/profile" element={<LenderProfile />} />
-            <Route path="/employee/loan-list" element={<LenderLoanList />} />
-            <Route path="/employee/repayment" element={<LenderRepaymentManagement />} />
-            <Route path="/employee/support" element={<LenderSupport  />} />
-
-
-
-            {/* admin */}
-            <Route path="/admin/dashboard" element={<AdminDashboard />} />
-            <Route path="/admin/loan-management" element={<LoanManagement />} />
-            <Route path="/admin/platform-settings" element={<PlatformSettings />} />
-            <Route path="/admin/report" element={<Report />} />
-            <Route path="/admin/support-management" element={<SupportManagement />} />
-            <Route path="/admin/user-management" element={<UserManagement />} />
-            <Route path="/admin/notifications" element={<AdminNotifications />} />
-
+            <Route path="/dashboard" element={<DashboardLayout />} >
+              {/* Customer */}
+              <Route path="customer" element={<CustomerDashboard />} >
+                <Route path="profile" element={<UserProfile />} />
+                <Route path="loan-list" element={<LoanList />} />
+                <Route path="loan-request-form" element={<LoanRequestForm />} />
+                <Route path="notifications" element={<Notifications />} />
+                <Route path="register-user" element={<RegisterUser />} />
+                <Route path="repayment" element={<RepaymentManagement />} />
+                <Route path="support-request" element={<SupportRequests />} />
+                <Route path="user-management" element={<CustomerUserManagement />} />
+              </Route>
+              <Route path="employee" element={<LenderDashboard />} >
+                {/* employee */}
+                <Route path="investing-loan" element={<InvestIngLoan />} />
+                <Route path="notifications" element={<LenderNotifications />} />
+                <Route path="profile" element={<LenderProfile />} />
+                <Route path="loan-list" element={<LenderLoanList />} />
+                <Route path="repayment" element={<LenderRepaymentManagement />} />
+                <Route path="support" element={<LenderSupport />} />
+              </Route>
+              <Route path="admin" element={<AdminDashboard />} >
+                {/* admin */}
+                <Route path="analytics" element={<TotalNoCards />} />
+                <Route path="customer-management" element={<DataTable apiUrl="http://localhost:9090/api/v1/customers" role="ROLE_CUSTOMER"/>} />
+                <Route path="manager-management" element={<DataTable apiUrl="http://localhost:9090/api/v1/managers" role="ROLE_MANAGER"/>} />
+                <Route path="employee-management" element={<DataTable apiUrl="http://localhost:9090/api/v1/employees" role="ROLE_EMPLOYEE"/>} />
+                <Route path="report" element={<Report />} />
+                <Route path="user-management" element={<UserManagement />} />
+              </Route>
+            </Route>
           </Routes>
         </div>
       </div>
-     </>
+    </>
   )
 }
 

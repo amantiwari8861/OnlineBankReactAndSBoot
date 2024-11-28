@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bank.model.entities.Customer;
+import java.util.List;
 
 @Repository
 @Transactional
@@ -15,4 +16,5 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
 	Optional<Customer> findById(Long id);
 
+	List<Customer> findByUsername(String username);
 }

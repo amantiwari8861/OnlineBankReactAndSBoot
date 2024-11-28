@@ -13,7 +13,7 @@ const LoanManagement = () => {
   const fetchLoans = async () => {
     try {
       const token = localStorage.getItem('token'); // Assuming you store the token in localStorage
-      const response = await axios.get(import.meta.env.VITE_API_URL+'/loans', {
+      const response = await axios.get(import.meta.env.VITE_API_URL + '/loans', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -23,12 +23,12 @@ const LoanManagement = () => {
       console.error('Error fetching loans:', error);
     }
   };
-  
+
 
   const handleApprove = async (id) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.put(import.meta.env.VITE_API_URL+`/loans/${id}/approve`, {}, {
+      await axios.put(import.meta.env.VITE_API_URL + `/loans/${id}/approve`, {}, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -38,11 +38,11 @@ const LoanManagement = () => {
       console.error('Error approving loan:', error);
     }
   };
-  
+
   const handleReject = async (id) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.put(import.meta.env.VITE_API_URL+`/loans/${id}/reject`, {}, {
+      await axios.put(import.meta.env.VITE_API_URL + `/loans/${id}/reject`, {}, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -52,11 +52,11 @@ const LoanManagement = () => {
       console.error('Error rejecting loan:', error);
     }
   };
-  
+
   const handleMarkAsPaid = async (id) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.put(import.meta.env.VITE_API_URL+`/loans/${id}/markAsPaid`, {}, {
+      await axios.put(import.meta.env.VITE_API_URL + `/loans/${id}/markAsPaid`, {}, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -66,7 +66,7 @@ const LoanManagement = () => {
       console.error('Error marking loan as paid:', error);
     }
   };
-  
+
 
   return (
     <div className="flex min-h-screen">
@@ -77,7 +77,7 @@ const LoanManagement = () => {
         <table className="min-w-full bg-white border">
           <thead>
             <tr>
-              <th className="py-2 px-4 border-b">Borrower ID</th>
+              <th className="py-2 px-4 border-b">Customer ID</th>
               <th className="py-2 px-4 border-b">Amount</th>
               <th className="py-2 px-4 border-b">Term</th>
               <th className="py-2 px-4 border-b">Interest Rate</th>
@@ -89,20 +89,20 @@ const LoanManagement = () => {
           <tbody>
             {loans.map((loan) => (
               <tr key={loan.id}>
-                <td className="py-2 px-4 border-b">{loan.borrowerId}</td>
+                <td className="py-2 px-4 border-b">{loan.customerId}</td>
                 <td className="py-2 px-4 border-b">${loan.amount}</td>
                 <td className="py-2 px-4 border-b">{loan.term} months</td>
                 <td className="py-2 px-4 border-b">{loan.interestRate}%</td>
 
                 <td className={`py-2 px-4 border-b 
-                  ${loan.status === 'approved' ? 'text-green-500' 
-                  : loan.status === 'rejected' ? 'text-red-500' : 'text-yellow-500'}`}>
-                    {loan.status}</td>
+                  ${loan.status === 'approved' ? 'text-green-500'
+                    : loan.status === 'rejected' ? 'text-red-500' : 'text-yellow-500'}`}>
+                  {loan.status}</td>
 
                 <td className={`py-2 px-4 border-b 
-                ${loan.repaymentStatus === 'paid' ? 'text-green-500' 
-                  : loan.repaymentStatus === 'overdue' ? 'text-red-500' : 'text-yellow-500'}`}>
-                    {loan.repaymentStatus}</td>
+                ${loan.repaymentStatus === 'paid' ? 'text-green-500'
+                    : loan.repaymentStatus === 'overdue' ? 'text-red-500' : 'text-yellow-500'}`}>
+                  {loan.repaymentStatus}</td>
 
                 <td className="py-2 px-4 border-b flex space-x-2">
                   {loan.status === 'pending' && (

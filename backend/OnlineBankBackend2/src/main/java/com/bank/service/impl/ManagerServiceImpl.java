@@ -11,7 +11,7 @@ import com.bank.repository.ManagerRepository;
 import com.bank.service.ManagerService;
 
 @Service
-public class ManagerServiceImpl implements ManagerService{
+public class ManagerServiceImpl implements ManagerService {
 
 	@Autowired
 	ManagerRepository repository;
@@ -41,9 +41,15 @@ public class ManagerServiceImpl implements ManagerService{
 		}
 		return null;
 	}
+
 	@Override
 	public List<Manager> getAllManagers() {
 		return repository.findAll();
+	}
+
+	@Override
+	public Manager getManagerByEmail(String username) {
+		return repository.findByEmail(username).orElse(null);
 	}
 
 }

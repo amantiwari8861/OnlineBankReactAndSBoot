@@ -1,6 +1,6 @@
-import  { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import Sidebar from '../Borrowers/BorrowerSidebar';
+import Sidebar from '../Customers/CustomerSidebar';
 
 const SupportRequests = () => {
   const [requestText, setRequestText] = useState('');
@@ -11,7 +11,7 @@ const SupportRequests = () => {
   useEffect(() => {
     const fetchRequests = async () => {
       try {
-        const response = await axios.get(import.meta.env.VITE_API_URL+'/support/requests');
+        const response = await axios.get(import.meta.env.VITE_API_URL + '/support/requests');
         setRequests(response.data);
         setLoading(false);
       } catch (error) {
@@ -22,7 +22,7 @@ const SupportRequests = () => {
 
     const fetchFaqs = async () => {
       try {
-        const response = await axios.get(import.meta.env.VITE_API_URL+'/support/faqs');
+        const response = await axios.get(import.meta.env.VITE_API_URL + '/support/faqs');
         setFaqs(response.data);
       } catch (error) {
         console.error('Error fetching FAQs:', error);
@@ -36,7 +36,7 @@ const SupportRequests = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(import.meta.env.VITE_API_URL+'/support', { text: requestText });
+      await axios.post(import.meta.env.VITE_API_URL + '/support', { text: requestText });
       setRequestText('');
       setRequests([...requests, { text: requestText, status: 'Pending' }]);
     } catch (error) {
@@ -46,7 +46,7 @@ const SupportRequests = () => {
 
   return (
     <div className="flex">
-      <Sidebar userRole="borrower" />
+      <Sidebar userRole="customer" />
       <div className="container mx-auto p-4">
         <h1 className="text-2xl font-bold mb-4">Support Requests</h1>
 

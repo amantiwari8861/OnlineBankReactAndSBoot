@@ -1,6 +1,6 @@
-import  { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import Sidebar from '../Borrowers/BorrowerSidebar';
+import Sidebar from './CustomerSidebar';
 
 const UserProfile = () => {
     const [user, setUser] = useState({
@@ -13,7 +13,7 @@ const UserProfile = () => {
         const fetchUserData = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await axios.get(import.meta.env.VITE_API_URL+'/users/profile', {
+                const response = await axios.get(import.meta.env.VITE_API_URL + '/users/profile', {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -38,7 +38,7 @@ const UserProfile = () => {
         e.preventDefault();
         try {
             const token = localStorage.getItem('token');
-            await axios.put(import.meta.env.VITE_API_URL+'/users/profile', user, {
+            await axios.put(import.meta.env.VITE_API_URL + '/users/profile', user, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -55,7 +55,7 @@ const UserProfile = () => {
 
     return (
         <div className="flex">
-            <Sidebar userRole="borrower" />
+            <Sidebar userRole="customer" />
             <div className="max-w-md mx-auto p-4 bg-white shadow-md rounded-lg">
                 <h2 className="text-xl font-semibold mb-4">Update Profile</h2>
                 <form onSubmit={handleSubmit} className="space-y-4">

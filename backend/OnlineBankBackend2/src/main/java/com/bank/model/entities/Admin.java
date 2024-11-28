@@ -10,6 +10,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,17 +28,20 @@ public class Admin {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(unique = true, nullable = false)
 	String username;
 
 	@Column(nullable = false)
 	String password;
 
-	String email;
+	@Column(unique = true, nullable = false)
+	@Email(message = "Email should be valid")
+	@NotNull(message = "Email cannot be null")	String email;
 	boolean isAccountNonExpired = true;
 	boolean isAccountNonLocked = true;
 	boolean isCredentialsNonExpired = true;
 	boolean isEnabled = true;
+
+	String role="ROLE_ADMIN";
 
 	@ManyToMany
 	@JoinTable(name = "admin_roles", joinColumns = @JoinColumn(name = "admin_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))

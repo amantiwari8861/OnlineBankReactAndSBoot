@@ -1,4 +1,4 @@
-import  { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { ToastContainer, toast } from 'react-toastify';
@@ -14,7 +14,7 @@ const InvestingLoan = () => {
     const fetchLoans = async () => {
       try {
         const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
-        const response = await axios.get(import.meta.env.VITE_API_URL+'/loans', {
+        const response = await axios.get(import.meta.env.VITE_API_URL + '/loans', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -31,7 +31,7 @@ const InvestingLoan = () => {
     const fetchInvestments = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get(import.meta.env.VITE_API_URL+'/investment', {
+        const response = await axios.get(import.meta.env.VITE_API_URL + '/investment', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -47,7 +47,7 @@ const InvestingLoan = () => {
   const onSubmit = async (data) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.post(import.meta.env.VITE_API_URL+'/investment', data, {
+      await axios.post(import.meta.env.VITE_API_URL + '/investment', data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -61,7 +61,7 @@ const InvestingLoan = () => {
 
   return (
     <div className="flex">
-      <Sidebar userRole="lender" />
+      <Sidebar userRole="employee" />
       <div className="container mx-auto p-4">
         <h1 className="text-2xl font-bold mb-4">Invest in Loans</h1>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">

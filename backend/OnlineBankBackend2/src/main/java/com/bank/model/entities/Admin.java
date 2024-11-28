@@ -1,17 +1,19 @@
 package com.bank.model.entities;
 
+import java.util.Set;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -35,12 +37,17 @@ public class Admin {
 	boolean isAccountNonLocked = true;
 	boolean isCredentialsNonExpired = true;
 	boolean isEnabled = true;
-	private String adminLevel; // Level of admin privileges
-	private String officeLocation; // Where the admin is located
-	private String hireDate; // Date when the admin was hired
 
-	// Many-to-many relationship with roles
-	@ManyToMany(mappedBy = "admins")
+	@ManyToMany
+	@JoinTable(name = "admin_roles", joinColumns = @JoinColumn(name = "admin_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles;
+
+	@Override
+	public String toString() {
+		return "Admin [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email
+				+ ", isAccountNonExpired=" + isAccountNonExpired + ", isAccountNonLocked=" + isAccountNonLocked
+				+ ", isCredentialsNonExpired=" + isCredentialsNonExpired + ", isEnabled=" + isEnabled + ", roles="
+				+ roles + "]";
+	}
 
 }

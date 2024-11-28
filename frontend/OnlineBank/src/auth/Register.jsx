@@ -1,4 +1,4 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
@@ -9,28 +9,52 @@ const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('borrower'); 
+  const [username, setUsername] = useState('');
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      //when deploying I changed the backedn path based on the backend path from where our backedn runs online
-      const response = await axios.post(import.meta.env.VITE_API_URL+'/users/register', {
+      const response = await axios.post(import.meta.env.VITE_API_URL + '/customers', {
         name,
         email,
         password,
-        role,
+        username,
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
       });
 
-      if (response.data.token) {
-        toast.success('Registration successful!', { position: toast.POSITION.TOP_RIGHT });
-        if (role === 'admin') navigate('/admin/dashboard');
-        else if (role === 'lender') navigate('/lender/dashboard');
-        else navigate('/borrower/dashboard');
+      const resObj = await response.data;
+      console.log(resObj);
+      if (resObj.data.id > 0) {
+        toast.success('Registration successful!', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark"
+        });
+        setTimeout(() => {
+          navigate('/customer/dashboard');
+        }, 2000);
       }
     } catch (error) {
-      console.error('Registration failed', error);
+      toast.error('unable to Register!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark"
+      });
+      console.error('Registration failed:', error);
     }
   };
 
@@ -53,6 +77,16 @@ const Register = () => {
             />
           </div>
           <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">Username</label>
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600"
+              placeholder="amantiwari8861"
+            />
+          </div>
+          <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">Email</label>
             <input
               type="email"
@@ -71,17 +105,6 @@ const Register = () => {
               className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600"
               placeholder="********"
             />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">Role</label>
-            <select
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600"
-            >
-              <option value="borrower">Borrower</option>
-              <option value="lender">Lender</option>
-            </select>
           </div>
           <button className="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition duration-200">
             Register

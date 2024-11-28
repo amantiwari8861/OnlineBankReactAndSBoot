@@ -23,16 +23,16 @@ public class Manager {
 	private Long id;
 
 	@Column(unique = true, nullable = false)
-	String username;
+	private String username;
 
 	@Column(nullable = false)
-	String password;
+	private String password;
 
-	String email;
-	boolean isAccountNonExpired = true;
-	boolean isAccountNonLocked = true;
-	boolean isCredentialsNonExpired = true;
-	boolean isEnabled = true;
+	private String email;
+	private boolean isAccountNonExpired = true;
+	private boolean isAccountNonLocked = true;
+	private boolean isCredentialsNonExpired = true;
+	private boolean isEnabled = true;
 	private String teamName;
 	private String officeLocation;
 	private LocalDate hireDate;

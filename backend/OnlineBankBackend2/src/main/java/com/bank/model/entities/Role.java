@@ -10,6 +10,8 @@ import lombok.Setter;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,7 +25,12 @@ public class Role {
     private String name;
 
     // Many-to-many relationship with admins
-    @ManyToMany
+    @JsonIgnore
+    @ManyToMany(mappedBy = "roles")
     private Set<Admin> admins;
 
+    @Override
+    public String toString() {
+        return "Role [id=" + id + ", name=" + name + "]";
+    }   
 }

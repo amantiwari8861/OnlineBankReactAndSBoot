@@ -1,7 +1,6 @@
 package com.bank.service.impl;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,14 +22,17 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public Transaction updateTransaction(Transaction transaction) {
-        return transactionRepository.save(transaction);
+        if (transactionRepository.existsById(transaction.getId())) {
+            return transactionRepository.save(transaction);
+        } else {
+            throw new IllegalArgumentException("Transaction not found");
+        }
     }
 
     @Override
-    public Boolean deleteTransaction(Long id) {
-        Optional<Transaction> transaction = transactionRepository.findById(id);
-        if (transaction.isPresent()) {
-            transactionRepository.delete(transaction.get());
+    public boolean deleteTransaction(Long id) {
+        if (transactionRepository.existsById(id)) {
+            transactionRepository.deleteById(id);
             return true;
         }
         return false;
@@ -38,7 +40,8 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public Transaction getTransactionById(Long id) {
-        return transactionRepository.findById(id).orElse(null);
+        return transactionRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Transaction not found"));
     }
 
     @Override

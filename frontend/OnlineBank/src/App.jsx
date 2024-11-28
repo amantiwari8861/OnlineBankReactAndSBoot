@@ -22,7 +22,7 @@ import SupportManagement from './pages/admin/SupportManagement';
 import UserManagement from './pages/admin/userManagement';
 import AdminNotifications from './pages/admin/AdminNotifications'
 
-//borrower
+//customer
 import BorrowerDashboard from './pages/Borrowers/Dashboard';
 import UserProfile from './pages/Borrowers/BorrowerUserProfile';
 import LoanList from './pages/Borrowers/LoanList';
@@ -34,7 +34,7 @@ import SupportRequests from './pages/Borrowers/SupportRequests';
 import BorrowerUserManagement from './pages/Borrowers/UserManagement';
 import PaystackPayment from './pages/Borrowers/PaystackPayment';
 
-//lender
+//employee
 import LenderDashboard from './pages/Lenders/Dashboard';
 import InvestIngLoan from './pages/Lenders/InvestIngLoan';
 import LenderNotifications from './pages/Lenders/LenderNotifications';
@@ -48,17 +48,6 @@ import LenderSupport from './pages/Lenders/Support';
 const App = () => {
   return (
     <>
-      {/* <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route path="home" element={<Home />} />
-          <Route path="about" element={<About />} />
-          <Route path="contact" element={<Contact />} />
-          <Route path="services" element={<Service />} />
-          <Route path="charts" element={<Charts />} />
-          <Route path="toast" element={<NotificationHandler />} />
-        </Route>
-      </Routes>
-      <Routes> */}
       <div className="flex">
 
         <div className="flex-1 p-0">
@@ -71,25 +60,25 @@ const App = () => {
             {/* I have not implimented protected routes on the codes/dashboard but you can try to do that */}
 
             {/* Borrower */}
-            <Route path="/borrower/dashboard" element={<BorrowerDashboard/>} />
-            <Route path="/borrower/profile" element={<UserProfile />} />
-            <Route path="/borrower/loan-list" element={<LoanList />} />
-            <Route path="/borrower/loan-request-form" element={<LoanRequestForm />} />
-            <Route path="/borrower/notifications" element={<Notifications/>} />
-            <Route path="/borrower/register-user" element={<RegisterUser />} />
-            <Route path="/borrower/repayment" element={<RepaymentManagement />} />
-            <Route path="/borrower/support-request" element={<SupportRequests  />} />
-            <Route path="/borrower/user-management" element={<BorrowerUserManagement />} />
+            <Route path="/customer/dashboard" element={<BorrowerDashboard/>} />
+            <Route path="/customer/profile" element={<UserProfile />} />
+            <Route path="/customer/loan-list" element={<LoanList />} />
+            <Route path="/customer/loan-request-form" element={<LoanRequestForm />} />
+            <Route path="/customer/notifications" element={<Notifications/>} />
+            <Route path="/customer/register-user" element={<RegisterUser />} />
+            <Route path="/customer/repayment" element={<RepaymentManagement />} />
+            <Route path="/customer/support-request" element={<SupportRequests  />} />
+            <Route path="/customer/user-management" element={<BorrowerUserManagement />} />
             <Route path="/pay-stack-payment" element={<PaystackPayment />} />
 
-            {/* lender */}
-            <Route path="/lender/dashboard" element={<LenderDashboard />} />
-            <Route path="/lender/investing-loan" element={<InvestIngLoan />} />
-            <Route path="/lender/notifications" element={<LenderNotifications />} />
-            <Route path="/lender/profile" element={<LenderProfile />} />
-            <Route path="/lender/loan-list" element={<LenderLoanList />} />
-            <Route path="/lender/repayment" element={<LenderRepaymentManagement />} />
-            <Route path="/lender/support" element={<LenderSupport  />} />
+            {/* employee */}
+            <Route path="/employee/dashboard" element={<LenderDashboard />} />
+            <Route path="/employee/investing-loan" element={<InvestIngLoan />} />
+            <Route path="/employee/notifications" element={<LenderNotifications />} />
+            <Route path="/employee/profile" element={<LenderProfile />} />
+            <Route path="/employee/loan-list" element={<LenderLoanList />} />
+            <Route path="/employee/repayment" element={<LenderRepaymentManagement />} />
+            <Route path="/employee/support" element={<LenderSupport  />} />
 
 
 
